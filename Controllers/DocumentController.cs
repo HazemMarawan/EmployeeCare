@@ -43,7 +43,7 @@ namespace EmployeeCare.Controllers
                                            id = s.id,
                                            name = s.name,
                                            description = s.description,
-                                           destination_name = s.name,
+                                           destination_name = s.destination_name,
                                            destination_id = s.destination_id,
                                            string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
                                        });

@@ -18,6 +18,7 @@ namespace EmployeeCare.ViewModel
         public string national_id { get; set; }
         public string email { get; set; }
         public int? status { get; set; }
+        public int? employee_status { get; set; }
         public int? membership_status { get; set; }
         public string bank_account_number { get; set; }
         public int? bank_id { get; set; }

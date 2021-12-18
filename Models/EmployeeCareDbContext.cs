@@ -32,10 +32,4 @@ namespace EmployeeCare.Models
          public virtual DbSet<User> Users { get; set; }
          public virtual DbSet<Bank> Banks { get; set; }
     }
-
-    //public class MyEntity
-    //{
-    //    public int Id { get; set; }
-    //    public string Name { get; set; }
-    //}
 }

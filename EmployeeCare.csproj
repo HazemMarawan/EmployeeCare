@@ -156,6 +156,10 @@
     <Compile Include="Migrations\202112182043577_updateUserTable.Designer.cs">
       <DependentUpon>202112182043577_updateUserTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112182219185_bankTable.cs" />
+    <Compile Include="Migrations\202112182219185_bankTable.Designer.cs">
+      <DependentUpon>202112182219185_bankTable.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -2662,6 +2666,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112182043577_updateUserTable.resx">
       <DependentUpon>202112182043577_updateUserTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112182219185_bankTable.resx">
+      <DependentUpon>202112182219185_bankTable.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

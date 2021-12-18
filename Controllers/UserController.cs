@@ -30,8 +30,6 @@ namespace EmployeeCare.Controllers
 
                 // Getting all data    
                 var userData = (from user in db.Users
-                                    //join userRole in db.userRoles on user.id equals userRole.user_id
-                                    //join role in db.roles on userRole.role_id equals role.id
                                 select new UserViewModel
                                 {
                                     id = user.id,

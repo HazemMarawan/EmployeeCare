@@ -37,11 +37,15 @@ namespace EmployeeCare.Controllers
                                            id = employee.id,
                                            name = employee.name,
                                            code = employee.code,
+                                           destination_id = employee.destination_id,
+                                           grade_id = employee.grade_id,
+                                           bank_id = employee.bank_id,
                                            destination_name = destination.name,
                                            grade_name = grade.name,
                                            national_id = employee.national_id,
+                                           employee_file_number = employee.employee_file_number,
                                            email = employee.email,
-                                           status = employee.status,
+                                           employee_status = employee.status,
                                            membership_status = employee.membership_status,
                                            bank_account_number = employee.bank_account_number,
                                            bank_name = bank.name,
@@ -52,14 +56,18 @@ namespace EmployeeCare.Controllers
                                            id = s.id,
                                            name = s.name,
                                            code = s.code,
-                                           destination_name = s.name,
-                                           grade_name = s.name,
+                                           destination_id = s.destination_id,
+                                           grade_id = s.grade_id,
+                                           bank_id = s.bank_id,
+                                           destination_name = s.destination_name,
+                                           grade_name = s.grade_name,
                                            national_id = s.national_id,
+                                           employee_file_number = s.employee_file_number,
                                            email = s.email,
-                                           status = s.status,
+                                           employee_status = s.employee_status,
                                            membership_status = s.membership_status,
                                            bank_account_number = s.bank_account_number,
-                                           bank_name = s.name,
+                                           bank_name = s.bank_name,
                                            active = s.active,
                                            string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
                                        });
@@ -94,6 +102,10 @@ namespace EmployeeCare.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
             }
+            ViewBag.destinations = db.Destinations.Select(d => new { d.id, d.name }).ToList();
+            ViewBag.grades = db.Grades.Select(d => new { d.id, d.name }).ToList();
+            ViewBag.banks = db.Banks.Select(d => new { d.id, d.name }).ToList();
+
             return View();
         }
         [HttpPost]

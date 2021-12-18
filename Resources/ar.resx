@@ -132,6 +132,9 @@
   <data name="add_document" xml:space="preserve">
     <value>أضافة وثيقه</value>
   </data>
+  <data name="add_employee" xml:space="preserve">
+    <value>أضافة موظف</value>
+  </data>
   <data name="add_grade" xml:space="preserve">
     <value>اضافه درجة وظيفية</value>
   </data>
@@ -146,6 +149,12 @@
   </data>
   <data name="app_name" xml:space="preserve">
     <value>جمعية رعاية العاملين بقطاع التعمير و الأجهزة التابعة</value>
+  </data>
+  <data name="bank" xml:space="preserve">
+    <value>البنك</value>
+  </data>
+  <data name="bank_account_number" xml:space="preserve">
+    <value>رقم حساب البنك</value>
   </data>
   <data name="birth_date" xml:space="preserve">
     <value>تاريخ الميلاد</value>
@@ -168,11 +177,17 @@
   <data name="date" xml:space="preserve">
     <value>التاريخ</value>
   </data>
+  <data name="dead" xml:space="preserve">
+    <value>وفاه</value>
+  </data>
   <data name="delete" xml:space="preserve">
     <value>حذف</value>
   </data>
   <data name="delete_confirmation" xml:space="preserve">
     <value>هل تريد حذف</value>
+  </data>
+  <data name="deputation" xml:space="preserve">
+    <value>انتداب لجهة خارجية</value>
   </data>
   <data name="description" xml:space="preserve">
     <value>الوصف</value>
@@ -201,6 +216,9 @@
   <data name="edit_document" xml:space="preserve">
     <value>تعديل وثيقة</value>
   </data>
+  <data name="edit_employee" xml:space="preserve">
+    <value>تعديل موظف</value>
+  </data>
   <data name="edit_grade" xml:space="preserve">
     <value>تعديل الدرجة الوظيفية</value>
   </data>
@@ -213,11 +231,26 @@
   <data name="email" xml:space="preserve">
     <value>البريد الألكتروني</value>
   </data>
+  <data name="employees" xml:space="preserve">
+    <value>الموظفين</value>
+  </data>
   <data name="employee_data" xml:space="preserve">
     <value>بيانات الموظفين</value>
   </data>
+  <data name="employee_file_number" xml:space="preserve">
+    <value>رقم ملف الموظف</value>
+  </data>
+  <data name="employee_status" xml:space="preserve">
+    <value>حالة الموظف</value>
+  </data>
+  <data name="end_of_service" xml:space="preserve">
+    <value>انهاء خدمة</value>
+  </data>
   <data name="female" xml:space="preserve">
     <value>انثي</value>
+  </data>
+  <data name="filtering" xml:space="preserve">
+    <value>تصفية</value>
   </data>
   <data name="full_name" xml:space="preserve">
     <value>الأسم بالكامل</value>
@@ -225,14 +258,26 @@
   <data name="gender" xml:space="preserve">
     <value>النوع</value>
   </data>
+  <data name="grade" xml:space="preserve">
+    <value>الدرجة الوظيفية</value>
+  </data>
   <data name="grades" xml:space="preserve">
     <value>الدرجات الوظيفية</value>
   </data>
   <data name="inactive" xml:space="preserve">
     <value>غير مفُعل</value>
   </data>
+  <data name="info" xml:space="preserve">
+    <value>معلومات</value>
+  </data>
   <data name="invalid_username_password" xml:space="preserve">
     <value>اسم المستخدم او كلمة المرور غير صحيحة</value>
+  </data>
+  <data name="in_service" xml:space="preserve">
+    <value>في الخدمة</value>
+  </data>
+  <data name="leave_without_pay" xml:space="preserve">
+    <value>اجازة بدون مرتب</value>
   </data>
   <data name="login" xml:space="preserve">
     <value>تسجيل الدخول</value>
@@ -246,11 +291,23 @@
   <data name="male" xml:space="preserve">
     <value>ذكر</value>
   </data>
+  <data name="membership_status" xml:space="preserve">
+    <value>حالة العضوية</value>
+  </data>
+  <data name="member_and_subscription" xml:space="preserve">
+    <value>عضوية و أشتراك</value>
+  </data>
+  <data name="member_only" xml:space="preserve">
+    <value>عضوية فقط</value>
+  </data>
   <data name="more" xml:space="preserve">
     <value>المزيد</value>
   </data>
   <data name="name" xml:space="preserve">
     <value>الأسم</value>
+  </data>
+  <data name="national_id" xml:space="preserve">
+    <value>الرقم القومي</value>
   </data>
   <data name="no" xml:space="preserve">
     <value>لا</value>
@@ -273,6 +330,9 @@
   <data name="payment_types" xml:space="preserve">
     <value>أنواع السداد</value>
   </data>
+  <data name="pension" xml:space="preserve">
+    <value>معاش</value>
+  </data>
   <data name="phone" xml:space="preserve">
     <value>رقم الهاتف</value>
   </data>
@@ -291,8 +351,14 @@
   <data name="search" xml:space="preserve">
     <value>بحث</value>
   </data>
+  <data name="select_bank" xml:space="preserve">
+    <value>اختر بنك</value>
+  </data>
   <data name="select_destination" xml:space="preserve">
     <value>أختر الجهة</value>
+  </data>
+  <data name="select_grade" xml:space="preserve">
+    <value>اختر الدرجة الوظيفية</value>
   </data>
   <data name="select_role" xml:space="preserve">
     <value>اختر الصلاحية</value>
