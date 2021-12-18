@@ -129,7 +129,6 @@
                         <tr>
                             <th>#</th>
                             <th>@ar.name</th>
-                            <th>@ar.code</th>
                             <th>@ar.contact</th>
                             <th>@ar.gender</th>
                             <th>@ar.role</th>
@@ -199,14 +198,11 @@
                         {
                             "data": "full_name", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
-                                var html = "<span>" + oData.full_name + "</span>";
-
+                                var html = "<span>" + oData.full_name + "</span><br>";
+                                if (oData.code)
+                                    html += "<small>" + '@ar.code' + ': ' + oData.code + "</small><br>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
-                        },
-                        {
-                            "data": "code",
-                            "searchable": true
                         },
                         {
                             "data": "phone", "searchable": true,
@@ -293,8 +289,8 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
-                                html += "<a class='edit' href='javascript:void(0)' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
