@@ -1,0 +1,238 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.grades;
+}
+<div class="modal fade" id="manage_grade_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-12">
+                                <label>@ar.name</label>
+                                <input required name="name" id="name" type="text" class="form-control radius-30" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_grade" data-value="<span>Show</span> :@ar.add_grade" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_grade</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="grade_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.name</th>
+                            <th>@ar.date</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#grade_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "Grade")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_created_at", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                var date = new Date(oData.string_created_at); 
+                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                ];
+                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                html += delDateString;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_grade").click(function () {
+               var modal = $('#manage_grade_modal').clone();
+               var action = '@Url.Action("saveGrade", "Grade")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_grade');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                console.log(data);
+                var modal = $('#manage_grade_modal').clone();
+                var action = '@Url.Action("saveGrade", "Grade")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_grade');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#name').val(data.name);
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.name +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteGrade", "Grade")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}

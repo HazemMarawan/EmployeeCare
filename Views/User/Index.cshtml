@@ -1,0 +1,513 @@
+﻿@using EmployeeCare.Resources;
+
+@{
+    ViewBag.Title = ar.users;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal fade" id="manage_user_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-12">
+                                <label for="image">
+                                    <img src="~/Images/userProfile.jpeg" width="150" height="150" id="imageProfile" class="rounded-circle shadow" alt="" />
+                                </label>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.username <small id="user_name_error" style="display:none;" class="badge badge-danger"> <i class="lni lni-close"></i> username already taken</small><small id="user_name_valid" class="badge badge-success" style="display:none;"><i class="lni lni-checkmark"></i> valid username</small></label>
+                                <input required name="user_name" id="user_name" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.password</label>
+                                <input required name="password" id="password" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.full_name</label>
+                                <input required name="full_name" id="full_name" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.code <small id="code_error" style="display:none;" class="badge badge-danger"> <i class="lni lni-close"></i> code already taken</small><small id="code_valid" class="badge badge-success" style="display:none;"><i class="lni lni-checkmark"></i> valid code</small></label>
+                                <input name="code" id="code" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.email</label>
+                                <input type="text" name="email" id="email" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.phone</label>
+                                <input type="number" name="phone" id="phone" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.address</label>
+                                <input type="text" name="address" id="address" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.birth_date</label>
+                                <input type="date" name="birthDate" id="birthDate" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.gender</label>
+                                <select name="gender" id="gender" class="form-control radius-30">
+                                    <option value="1">@ar.male</option>
+                                    <option value="2">@ar.female</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.role</label>
+                                <select name="type" id="type" class="form-control radius-30">
+                                    <option value="1">@ar.admin</option>
+                                    <option value="2">@ar.docments_user</option>
+                                    <option value="3">@ar.accountant</option>
+                                </select>
+                            </div>
+                            <div class="input-group mb-3">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">@ar.upload</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input type="file" onchange="loadFile(event)" class="custom-file-input" id="image" name="image" aria-describedby="inputGroupFileAddon01">
+                                    <label class="custom-file-label" for="inputGroupFile01">@ar.choose_file</label>
+                                </div>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.status</label>
+                                <select class="form-control" name="active" id="active">
+                                    <option value="1">@ar.active</option>
+                                    <option value="2">@ar.inactive</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_user" data-value="<span>Show</span> :@ar.add_user" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_user</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="userTable" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.name</th>
+                            <th>@ar.code</th>
+                            <th>@ar.contact</th>
+                            <th>@ar.gender</th>
+                            <th>@ar.role</th>
+                            <th>@ar.active</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+
+       $(document).ready(function () {
+
+           var datatable = $('#userTable')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "User")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "full_name", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "<span>" + oData.full_name + "</span>";
+
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "code",
+                            "searchable": true
+                        },
+                        {
+                            "data": "phone", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "<span> ";
+                                if (oData.phone) {
+                                    html += "<b>@ar.phone: </b>";
+                                    html += oData.phone;
+                                }
+                                else
+                                    html += "@ar.no_phone";
+                                html += "</span><br>";
+
+                                html += "<span>";
+                                if (oData.address) {
+                                    html += "<b>@ar.address : </b>";
+                                    html += oData.address;
+                                }
+                                else
+                                    html += "@ar.no_address";
+                                html += "</span><br>";
+
+                                if (oData.email) {
+                                    html += "<b>@ar.email : </b>";
+                                        html += oData.email;
+                                }
+                                else
+                                    html += "@ar.no_email";
+
+                                html += "</span><br>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                                html += "</span><br>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                           }
+                        },
+
+                        {
+                            "data": "gender", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "<span> ";
+                                if (oData.gender) {
+                                    if (oData.gender == 1)
+                                       html += "@ar.male";
+                                    else if (oData.gender == 2)
+                                        html += "@ar.female";
+                                }
+                               else
+                                    html += "@ar.no_selected_gender";
+                                html += "</span>";
+                                $(nTd).html("<spanarclass='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "type", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.type == 1) {
+                                    html += '@ar.admin';
+                                }
+                                else if (oData.type == 2) {
+                                    html += '@ar.docments_user';
+                                }
+                                    else if (oData.type == 3) {
+                                    html += '@ar.accountant';
+                                }
+                                else
+                                    html += "<span class='badge badge-danger'>-</span>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "active", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.active == 1)
+                                    html += "<span class='badge badge-primary'>@ar.yes</span>";
+                                else
+                                    html += "<span class='badge badge-danger'>@ar.no</span>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                 });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+           $("#add_user").click(function () {
+               var modal = $('#manage_user_modal').clone();
+                var action = '@Url.Action("saveUser", "User")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_user');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        $(document).on('change', '#image', function (event) {
+
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                dialog.find('#imageProfile').attr('src', reader.result);
+                            };
+                            reader.readAsDataURL(event.target.files[0]);
+
+                        });
+                        $(document).on('keyup', '#user_name', function () {
+                            var user_name = dialog.find('#user_name').val().length != 0 ? dialog.find('#user_name').val() : null;
+                            if (user_name != null) {
+                                $.ajax({
+                                 type: "GET",
+                                    url: '@Url.Action("checkUsernameAvailability", "User")',
+                                    contentType: "application/json; charset=utf-8",
+                                    data: {
+                                        "user_name": user_name
+                                    },
+                                    datatype: "json",
+                                    success: function (json) {
+                                        console.log(json.message);
+                                        if (json.is_valid == false) {
+
+                                            dialog.find('#user_name_error').show();
+                                            dialog.find('#user_name_valid').hide();
+                                            dialog.find('#save').prop('disabled', true);
+
+                                        }
+                                        else {
+                                            dialog.find('#user_name_error').hide();
+                                            dialog.find('#user_name_valid').show();
+                                            dialog.find('#save').prop('disabled', false)
+                                        }
+
+
+                                    },
+                                    error: function () {
+                                        //alert("Dynamic content load failed.");
+                                    }
+                                });
+                            } else {
+                                dialog.find('#user_name_error').show();
+                                dialog.find('#user_name_valid').hide();
+                                dialog.find('#save').prop('disabled', true);
+
+                            }
+
+                        });
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                console.log(data);
+                var modal = $('#manage_user_modal').clone();
+                var action = '@Url.Action("saveUser", "User")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_user');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#full_name').val(data.full_name);
+                        dialog.find('#user_name').val(data.user_name);
+                        dialog.find('#password').val(data.password);
+                        dialog.find('#code').val(data.code);
+                        dialog.find('#email').val(data.email);
+                        dialog.find('#phone').val(data.phone);
+                        dialog.find('#address').val(data.address);
+                        dialog.find('#gender').val(data.gender);
+                        if (data.birthDate != null) {
+                        var value = new Date
+                            (
+                                parseInt(data.birthDate.replace(/(^.*\()|([+-].*$)/g, ''))
+                            );
+                        var date_birthDate = value.getFullYear() +
+                            "-" +
+                            ("0" + (value.getMonth() + 1)).slice(-2) +
+                            "-" +
+                            ("0" + value.getDate()).slice(-2)
+                            ;
+                            dialog.find('#birthDate').val(date_birthDate);
+                        }
+                        dialog.find('#imageProfile').attr('src', data.imagePath);
+                        dialog.find('#gender option[value=' + data.gender + ']').attr('selected', 'selected');
+                        dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
+                        dialog.find('#type option[value=' + data.type + ']').attr('selected', 'selected');
+
+
+                        $(document).on('change', '#image', function (event) {
+
+                            var reader = new FileReader();
+                            reader.onload = function () {
+                                dialog.find('#imageProfile').attr('src', reader.result);
+                            };
+                            reader.readAsDataURL(event.target.files[0]);
+
+                        });
+
+                        $(document).on('keyup', '#user_name', function () {
+                            var user_name = dialog.find('#user_name').val().length != 0 ? dialog.find('#user_name').val() : null;
+                            if (user_name != null) {
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: '@Url.Action("checkUsernameAvailability", "User")',
+                                    contentType: "application/json; charset=utf-8",
+                                    data: {
+                                        "id": data.id,"user_name": user_name
+                                    },
+                                    datatype: "json",
+                                    success: function (json) {
+                                        console.log(json.message);
+                                        if (json.is_valid == false) {
+
+                                            dialog.find('#user_name_error').show();
+                                            dialog.find('#user_name_valid').hide();
+                                            dialog.find('#save').prop('disabled', true);
+
+                                        }
+                                        else {
+                                            dialog.find('#user_name_error').hide();
+                                            dialog.find('#user_name_valid').show();
+                                            dialog.find('#save').prop('disabled', false);
+                                        }
+
+
+                                    },
+                                    error: function () {
+                                        //alert("Dynamic content load failed.");
+                                    }
+                                });
+
+                            } else {
+                                dialog.find('#user_name_error').show();
+                                dialog.find('#user_name_valid').hide();
+                                dialog.find('#save').prop('disabled', true);
+
+                            }
+                        });
+
+                });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.user_name +"</b>) ?", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteUser", "User")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}
+
