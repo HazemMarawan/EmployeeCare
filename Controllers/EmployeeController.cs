@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -50,7 +51,8 @@ namespace EmployeeCare.Controllers
                                            bank_account_number = employee.bank_account_number,
                                            bank_name = bank.name,
                                            active = employee.active,
-                                           created_at = employee.created_at
+                                           created_at = employee.created_at,
+                                           archivesPaths = db.EmployeeArchives.Where(s=>s.employee_id == employee.id).Select(s=>s.path).ToList()
                                        }).AsEnumerable().Select(s => new EmployeeViewModel
                                        {
                                            id = s.id,
@@ -69,7 +71,8 @@ namespace EmployeeCare.Controllers
                                            bank_account_number = s.bank_account_number,
                                            bank_name = s.bank_name,
                                            active = s.active,
-                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
+                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd"),
+                                           archivesPaths = s.archivesPaths
                                        });
 
                 //Search    
@@ -153,6 +156,152 @@ namespace EmployeeCare.Controllers
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult Documents(int id)
+        {
+            ViewBag.employee_id = id;
+            ViewBag.EmployeeName = db.Employees.Find(id).name;
+            if (Request.IsAjaxRequest())
+            {
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+                var from_date = Request.Form.GetValues("columns[0][search][value]")[0];
+                var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+                // Getting all data    
+                var employeesDocumentsData = (from employeeDocument in db.EmployeeDocuments
+                                       join document in db.Documents on employeeDocument.document_id equals document.id
+                                       select new EmployeeDocumentViewModel
+                                       {
+                                           id = employeeDocument.id,
+                                           document_id = employeeDocument.document_id,
+                                           document_number = employeeDocument.document_number,
+                                           employee_id = employeeDocument.employee_id,
+                                           document_name = document.name,
+                                           subscription_date = employeeDocument.subscription_date,
+                                           percentage = employeeDocument.percentage
+
+                                       }).AsEnumerable().Select(s => new EmployeeDocumentViewModel
+                                       {
+                                           id = s.id,
+                                           document_id = s.document_id,
+                                           document_number = s.document_number,
+                                           employee_id = s.employee_id,
+                                           document_name = s.document_name,
+                                           subscription_date = s.subscription_date,
+                                           percentage = s.percentage,
+                                           string_subscription_date = ((DateTime)s.subscription_date).ToString("yyyy-MM-dd")
+                                       }).Where(s=>s.employee_id == id);
+
+                //Search    
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    employeesDocumentsData = employeesDocumentsData.Where(m => m.id.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.document_number.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.employee_id.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.document_name.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.percentage.ToString().ToLower().Contains(searchValue.ToLower()));
+                   
+                }
+
+                //total number of rows count     
+                var displayResult = employeesDocumentsData.OrderByDescending(u => u.id).Skip(skip)
+                     .Take(pageSize).ToList();
+                var totalRecords = employeesDocumentsData.Count();
+
+                return Json(new
+                {
+                    draw = draw,
+                    recordsTotal = totalRecords,
+                    recordsFiltered = totalRecords,
+                    data = displayResult
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            ViewBag.documents = db.Documents.Select(d => new { d.id, d.name }).ToList();
+            return View();
+        }
+        [HttpPost]
+        public JsonResult saveEmployeeDocument(EmployeeDocumentViewModel employeeDocumentVM)
+        {
+            if (employeeDocumentVM.id == 0)
+            {
+                EmployeeDocument employeeDocument = AutoMapper.Mapper.Map<EmployeeDocumentViewModel, EmployeeDocument>(employeeDocumentVM);
+
+                employeeDocument.updated_at = DateTime.Now;
+                employeeDocument.created_at = DateTime.Now;
+
+                db.EmployeeDocuments.Add(employeeDocument);
+            }
+            else
+            {
+                EmployeeDocument oldEmployeeDocument = db.EmployeeDocuments.Find(employeeDocumentVM.id);
+                oldEmployeeDocument.document_number = employeeDocumentVM.document_number;
+                oldEmployeeDocument.document_id = employeeDocumentVM.document_id;
+                oldEmployeeDocument.subscription_date = employeeDocumentVM.subscription_date;
+                oldEmployeeDocument.percentage = employeeDocumentVM.percentage;
+                oldEmployeeDocument.updated_at = DateTime.Now;
+            }
+            
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult deleteEmployeeDocument(int id)
+        {
+            EmployeeDocument deleteEmployeeDocumente = db.EmployeeDocuments.Find(id);
+            db.EmployeeDocuments.Remove(deleteEmployeeDocumente);
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult saveEmployeeArchive(EmployeeViewModel employeeVM)
+        {
+            
+            if(employeeVM.files != null)
+            {
+                foreach(var file in employeeVM.files)
+                {
+                    EmployeeArchive employeeArchive = new EmployeeArchive();
+                    Guid guid = Guid.NewGuid();
+                    var InputFileName = Path.GetFileName(file.FileName);
+                    var ServerSavePath = Path.Combine(Server.MapPath("~/Uploads/Employee/Archive/") + guid.ToString() + "_Archive" + Path.GetExtension(file.FileName));
+                    file.SaveAs(ServerSavePath);
+                    employeeArchive.path = "/Uploads/Employee/Archive/" + guid.ToString() + "_Archive" + Path.GetExtension(file.FileName);
+                    employeeArchive.created_at = DateTime.Now;
+                    employeeArchive.employee_id = employeeVM.id;
+
+                    db.EmployeeArchives.Add(employeeArchive);
+                }
+                db.SaveChanges();
+
+            }
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult getEmployeeDocuments(int id)
+        {
+            List<EmployeeDocumentViewModel> employeeDocuments = (from employeeDocument in db.EmployeeDocuments
+                                                                 join document in db.Documents on employeeDocument.document_id equals document.id
+                                                                 select new EmployeeDocumentViewModel
+                                                                 {
+                                                                     employee_id = employeeDocument.employee_id,
+                                                                     id = employeeDocument.id,
+                                                                     document_name = document.name
+                                                                 }).Where(s => s.employee_id == id).ToList();
+            return Json(new { employeeDocuments = employeeDocuments }, JsonRequestBehavior.AllowGet);
         }
     }
 }

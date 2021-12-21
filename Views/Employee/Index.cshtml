@@ -92,6 +92,37 @@
     </form>
 </div>
 
+<div class="modal fade" id="manage_employee_files_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.files</label>
+                                <input required name="files" id="files" type="file" multiple class="form-control radius-30" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="row">
         <div class="form-group col-4">
@@ -122,7 +153,7 @@
                             <th>@ar.destination</th>
                             <th>@ar.info</th>
                             <th>@ar.date</th>
-                            <th>@ar.active</th>
+                            <th>@ar.archive_documens</th>
                             <th class="no-content"></th>
                         </tr>
                     </thead>
@@ -259,13 +290,21 @@
                             }
                         },
                         {
-                            "data": "active", "searchable": true,
+                            "data": "archivesPaths", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
-                                if (oData.active == 1)
-                                    html += "<span class='badge badge-primary'>@ar.yes</span>";
+                                if (oData.archivesPaths) {
+                                    var counter = 1;
+                                    oData.archivesPaths.forEach(function (value) {
+                                        var ext = value.substr(value.lastIndexOf('.') + 1);
+                                        var currentFileName = counter;
+                                        html += "<a href='" + value +"' target='_blank' style='text-decoration:underline;color:blue;direction: ltr;'>" + currentFileName + "</a> ,";
+                                        counter++;
+                                    });
+                                    html = html.substring(0, html.length - 1);
+                                }
                                 else
-                                    html += "<span class='badge badge-danger'>@ar.no</span>";
+                                    html += "<span class='badge badge-danger'>@ar.no_archive_documens</span>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -275,7 +314,9 @@
                                 var html = "";
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>&nbsp";
+                                html += "<a class='upload_files' href='javascript:void(0)' title='@ar.files'><i class='fas fa-file-upload'></i></a>&nbsp";
+                                html += "<a href='/Employee/Documents/"+oData.id+"' title='@ar.employee_documents'><i class='fas fa-file-alt'></i></a>";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -344,11 +385,10 @@
                         dialog.find('#email').val(data.email);
                         dialog.find('#status option[value=' + data.status + ']').attr('selected', 'selected');
                         dialog.find('#membership_status option[value=' + data.membership_status + ']').attr('selected', 'selected');
-                        dialog.find('#bank_account_number').val(data.bank_account_number); 
+                        dialog.find('#bank_account_number').val(data.bank_account_number);
                         dialog.find('#bank_id option[value=' + data.bank_id + ']').attr('selected', 'selected');
                         dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
                   });
-
             });
 
             $(document).on("click", ".delete", function () {
@@ -369,7 +409,25 @@
                     });
                 });
             });
+           
+           $(document).on("click", ".upload_files", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_employee_files_modal').clone();
+                var action = '@Url.Action("saveEmployeeArchive", "Employee")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.add_to_archive');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
 
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                  });
+            });
         });
 
     </script>

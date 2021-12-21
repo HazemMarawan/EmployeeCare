@@ -133,12 +133,14 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Auth\CustomAuthenticationFilter.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\DestinationController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
+    <Compile Include="Controllers\PaymentFormController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
@@ -160,6 +162,14 @@
     <Compile Include="Migrations\202112182219185_bankTable.Designer.cs">
       <DependentUpon>202112182219185_bankTable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112202348327_updateDecisionTable.cs" />
+    <Compile Include="Migrations\202112202348327_updateDecisionTable.Designer.cs">
+      <DependentUpon>202112202348327_updateDecisionTable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112202351111_addEmployeeArchive.cs" />
+    <Compile Include="Migrations\202112202351111_addEmployeeArchive.Designer.cs">
+      <DependentUpon>202112202351111_addEmployeeArchive.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -167,6 +177,7 @@
     <Compile Include="Models\Destination.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Employee.cs" />
+    <Compile Include="Models\EmployeeArchive.cs" />
     <Compile Include="Models\EmployeeCareDbContext.cs" />
     <Compile Include="Models\EmployeeDocument.cs" />
     <Compile Include="Models\Grade.cs" />
@@ -180,10 +191,13 @@
       <DependentUpon>ar.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\Hash.cs" />
+    <Compile Include="ViewModel\BankViewModel.cs" />
     <Compile Include="ViewModel\DestinationViewModel.cs" />
     <Compile Include="ViewModel\DocumentViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeDocumentViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\GradeViewModel.cs" />
+    <Compile Include="ViewModel\PaymentFormViewModel.cs" />
     <Compile Include="ViewModel\PaymentTypeViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
@@ -2637,11 +2651,15 @@
     <Content Include="Views\Payment\Index.cshtml" />
     <Content Include="Views\User\Index.cshtml" />
     <Content Include="Views\Employee\Index.cshtml" />
+    <Content Include="Views\Bank\Index.cshtml" />
+    <Content Include="Views\Employee\Documents.cshtml" />
+    <Content Include="Views\PaymentForm\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Reports\" />
     <Folder Include="Services\" />
+    <Folder Include="Uploads\Employee\Archive\" />
     <Folder Include="Uploads\Profiles\" />
   </ItemGroup>
   <ItemGroup>
@@ -2669,6 +2687,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112182219185_bankTable.resx">
       <DependentUpon>202112182219185_bankTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112202348327_updateDecisionTable.resx">
+      <DependentUpon>202112202348327_updateDecisionTable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112202351111_addEmployeeArchive.resx">
+      <DependentUpon>202112202351111_addEmployeeArchive.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>

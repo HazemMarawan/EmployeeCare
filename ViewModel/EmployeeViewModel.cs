@@ -29,5 +29,7 @@ namespace EmployeeCare.ViewModel
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public string string_created_at { get; set; }
+        public List<string> archivesPaths { get; set; }
+        public List<HttpPostedFileBase> files { get; set; }
     }
 }

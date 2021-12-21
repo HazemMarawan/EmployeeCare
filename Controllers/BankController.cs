@@ -6,13 +6,14 @@ using System.Web.Mvc;
 using EmployeeCare.Auth;
 using EmployeeCare.Models;
 using EmployeeCare.ViewModel;
+
 namespace EmployeeCare.Controllers
 {
     [CustomAuthenticationFilter]
-    public class DestinationController : Controller
+    public class BankController : Controller
     {
         EmployeeCareDbContext db = new EmployeeCareDbContext();
-        // GET: Destination
+        // GET: Bank
         public ActionResult Index()
         {
 
@@ -28,29 +29,29 @@ namespace EmployeeCare.Controllers
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
                 // Getting all data    
-                var destinationData = (from destination in db.Destinations
-
-                                      select new DestinationViewModel
-                                      {
-                                          id = destination.id,
-                                          name = destination.name,
-                                          created_at = destination.created_at
-                                      }).AsEnumerable().Select(s=>new DestinationViewModel {
-                                          id = s.id,
-                                          name = s.name,
-                                          string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
-                                      });
+                var banknData = (from bank in db.Banks
+                                       select new BankViewModel
+                                       {
+                                           id = bank.id,
+                                           name = bank.name,
+                                           created_at = bank.created_at
+                                       }).AsEnumerable().Select(s => new BankViewModel
+                                       {
+                                           id = s.id,
+                                           name = s.name,
+                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
+                                       });
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    destinationData = destinationData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()));
+                    banknData = banknData.Where(m => m.name.ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     
-                var displayResult = destinationData.OrderByDescending(u => u.id).Skip(skip)
+                var displayResult = banknData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();
-                var totalRecords = destinationData.Count();
+                var totalRecords = banknData.Count();
 
                 return Json(new
                 {
@@ -65,25 +66,25 @@ namespace EmployeeCare.Controllers
             return View();
         }
         [HttpPost]
-        public JsonResult saveDestination(DestinationViewModel destinationVM)
+        public JsonResult saveBank(BankViewModel bankVM)
         {
-            if (destinationVM.id == 0)
+            if (bankVM.id == 0)
             {
-                Destination destination = AutoMapper.Mapper.Map<DestinationViewModel, Destination>(destinationVM);
+                Bank bank = AutoMapper.Mapper.Map<BankViewModel, Bank>(bankVM);
 
-                destination.updated_at = DateTime.Now;
-                destination.created_at = DateTime.Now;
+                bank.updated_at = DateTime.Now;
+                bank.created_at = DateTime.Now;
 
-                db.Destinations.Add(destination);
+                db.Banks.Add(bank);
             }
             else
             {
-                Destination oldDestination = db.Destinations.Find(destinationVM.id);
+                Bank oldBank = db.Banks.Find(bankVM.id);
 
-                oldDestination.name = destinationVM.name;
-                oldDestination.updated_at = DateTime.Now;
+                oldBank.name = bankVM.name;
+                oldBank.updated_at = DateTime.Now;
 
-                db.Entry(oldDestination).State = System.Data.Entity.EntityState.Modified;
+                db.Entry(oldBank).State = System.Data.Entity.EntityState.Modified;
             }
             db.SaveChanges();
 
@@ -92,10 +93,10 @@ namespace EmployeeCare.Controllers
         }
 
         [HttpGet]
-        public JsonResult deleteDestination(int id)
+        public JsonResult deleteBank(int id)
         {
-            Destination deleteDestination = db.Destinations.Find(id);
-            db.Destinations.Remove(deleteDestination);
+            Bank deleteBank = db.Banks.Find(id);
+            db.Banks.Remove(deleteBank);
             db.SaveChanges();
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);

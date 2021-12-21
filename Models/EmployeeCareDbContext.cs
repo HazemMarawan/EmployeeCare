@@ -31,5 +31,6 @@ namespace EmployeeCare.Models
          public virtual DbSet<PaymentType> PaymentTypes { get; set; }
          public virtual DbSet<User> Users { get; set; }
          public virtual DbSet<Bank> Banks { get; set; }
+         public virtual DbSet<EmployeeArchive> EmployeeArchives { get; set; }
     }
 }

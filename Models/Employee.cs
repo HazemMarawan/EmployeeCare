@@ -38,6 +38,7 @@ namespace EmployeeCare.Models
         public DateTime? updated_at { get; set; }
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
         public virtual ICollection<PaymentForm> PaymentForms { get; set; }
+        public virtual ICollection<EmployeeArchive> EmployeeArchives { get; set; }
 
     }
 }

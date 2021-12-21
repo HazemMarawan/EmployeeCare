@@ -25,6 +25,9 @@ namespace EmployeeCare
             Mapper.CreateMap<PaymentTypeViewModel, PaymentType>();
             Mapper.CreateMap<UserViewModel, User>();
             Mapper.CreateMap<EmployeeViewModel, Employee>();
+            Mapper.CreateMap<BankViewModel, Bank>();
+            Mapper.CreateMap<EmployeeDocumentViewModel, EmployeeDocument>();
+            Mapper.CreateMap<PaymentFormViewModel, PaymentForm>();
         }
     }
 }

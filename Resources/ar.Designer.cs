@@ -70,11 +70,38 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الحسابات.
+        /// </summary>
+        public static string accountants {
+            get {
+                return ResourceManager.GetString("accountants", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مفُعل.
         /// </summary>
         public static string active {
             get {
                 return ResourceManager.GetString("active", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أضافة بنك.
+        /// </summary>
+        public static string add_bank {
+            get {
+                return ResourceManager.GetString("add_bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أضافة قرار.
+        /// </summary>
+        public static string add_decision {
+            get {
+                return ResourceManager.GetString("add_decision", resourceCulture);
             }
         }
         
@@ -115,11 +142,29 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أضافة استمارة.
+        /// </summary>
+        public static string add_payment_form {
+            get {
+                return ResourceManager.GetString("add_payment_form", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اضافه نوع سداد.
         /// </summary>
         public static string add_payment_type {
             get {
                 return ResourceManager.GetString("add_payment_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أضافة الي الارشيف.
+        /// </summary>
+        public static string add_to_archive {
+            get {
+                return ResourceManager.GetString("add_to_archive", resourceCulture);
             }
         }
         
@@ -160,6 +205,33 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اعتماد.
+        /// </summary>
+        public static string approval_status {
+            get {
+                return ResourceManager.GetString("approval_status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اعتماد.
+        /// </summary>
+        public static string approved {
+            get {
+                return ResourceManager.GetString("approved", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ملفات الارشيف.
+        /// </summary>
+        public static string archive_documens {
+            get {
+                return ResourceManager.GetString("archive_documens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to البنك.
         /// </summary>
         public static string bank {
@@ -174,6 +246,15 @@ namespace EmployeeCare.Resources {
         public static string bank_account_number {
             get {
                 return ResourceManager.GetString("bank_account_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to البنوك.
+        /// </summary>
+        public static string banks {
+            get {
+                return ResourceManager.GetString("banks", resourceCulture);
             }
         }
         
@@ -250,6 +331,42 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مديونية مطلوب خصمها.
+        /// </summary>
+        public static string debt_need_deduct {
+            get {
+                return ResourceManager.GetString("debt_need_deduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to القرار.
+        /// </summary>
+        public static string decision {
+            get {
+                return ResourceManager.GetString("decision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to القرارات.
+        /// </summary>
+        public static string decisions {
+            get {
+                return ResourceManager.GetString("decisions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المبلغ المستحق عن التكافل.
+        /// </summary>
+        public static string deduct_amount_from_takaful {
+            get {
+                return ResourceManager.GetString("deduct_amount_from_takaful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حذف.
         /// </summary>
         public static string delete {
@@ -322,6 +439,24 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to رقم الوثيقة.
+        /// </summary>
+        public static string document_number {
+            get {
+                return ResourceManager.GetString("document_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to نوع الوثيقة.
+        /// </summary>
+        public static string document_type {
+            get {
+                return ResourceManager.GetString("document_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أنواع الوثائق.
         /// </summary>
         public static string document_types {
@@ -331,11 +466,38 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الوثائق.
+        /// </summary>
+        public static string documents {
+            get {
+                return ResourceManager.GetString("documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تعديل.
         /// </summary>
         public static string edit {
             get {
                 return ResourceManager.GetString("edit", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعديل البنك.
+        /// </summary>
+        public static string edit_bank {
+            get {
+                return ResourceManager.GetString("edit_bank", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تعديل قرار.
+        /// </summary>
+        public static string edit_decision {
+            get {
+                return ResourceManager.GetString("edit_decision", resourceCulture);
             }
         }
         
@@ -376,6 +538,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تعديل أستماره.
+        /// </summary>
+        public static string edit_payment_form {
+            get {
+                return ResourceManager.GetString("edit_payment_form", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تعديل نوع سداد.
         /// </summary>
         public static string edit_payment_type {
@@ -412,11 +583,38 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to وثائق الموظف.
+        /// </summary>
+        public static string employee_documents {
+            get {
+                return ResourceManager.GetString("employee_documents", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to رقم ملف الموظف.
         /// </summary>
         public static string employee_file_number {
             get {
                 return ResourceManager.GetString("employee_file_number", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أسم الموظف.
+        /// </summary>
+        public static string employee_name {
+            get {
+                return ResourceManager.GetString("employee_name", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to رقم الموظف.
+        /// </summary>
+        public static string employee_number {
+            get {
+                return ResourceManager.GetString("employee_number", resourceCulture);
             }
         }
         
@@ -457,11 +655,29 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الملفات.
+        /// </summary>
+        public static string files {
+            get {
+                return ResourceManager.GetString("files", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تصفية.
         /// </summary>
         public static string filtering {
             get {
                 return ResourceManager.GetString("filtering", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صافي المبلغ المستحق للعضو.
+        /// </summary>
+        public static string final_paid {
+            get {
+                return ResourceManager.GetString("final_paid", resourceCulture);
             }
         }
         
@@ -502,6 +718,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to مسلسل.
+        /// </summary>
+        public static string id {
+            get {
+                return ResourceManager.GetString("id", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to في الخدمة.
         /// </summary>
         public static string in_service {
@@ -529,11 +754,29 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اقساط مطلوب خصمها.
+        /// </summary>
+        public static string installment_need_deduct {
+            get {
+                return ResourceManager.GetString("installment_need_deduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اسم المستخدم او كلمة المرور غير صحيحة.
         /// </summary>
         public static string invalid_username_password {
             get {
                 return ResourceManager.GetString("invalid_username_password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to اخر قسط تم سداده عن شهر.
+        /// </summary>
+        public static string last_paid_installment {
+            get {
+                return ResourceManager.GetString("last_paid_installment", resourceCulture);
             }
         }
         
@@ -610,6 +853,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to اشتراك عضوية مستحق.
+        /// </summary>
+        public static string membership_subscription_deduct {
+            get {
+                return ResourceManager.GetString("membership_subscription_deduct", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to المزيد.
         /// </summary>
         public static string more {
@@ -655,11 +907,29 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to لا يوجد ملفات في الارشيف.
+        /// </summary>
+        public static string no_archive_documens {
+            get {
+                return ResourceManager.GetString("no_archive_documens", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to لا يوجد بريد الكتروني.
         /// </summary>
         public static string no_email {
             get {
                 return ResourceManager.GetString("no_email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to عدد الشهور.
+        /// </summary>
+        public static string no_of_months {
+            get {
+                return ResourceManager.GetString("no_of_months", resourceCulture);
             }
         }
         
@@ -682,11 +952,65 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to ملاحظات.
+        /// </summary>
+        public static string notes {
+            get {
+                return ResourceManager.GetString("notes", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to جاري الاعتماد.
+        /// </summary>
+        public static string ongoing_approve {
+            get {
+                return ResourceManager.GetString("ongoing_approve", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تم الصرف.
+        /// </summary>
+        public static string paid_off {
+            get {
+                return ResourceManager.GetString("paid_off", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to صرف تكافل.
+        /// </summary>
+        public static string paid_takaful {
+            get {
+                return ResourceManager.GetString("paid_takaful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to كلمة المرور.
         /// </summary>
         public static string password {
             get {
                 return ResourceManager.GetString("password", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ الأستمارة.
+        /// </summary>
+        public static string payment_form_date {
+            get {
+                return ResourceManager.GetString("payment_form_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الاستمارات.
+        /// </summary>
+        public static string payment_forms {
+            get {
+                return ResourceManager.GetString("payment_forms", resourceCulture);
             }
         }
         
@@ -705,6 +1029,15 @@ namespace EmployeeCare.Resources {
         public static string pension {
             get {
                 return ResourceManager.GetString("pension", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to النسبة.
+        /// </summary>
+        public static string percentage {
+            get {
+                return ResourceManager.GetString("percentage", resourceCulture);
             }
         }
         
@@ -745,6 +1078,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to المرتب.
+        /// </summary>
+        public static string salary {
+            get {
+                return ResourceManager.GetString("salary", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to حفظ.
         /// </summary>
         public static string Save_changes {
@@ -772,11 +1114,47 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أختار قرار.
+        /// </summary>
+        public static string select_decision {
+            get {
+                return ResourceManager.GetString("select_decision", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أختر الجهة.
         /// </summary>
         public static string select_destination {
             get {
                 return ResourceManager.GetString("select_destination", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أختر وثيقة.
+        /// </summary>
+        public static string select_document {
+            get {
+                return ResourceManager.GetString("select_document", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string select_documtn {
+            get {
+                return ResourceManager.GetString("select_documtn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أختر الموظف.
+        /// </summary>
+        public static string select_employee {
+            get {
+                return ResourceManager.GetString("select_employee", resourceCulture);
             }
         }
         
@@ -813,6 +1191,15 @@ namespace EmployeeCare.Resources {
         public static string status {
             get {
                 return ResourceManager.GetString("status", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ الأشتراك.
+        /// </summary>
+        public static string subscription_date {
+            get {
+                return ResourceManager.GetString("subscription_date", resourceCulture);
             }
         }
         

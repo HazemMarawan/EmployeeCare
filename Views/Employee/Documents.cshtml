@@ -1,0 +1,285 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.employee_documents + ": "+ ViewBag.EmployeeName;
+}
+<div class="modal fade" id="manage_employee_documents_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <input type="hidden" name="employee_id" id="employee_id" value="@ViewBag.employee_id" />
+                            <div class="form-group col-md-12">
+                                <label>@ar.document_number</label>
+                                <input required name="document_number" id="document_number" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.documents</label>
+                                @Html.DropDownList("document_id", new SelectList(ViewBag.documents, "id", "name"), ar.select_document, new { @class = "form-control", @name = "document_id", @id = "document_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.subscription_date</label>
+                                <input type="date" name="subscription_date" id="subscription_date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.percentage</label>
+                                <input type="number" name="percentage" id="percentage" class="form-control radius-30" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_document" data-value="<span>Show</span> : @ar.add_document" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_document</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="employee_documents_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>@ar.id</th>
+                            <th>@ar.document_number</th>
+                            <th>@ar.employee_number</th>
+                            <th>@ar.document_type</th>
+                            <th>@ar.subscription_date</th>
+                            <th>@ar.percentage</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#employee_documents_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Documents", "Employee",new { id = ViewBag.employee_id })",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "document_number",
+                            "searchable": true
+                        },
+                        {
+                            "data": "employee_id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "document_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_subscription_date", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+
+                                var html = "";
+                                var date = new Date(oData.string_subscription_date);
+                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                ];
+                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                html += delDateString;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "percentage", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+
+                                var html = "";
+                                if (oData.percentage)
+                                    html += "%" +oData.percentage;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_document").click(function () {
+               var modal = $('#manage_employee_documents_modal').clone();
+                var action = '@Url.Action("saveEmployeeDocument", "Employee")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_document');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_employee_documents_modal').clone();
+                var action = '@Url.Action("saveEmployeeDocument", "Employee")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_document');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#document_number').val(data.document_number);
+                        dialog.find('#document_id option[value=' + data.document_id + ']').attr('selected', 'selected');
+                        if (data.subscription_date != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.subscription_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_subscription_date = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#subscription_date').val(date_subscription_date);
+                        }
+                        dialog.find('#percentage').val(data.percentage);
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.document_name +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteEmployeeDocument", "Employee")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}
