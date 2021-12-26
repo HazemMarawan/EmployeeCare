@@ -1,0 +1,374 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.decisions;
+}
+<div class="modal fade" id="manage_decision_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-12">
+                                <label>@ar.decision_title</label>
+                                <input required name="title" id="title" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.destination</label>
+                                @Html.DropDownList("destination_id", new SelectList(ViewBag.destinations, "id", "name"), ar.select_destination, new { @class = "form-control", @name = "destination_id", @id = "destination_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.decision_date</label>
+                                <input required name="decision_date" id="decision_date" type="date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.decision_type</label>
+                                <select required name="decision_type" id="decision_type" class="form-control">
+                                    <option value="">@ar.select_decision_type</option>
+                                    <option value="1">@ar.takaful</option>
+                                    <option value="2">@ar.tasfya</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.notes</label>
+                                <input required name="notes" id="notes" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.files</label>
+                                <input required name="files" id="files" type="file" multiple class="form-control radius-30" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="modal fade" id="manage_decision_files_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.files</label>
+                                <input required name="files" id="files" type="file" multiple class="form-control radius-30" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_decision" data-value="<span>Show</span> : @ar.add_decision" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_decision</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="decisions_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.destination</th>
+                            <th>@ar.decision_title</th>
+                            <th>@ar.decision_date</th>
+                            <th>@ar.decision_type</th>
+                            <th>@ar.notes</th>
+                            <th>@ar.files</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#decisions_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "Decision")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "destination_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "title",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_decision_date", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.string_decision_date) {
+                                    var date = new Date(oData.string_decision_date);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    html += delDateString;
+                                }
+                                else
+                                    html += "-";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "decision_type", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.decision_type) {
+                                    if (oData.decision_type == 1)
+                                        html += '@ar.takaful';
+                                    else if (oData.decision_type == 2)
+                                        html += '@ar.tasfya';
+                                }
+                                else
+                                    html += "-";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "notes",
+                            "searchable": true
+                        },
+                        {
+                            "data": "decision_documents", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                var counter = 1;
+                                if (oData.decision_documents) {
+                                    oData.decision_documents.forEach(function (value) {
+                                        html += "<a href='" + value + "' target='_blank' style='text-decoration:underline;color:blue;direction: ltr;'>" + counter + "</a> ,";
+                                        counter++;
+                                    });
+                                    html = html.substring(0, html.length - 1);
+                                }
+                                else
+                                    html += '@ar.no_files';
+
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>&nbsp;";
+                                html += "<a class='upload_files' href='javascript:void(0)' title='@ar.files'><i class='fas fa-file-upload'></i></a>&nbsp";
+
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyuar', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_decision").click(function () {
+               var modal = $('#manage_decision_modal').clone();
+                var action = '@Url.Action("saveDecision", "Decision")';
+             modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_decision');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_decision_modal').clone();
+                var action = '@Url.Action("saveDecision", "Decision")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_decision');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#title').val(data.title);
+                        dialog.find('#destination_id option[value=' + data.destination_id + ']').attr('selected', 'selected');
+                        if (data.decision_date != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.decision_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_decision_date = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#decision_date').val(date_decision_date);
+                        }
+                        dialog.find('#decision_type').val(data.decision_type);
+                        dialog.find('#notes').val(data.notes);
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.title +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteDecision", "Decision")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+           $(document).on("click", ".upload_files", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_decision_files_modal').clone();
+                var action = '@Url.Action("saveDecisionFiles", "Decision")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.add_files');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                  });
+            });
+        });
+
+    </script>
+}

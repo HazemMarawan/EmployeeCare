@@ -180,25 +180,45 @@
                         </a>
                         <div class="tooltip"><span>@ar.primary_data</span></div>
                     </li>
-                    <li class="menu menu-single">
-                        <a href="@Url.Action("Index","PaymentForm")" data-active="false" class="menu-toggle">
+                    <li class="menu">
+                        <a href="#payment_forms_management" data-active="false" class="menu-toggle">
                             <div class="base-menu">
                                 <div class="base-icons">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 </div>
                             </div>
                         </a>
-                        <div class="tooltip"><span>@ar.payment_forms</span></div>
+                        <div class="tooltip"><span>@ar.payment_forms_management</span></div>
+                    </li>
+                    <li class="menu menu-single">
+                        <a href="@Url.Action("Index","Invoice")" data-active="false" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>@ar.manage_inventory</span></div>
                     </li>
                     <li class="menu menu-single">
                         <a href="@Url.Action("Index","Accountant")" data-active="false" class="menu-toggle">
                             <div class="base-menu">
                                 <div class="base-icons">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-briefcase"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                 </div>
                             </div>
                         </a>
                         <div class="tooltip"><span>@ar.accountants</span></div>
+                    </li>
+                    <li class="menu menu-single">
+                        <a href="@Url.Action("Index","PaidOff")" data-active="false" class="menu-toggle">
+                            <div class="base-menu">
+                                <div class="base-icons">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-user"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                                </div>
+                            </div>
+                        </a>
+                        <div class="tooltip"><span>@ar.paid_off</span></div>
                     </li>
                 </ul>
 
@@ -282,6 +302,26 @@
                     <ul class="submenu-list" data-parent-element="#primary_info">
                         <li>
                             <a href="@Url.Action("Index","Employee")"> @ar.employee_data </a>
+                        </li>
+                    </ul>
+                </div>
+                <div class="submenu" id="payment_forms_management">
+                    <div class="menu-title">
+                        <h3>@ar.payment_forms_management</h3>
+                    </div>
+                    <ul class="submenu-list" data-parent-element="#payment_forms_management">
+                        <li>
+                            <a href="@Url.Action("Index","Decision")"> @ar.decisions </a>
+                        </li>
+                    </ul>
+                    <ul class="submenu-list" data-parent-element="#payment_forms_management">
+                        <li>
+                            <a href="@Url.Action("Index","PaymentFormTakaful")"> @ar.payment_forms_takaful </a>
+                        </li>
+                    </ul>
+                    <ul class="submenu-list" data-parent-element="#payment_forms_management">
+                        <li>
+                            <a href="@Url.Action("Index","PaymentFormTasfya")"> @ar.payment_forms_tasfya </a>
                         </li>
                     </ul>
                 </div>

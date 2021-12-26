@@ -21,4 +21,9 @@ namespace EmployeeCare.Enum
         Active = 1,
         NotActive = 2,
     }
+    public enum PaymentFormTypes
+    {
+        Takaful = 1,
+        Tasfya = 2
+    }
 }

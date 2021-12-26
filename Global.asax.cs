@@ -28,6 +28,8 @@ namespace EmployeeCare
             Mapper.CreateMap<BankViewModel, Bank>();
             Mapper.CreateMap<EmployeeDocumentViewModel, EmployeeDocument>();
             Mapper.CreateMap<PaymentFormViewModel, PaymentForm>();
+            Mapper.CreateMap<DecisionViewModel, Decision>();
+            Mapper.CreateMap<InvoiceViewModel, Invoice>();
         }
     }
 }

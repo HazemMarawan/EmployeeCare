@@ -4,19 +4,21 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using CrystalDecisions.CrystalReports.Engine;
 using EmployeeCare.Auth;
 using EmployeeCare.Models;
 using EmployeeCare.ViewModel;
+
 namespace EmployeeCare.Controllers
 {
     [CustomAuthenticationFilter]
-    public class PaymentFormController : Controller
+    public class PaidOffController : Controller
     {
         EmployeeCareDbContext db = new EmployeeCareDbContext();
-        // GET: PaymentForm
+
+        // GET: Accountant
         public ActionResult Index()
         {
-
             if (Request.IsAjaxRequest())
             {
                 var draw = Request.Form.GetValues("draw").FirstOrDefault();
@@ -30,10 +32,10 @@ namespace EmployeeCare.Controllers
 
                 // Getting all data    
                 var paymentFormData = (from paymentform in db.PaymentForms
-                                      join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
-                                      join employee in db.Employees on employeeDocument.employee_id equals employee.id
-                                      join document in db.Documents on employeeDocument.document_id equals document.id
-                                      join decision in db.Decisions on paymentform.decision_id equals decision.id
+                                       join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
+                                       join employee in db.Employees on employeeDocument.employee_id equals employee.id
+                                       join document in db.Documents on employeeDocument.document_id equals document.id
+                                       join decision in db.Decisions on paymentform.decision_id equals decision.id
                                        select new PaymentFormViewModel
                                        {
                                            id = paymentform.id,
@@ -41,19 +43,25 @@ namespace EmployeeCare.Controllers
                                            document_name = document.name,
                                            created_at = paymentform.created_at,
                                            decision_name = decision.title,
-                                           employee_document_id= paymentform.employee_document_id,
+                                           employee_document_id = paymentform.employee_document_id,
                                            employee_id = employeeDocument.employee_id,
                                            decision_id = paymentform.decision_id,
                                            salary = paymentform.salary,
                                            no_of_months = paymentform.no_of_months,
-                                           last_paid_installment =paymentform.last_paid_installment,
+                                           last_paid_installment = paymentform.last_paid_installment,
                                            deduct_amount_from_takaful = paymentform.deduct_amount_from_takaful,
                                            installment_need_deduct = paymentform.installment_need_deduct,
                                            debt_need_deduct = paymentform.debt_need_deduct,
                                            membership_subscription_deduct = paymentform.membership_subscription_deduct,
                                            final_paid = paymentform.final_paid,
                                            notes = paymentform.notes,
-                                           approval_status = paymentform.approval_status
+                                           approval_status = paymentform.approval_status,
+                                           managerial_fees = paymentform.managerial_fees == null ? db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value : paymentform.managerial_fees,
+                                           installments = paymentform.installments == null ? db.Deductions.Select(m => m.installments).FirstOrDefault().Value : paymentform.installments,
+                                           other_income = paymentform.other_income == null ? db.Deductions.Select(m => m.other_income).FirstOrDefault().Value : paymentform.other_income,
+                                           cheque_cost = paymentform.cheque_cost == null ? (int)db.Deductions.Select(m => m.cheque_cost).FirstOrDefault().Value : (int)paymentform.cheque_cost,
+                                           total_deduction = (double)db.Deductions.Select(m => m.total_deduction).FirstOrDefault().Value,
+
                                        }).AsEnumerable().Select(s => new PaymentFormViewModel
                                        {
                                            id = s.id,
@@ -74,8 +82,14 @@ namespace EmployeeCare.Controllers
                                            final_paid = s.final_paid,
                                            notes = s.notes,
                                            approval_status = s.approval_status,
-                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
-                                       });
+                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd"),
+                                           managerial_fees = db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value,
+                                           installments = db.Deductions.Select(m => m.installments).FirstOrDefault().Value,
+                                           other_income = db.Deductions.Select(m => m.other_income).FirstOrDefault().Value,
+                                           cheque_cost = (int)db.Deductions.Select(m => m.cheque_cost).FirstOrDefault().Value,
+                                           total_deduction = (double)db.Deductions.Select(m => m.total_deduction).FirstOrDefault().Value,
+
+                                       }).Where(s => s.approval_status == 3);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
@@ -109,52 +123,6 @@ namespace EmployeeCare.Controllers
 
             return View();
         }
-        [HttpPost]
-        public JsonResult savePaymentForm(PaymentFormViewModel paymentFormVM)
-        {
-            if (paymentFormVM.id == 0)
-            {
-                PaymentForm paymentForm = AutoMapper.Mapper.Map<PaymentFormViewModel, PaymentForm>(paymentFormVM);
 
-                paymentForm.updated_at = DateTime.Now;
-                paymentForm.created_at = DateTime.Now;
-
-                db.PaymentForms.Add(paymentForm);
-            }
-            else
-            {
-                PaymentForm oldPaymentForm = db.PaymentForms.Find(paymentFormVM.id);
-
-                oldPaymentForm.employee_document_id = paymentFormVM.employee_document_id;
-                oldPaymentForm.decision_id = paymentFormVM.decision_id;
-                oldPaymentForm.salary = paymentFormVM.salary;
-                oldPaymentForm.no_of_months = paymentFormVM.no_of_months;
-                oldPaymentForm.last_paid_installment = paymentFormVM.last_paid_installment;
-                oldPaymentForm.deduct_amount_from_takaful = paymentFormVM.deduct_amount_from_takaful;
-                oldPaymentForm.installment_need_deduct = paymentFormVM.installment_need_deduct;
-                oldPaymentForm.debt_need_deduct = paymentFormVM.debt_need_deduct;
-                oldPaymentForm.membership_subscription_deduct = paymentFormVM.membership_subscription_deduct;
-                oldPaymentForm.final_paid = paymentFormVM.final_paid;
-                oldPaymentForm.notes = paymentFormVM.notes;
-                oldPaymentForm.approval_status = paymentFormVM.approval_status;
-                oldPaymentForm.updated_at = DateTime.Now;
-
-                db.Entry(oldPaymentForm).State = System.Data.Entity.EntityState.Modified;
-            }
-            db.SaveChanges();
-
-            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
-
-        }
-
-        [HttpGet]
-        public JsonResult deletePaymentForm(int id)
-        {
-            PaymentForm deletePaymentForm = db.PaymentForms.Find(id);
-            db.PaymentForms.Remove(deletePaymentForm);
-            db.SaveChanges();
-
-            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
-        }
     }
 }

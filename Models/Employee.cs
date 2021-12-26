@@ -18,6 +18,7 @@ namespace EmployeeCare.Models
         public Destination Destination { get; set; }
         public int? employee_file_number { get; set; }
         public string name { get; set; }
+        public DateTime? birth_date { get; set; }
 
         [ForeignKey("Grade")]
         public int? grade_id { get; set; }
@@ -39,6 +40,7 @@ namespace EmployeeCare.Models
         public virtual ICollection<EmployeeDocument> EmployeeDocuments { get; set; }
         public virtual ICollection<PaymentForm> PaymentForms { get; set; }
         public virtual ICollection<EmployeeArchive> EmployeeArchives { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
 
     }
 }

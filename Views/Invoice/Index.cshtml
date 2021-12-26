@@ -1,0 +1,343 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.invoices;
+}
+<div class="modal fade" id="manage_invoices_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.payment_types</label>
+                                @Html.DropDownList("payment_type_id", new SelectList(ViewBag.payment_types, "id", "name"), ar.select_payment_type, new { @class = "form-control", @name = "payment_type_id", @id = "payment_type_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.payment_date</label>
+                                <input required name="payment_date" id="payment_date" type="date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.amount</label>
+                                <input required name="amount" id="amount" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.banks</label>
+                                @Html.DropDownList("bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "bank_id", @id = "bank_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.invoice_number</label>
+                                <input required name="invoice_number" id="invoice_number" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.employees</label>
+                                @Html.DropDownList("employee_id", new SelectList(ViewBag.employees, "id", "name"), ar.select_employee, new { @class = "form-control selectize", @name = "employee_id", @id = "employee_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.documents</label>
+                                @Html.DropDownList("document_id", new SelectList(ViewBag.documents, "id", "name"), ar.select_document, new { @class = "form-control", @name = "document_id", @id = "document_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.vacation_from</label>
+                                <input required name="vacation_from" id="vacation_from" type="date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.vacation_to</label>
+                                <input required name="vacation_to" id="vacation_to" type="date" class="form-control radius-30" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_invoice" data-value="<span>Show</span> : @ar.add_invoice" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_invoice</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="invoices_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.payment_type</th>
+                            <th>@ar.payment_date</th>
+                            <th>@ar.amount</th>
+                            <th>@ar.bank</th>
+                            <th>@ar.invoice_number</th>
+                            <th>@ar.employee_name</th>
+                            <th>@ar.document_subscription</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#invoices_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "Invoice")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_payment_type",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_payment_date", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                var date = new Date(oData.string_payment_date);
+                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                ];
+                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                html += delDateString;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "amount",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_bank_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "invoice_number",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_employee_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_document_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_invoice").click(function () {
+               var modal = $('#manage_invoices_modal').clone();
+                var action = '@Url.Action("saveInvoice", "Invoice")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_invoice');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        
+                
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_invoices_modal').clone();
+                var action = '@Url.Action("saveInvoice", "Invoice")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_invoice');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#payment_type_id option[value=' + data.payment_type_id + ']').attr('selected', 'selected');   
+                        console.log(data.payment_date);
+                        if (data.payment_date != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.payment_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_payment_date = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#payment_date').val(date_payment_date);
+                        }
+                        dialog.find('#amount').val(data.amount);
+                        dialog.find('#bank_id option[value=' + data.bank_id + ']').attr('selected', 'selected');   
+                        dialog.find('#invoice_number').val(data.invoice_number);
+                        dialog.find('#employee_id option[value=' + data.employee_id + ']').attr('selected', 'selected');   
+                        dialog.find('#document_id option[value=' + data.document_id + ']').attr('selected', 'selected');   
+
+                        if (data.vacation_from != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.vacation_from.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_vacation_from = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#vacation_from').val(date_vacation_from);
+                        }
+
+                        if (data.vacation_to != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.vacation_to.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_vacation_to = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#vacation_to').val(date_vacation_to);
+                        }
+
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.string_payment_type +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteInvoice", "Invoice")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}

@@ -11,7 +11,7 @@ namespace EmployeeCare.Models
     {
         [Key]
         public int id { get; set; }
-        public string parh { get; set; }
+        public string path { get; set; }
 
         [ForeignKey("Decision")]
         public int? decision_id { get; set; }

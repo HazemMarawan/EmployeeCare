@@ -144,8 +144,14 @@
   <data name="add_employee" xml:space="preserve">
     <value>أضافة موظف</value>
   </data>
+  <data name="add_files" xml:space="preserve">
+    <value>أضافة مستندات</value>
+  </data>
   <data name="add_grade" xml:space="preserve">
     <value>اضافه درجة وظيفية</value>
+  </data>
+  <data name="add_invoice" xml:space="preserve">
+    <value>ايصاد جديد</value>
   </data>
   <data name="add_payment_form" xml:space="preserve">
     <value>أضافة استمارة</value>
@@ -161,6 +167,9 @@
   </data>
   <data name="admin" xml:space="preserve">
     <value>مدير</value>
+  </data>
+  <data name="amount" xml:space="preserve">
+    <value>الملبغ</value>
   </data>
   <data name="approval_status" xml:space="preserve">
     <value>اعتماد</value>
@@ -185,6 +194,12 @@
   </data>
   <data name="birth_date" xml:space="preserve">
     <value>تاريخ الميلاد</value>
+  </data>
+  <data name="cheque_cost" xml:space="preserve">
+    <value>ثمن الشيك</value>
+  </data>
+  <data name="cheque_number" xml:space="preserve">
+    <value>رقم الشيك</value>
   </data>
   <data name="choose_file" xml:space="preserve">
     <value>اختر ملف</value>
@@ -215,6 +230,15 @@
   </data>
   <data name="decisions" xml:space="preserve">
     <value>القرارات</value>
+  </data>
+  <data name="decision_date" xml:space="preserve">
+    <value>تاريخ القرار</value>
+  </data>
+  <data name="decision_title" xml:space="preserve">
+    <value>عنوان القرار</value>
+  </data>
+  <data name="decision_type" xml:space="preserve">
+    <value>نوع القرار</value>
   </data>
   <data name="deduct_amount_from_takaful" xml:space="preserve">
     <value>المبلغ المستحق عن التكافل</value>
@@ -249,6 +273,9 @@
   <data name="document_number" xml:space="preserve">
     <value>رقم الوثيقة</value>
   </data>
+  <data name="document_subscription" xml:space="preserve">
+    <value>نوع الأشتراك</value>
+  </data>
   <data name="document_type" xml:space="preserve">
     <value>نوع الوثيقة</value>
   </data>
@@ -275,6 +302,9 @@
   </data>
   <data name="edit_grade" xml:space="preserve">
     <value>تعديل الدرجة الوظيفية</value>
+  </data>
+  <data name="edit_invoice" xml:space="preserve">
+    <value>تعديل الأيصال</value>
   </data>
   <data name="edit_payment_form" xml:space="preserve">
     <value>تعديل أستماره</value>
@@ -345,11 +375,20 @@
   <data name="info" xml:space="preserve">
     <value>معلومات</value>
   </data>
+  <data name="installments" xml:space="preserve">
+    <value>أقساط</value>
+  </data>
   <data name="installment_need_deduct" xml:space="preserve">
     <value>اقساط مطلوب خصمها</value>
   </data>
   <data name="invalid_username_password" xml:space="preserve">
     <value>اسم المستخدم او كلمة المرور غير صحيحة</value>
+  </data>
+  <data name="invoices" xml:space="preserve">
+    <value>الإيصالات</value>
+  </data>
+  <data name="invoice_number" xml:space="preserve">
+    <value>رقم الأيصال</value>
   </data>
   <data name="in_service" xml:space="preserve">
     <value>في الخدمة</value>
@@ -371,6 +410,12 @@
   </data>
   <data name="male" xml:space="preserve">
     <value>ذكر</value>
+  </data>
+  <data name="managerial_fees" xml:space="preserve">
+    <value>م. إدارية</value>
+  </data>
+  <data name="manage_inventory" xml:space="preserve">
+    <value>إدارة الخزن</value>
   </data>
   <data name="membership_status" xml:space="preserve">
     <value>حالة العضوية</value>
@@ -408,6 +453,9 @@
   <data name="no_email" xml:space="preserve">
     <value>لا يوجد بريد الكتروني</value>
   </data>
+  <data name="no_files" xml:space="preserve">
+    <value>لا يوجد مستندات</value>
+  </data>
   <data name="no_of_months" xml:space="preserve">
     <value>عدد الشهور</value>
   </data>
@@ -420,6 +468,9 @@
   <data name="ongoing_approve" xml:space="preserve">
     <value>جاري الاعتماد</value>
   </data>
+  <data name="other_income" xml:space="preserve">
+    <value>إيرادات أخرى</value>
+  </data>
   <data name="paid_off" xml:space="preserve">
     <value>تم الصرف</value>
   </data>
@@ -429,11 +480,29 @@
   <data name="password" xml:space="preserve">
     <value>كلمة المرور</value>
   </data>
+  <data name="payment_date" xml:space="preserve">
+    <value>تاريخ السداد</value>
+  </data>
   <data name="payment_forms" xml:space="preserve">
     <value>الاستمارات</value>
   </data>
+  <data name="payment_forms_management" xml:space="preserve">
+    <value>ادارة الاستمارات</value>
+  </data>
+  <data name="payment_forms_takaful" xml:space="preserve">
+    <value>استمارات تكافل</value>
+  </data>
+  <data name="payment_forms_tasfya" xml:space="preserve">
+    <value>استمارات تصفية</value>
+  </data>
   <data name="payment_form_date" xml:space="preserve">
     <value>تاريخ الأستمارة</value>
+  </data>
+  <data name="payment_form_view" xml:space="preserve">
+    <value>عرض الاستمارة</value>
+  </data>
+  <data name="payment_type" xml:space="preserve">
+    <value>نوع السداد</value>
   </data>
   <data name="payment_types" xml:space="preserve">
     <value>أنواع السداد</value>
@@ -471,6 +540,9 @@
   <data name="select_decision" xml:space="preserve">
     <value>أختار قرار</value>
   </data>
+  <data name="select_decision_type" xml:space="preserve">
+    <value>اختر نوع القرار</value>
+  </data>
   <data name="select_destination" xml:space="preserve">
     <value>أختر الجهة</value>
   </data>
@@ -486,6 +558,9 @@
   <data name="select_grade" xml:space="preserve">
     <value>اختر الدرجة الوظيفية</value>
   </data>
+  <data name="select_payment_type" xml:space="preserve">
+    <value>أختر نوع الوثيقة</value>
+  </data>
   <data name="select_role" xml:space="preserve">
     <value>اختر الصلاحية</value>
   </data>
@@ -495,8 +570,17 @@
   <data name="status" xml:space="preserve">
     <value>الحالة</value>
   </data>
+  <data name="subscriptions" xml:space="preserve">
+    <value>الأشتراكات</value>
+  </data>
   <data name="subscription_date" xml:space="preserve">
     <value>تاريخ الأشتراك</value>
+  </data>
+  <data name="takaful" xml:space="preserve">
+    <value>تكافل</value>
+  </data>
+  <data name="tasfya" xml:space="preserve">
+    <value>تصفية</value>
   </data>
   <data name="to" xml:space="preserve">
     <value>الي</value>
@@ -512,6 +596,12 @@
   </data>
   <data name="user_not_actived" xml:space="preserve">
     <value>هذا المستخدم غير مفُعل</value>
+  </data>
+  <data name="vacation_from" xml:space="preserve">
+    <value>أجازه من</value>
+  </data>
+  <data name="vacation_to" xml:space="preserve">
+    <value>أجازه الى</value>
   </data>
   <data name="warning" xml:space="preserve">
     <value>تحذير</value>

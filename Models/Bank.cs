@@ -17,6 +17,7 @@ namespace EmployeeCare.Models
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public virtual ICollection<Employee> Employees { get; set; }
+        public virtual ICollection<Invoice> Invoices { get; set; }
 
     }
 }

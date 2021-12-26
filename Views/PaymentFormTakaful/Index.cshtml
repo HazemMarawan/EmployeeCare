@@ -1,0 +1,388 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.payment_forms_takaful;
+}
+<div class="modal fade" id="manage_payment_forms_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <input type="hidden" name="type" id="type" value="1" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.employees</label>
+                                @Html.DropDownList("employee_id", new SelectList(ViewBag.employees, "id", "name"), ar.select_employee, new { @class = "form-control", @name = "employee_id", @id = "employee_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6" id="employee_document_div">
+                                <label>@ar.documents</label>
+                                <select id="employee_document_id" name="employee_document_id" class="form-control">
+                                    <option value="">@ar.select_document</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.decisions</label>
+                                @Html.DropDownList("decision_id", new SelectList(ViewBag.decisions, "id", "title"), ar.select_decision, new { @class = "form-control", @name = "decision_id", @id = "decision_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.salary</label>
+                                <input type="number" name="salary" id="salary" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.no_of_months</label>
+                                <input type="number" name="no_of_months" id="no_of_months" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.last_paid_installment</label>
+                                <input type="number" name="last_paid_installment" id="last_paid_installment" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.deduct_amount_from_takaful</label>
+                                <input type="number" name="deduct_amount_from_takaful" id="deduct_amount_from_takaful" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.installment_need_deduct</label>
+                                <input type="number" name="installment_need_deduct" id="installment_need_deduct" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.debt_need_deduct</label>
+                                <input type="number" name="debt_need_deduct" id="debt_need_deduct" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.membership_subscription_deduct</label>
+                                <input type="number" name="membership_subscription_deduct" id="membership_subscription_deduct" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.final_paid</label>
+                                <input type="number" name="final_paid" id="final_paid" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.notes</label>
+                                <input type="number" name="notes" id="notes" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.approval_status</label>
+                                <select name="approval_status" id="approval_status" class="form-control">
+                                    <option value="1">@ar.ongoing_approve</option>
+                                    <option value="2">@ar.approved</option>
+                                    @*<option value="3">@ar.paid_off</option>*@
+                                </select>
+                            </div>
+           
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_payment_form" data-value="<span>Show</span> : @ar.add_payment_form" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_payment_form</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="payment_forms_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>@ar.id</th>
+                            <th>@ar.employee_name</th>
+                            <th>@ar.payment_form_date</th>
+                            <th>@ar.paid_takaful</th>
+                            <th>@ar.decision</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#payment_forms_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "PaymentFormTakaful")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "employee_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_created_at", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+
+                                var html = "";
+                                var date = new Date(oData.string_created_at);
+                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                ];
+                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                html += delDateString;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "final_paid",
+                            "searchable": true
+                        },
+                        {
+                            "data": "decision_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
+                                html += "<a href='/PaymentForm/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_payment_form").click(function () {
+               var modal = $('#manage_payment_forms_modal').clone();
+                var action = '@Url.Action("savePaymentForm", "PaymentFormTakaful")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_payment_form');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#employee_id').change(function () {
+                            dialog.find('#employee_document_id').remove();
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("getEmployeeDocuments", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    var html = ` <select id="employee_document_id" name="employee_document_id" class="form-control">
+                                                  <option value="">@ar.select_document</option>`
+                                    data.employeeDocuments.forEach(function (value) {
+                                        html += "<option value='" + value.id+"'>" + value.document_name + "</option>";
+                                    });
+                                    html += "</select>";
+                                    dialog.find('#employee_document_div').append(html);
+                                    console.log(data.employeeDocuments);
+                                },
+                                error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                console.log(data);
+                var modal = $('#manage_payment_forms_modal').clone();
+                var action = '@Url.Action("savePaymentForm", "PaymentFormTakaful")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_payment_form');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                        dialog.find('#employee_id').change(function () {
+                            dialog.find('#employee_document_id').remove();
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("getEmployeeDocuments", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    var html = ` <select id="employee_document_id" name="employee_document_id" class="form-control">
+                                                  <option value="">@ar.select_document</option>`
+                                    data.employeeDocuments.forEach(function (value) {
+                                        html += "<option value='" + value.id+"'>" + value.document_name + "</option>";
+                                    });
+                                    html += "</select>";
+                                    dialog.find('#employee_document_div').append(html);
+                                    console.log(data.employeeDocuments);
+                                },
+                                error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
+
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#employee_id option[value=' + data.employee_id + ']').attr('selected', 'selected');
+                        dialog.find('#employee_document_id').remove();
+                        var empdocid = data.employee_document_id;
+                        $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("getEmployeeDocuments", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": data.employee_id },
+                                datatype: "json",
+                                success: function (data) {
+                                    var html = ` <select id="employee_document_id" name="employee_document_id" class="form-control">
+                                                  <option value="">@ar.select_document</option>`
+                                    data.employeeDocuments.forEach(function (value) {
+                                        if (value.id == empdocid)
+                                            html += "<option selected value='" + value.id + "'>" + value.document_name + "</option>";
+                                        else
+                                            html += "<option value='" + value.id + "'>" + value.document_name + "</option>";
+                                    });
+                                    html += "</select>";
+                                    dialog.find('#employee_document_div').append(html);
+
+                                },
+                                error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                        });
+
+                        dialog.find('#decision_id option[value=' + data.decision_id + ']').attr('selected', 'selected');
+                        dialog.find('#salary').val(data.salary);
+                        dialog.find('#no_of_months').val(data.no_of_months);
+                        dialog.find('#last_paid_installment').val(data.last_paid_installment);
+                        dialog.find('#deduct_amount_from_takaful').val(data.deduct_amount_from_takaful);
+                        dialog.find('#installment_need_deduct').val(data.installment_need_deduct);
+                        dialog.find('#debt_need_deduct').val(data.debt_need_deduct);
+                        dialog.find('#membership_subscription_deduct').val(data.membership_subscription_deduct);
+                        dialog.find('#final_paid').val(data.final_paid);
+                        dialog.find('#notes').val(data.notes);
+                        dialog.find('#approval_status option[value=' + data.approval_status + ']').attr('selected', 'selected');
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.employee_name   +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deletePaymentForm", "PaymentFormTakaful")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}

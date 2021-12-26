@@ -151,6 +151,8 @@ namespace EmployeeCare.Controllers
         [HttpGet]
         public JsonResult deleteEmployee(int id)
         {
+            db.EmployeeArchives.Where(s => s.employee_id == id).ToList().ForEach(s => db.EmployeeArchives.Remove(s));
+
             Employee deleteEmployee = db.Employees.Find(id);
             db.Employees.Remove(deleteEmployee);
             db.SaveChanges();

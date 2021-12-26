@@ -48,6 +48,9 @@
     <Reference Include="AutoMapper, Version=4.2.1.0, Culture=neutral, PublicKeyToken=be96cd2c38ef1005, processorArchitecture=MSIL">
       <HintPath>packages\AutoMapper.4.2.1\lib\net45\AutoMapper.dll</HintPath>
     </Reference>
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
@@ -132,15 +135,20 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Auth\CustomAuthenticationFilter.cs" />
+    <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BankController.cs" />
+    <Compile Include="Controllers\DecisionController.cs" />
     <Compile Include="Controllers\DestinationController.cs" />
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\EmployeeController.cs" />
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\PaidOffController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
-    <Compile Include="Controllers\PaymentFormController.cs" />
+    <Compile Include="Controllers\PaymentFormTakafulController.cs" />
+    <Compile Include="Controllers\PaymentFormTasfyaController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Enum\Enum.cs" />
     <Compile Include="Global.asax.cs">
@@ -170,10 +178,47 @@
     <Compile Include="Migrations\202112202351111_addEmployeeArchive.Designer.cs">
       <DependentUpon>202112202351111_addEmployeeArchive.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112211854058_updateDecisions.cs" />
+    <Compile Include="Migrations\202112211854058_updateDecisions.Designer.cs">
+      <DependentUpon>202112211854058_updateDecisions.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112212230416_updateTables.cs" />
+    <Compile Include="Migrations\202112212230416_updateTables.Designer.cs">
+      <DependentUpon>202112212230416_updateTables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112212232079_updateTables1.cs" />
+    <Compile Include="Migrations\202112212232079_updateTables1.Designer.cs">
+      <DependentUpon>202112212232079_updateTables1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112212234348_updateTables2.cs" />
+    <Compile Include="Migrations\202112212234348_updateTables2.Designer.cs">
+      <DependentUpon>202112212234348_updateTables2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112212256040_updateTables3.cs" />
+    <Compile Include="Migrations\202112212256040_updateTables3.Designer.cs">
+      <DependentUpon>202112212256040_updateTables3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112212354534_updateTables21.cs" />
+    <Compile Include="Migrations\202112212354534_updateTables21.Designer.cs">
+      <DependentUpon>202112212354534_updateTables21.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112220042000_updateTables4.cs" />
+    <Compile Include="Migrations\202112220042000_updateTables4.Designer.cs">
+      <DependentUpon>202112220042000_updateTables4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241811049_updateTables5.cs" />
+    <Compile Include="Migrations\202112241811049_updateTables5.Designer.cs">
+      <DependentUpon>202112241811049_updateTables5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112241908465_addInvoice.cs" />
+    <Compile Include="Migrations\202112241908465_addInvoice.Designer.cs">
+      <DependentUpon>202112241908465_addInvoice.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
     <Compile Include="Models\DecisionDocument.cs" />
+    <Compile Include="Models\Deduction.cs" />
     <Compile Include="Models\Destination.cs" />
     <Compile Include="Models\Document.cs" />
     <Compile Include="Models\Employee.cs" />
@@ -181,10 +226,24 @@
     <Compile Include="Models\EmployeeCareDbContext.cs" />
     <Compile Include="Models\EmployeeDocument.cs" />
     <Compile Include="Models\Grade.cs" />
+    <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\PaymentForm.cs" />
     <Compile Include="Models\PaymentType.cs" />
+    <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\PaymentFormFinal.cs">
+      <DependentUpon>PaymentFormFinal.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\PaymentFormPart1.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>PaymentFormPart1.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Resources\ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -192,11 +251,15 @@
     </Compile>
     <Compile Include="Security\Hash.cs" />
     <Compile Include="ViewModel\BankViewModel.cs" />
+    <Compile Include="ViewModel\DecisionViewModel.cs" />
+    <Compile Include="ViewModel\DecuctionViewModel.cs" />
     <Compile Include="ViewModel\DestinationViewModel.cs" />
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\EmployeeDocumentViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\GradeViewModel.cs" />
+    <Compile Include="ViewModel\InvoiceViewModel.cs" />
+    <Compile Include="ViewModel\PaymentFormReport.cs" />
     <Compile Include="ViewModel\PaymentFormViewModel.cs" />
     <Compile Include="ViewModel\PaymentTypeViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
@@ -2653,12 +2716,17 @@
     <Content Include="Views\Employee\Index.cshtml" />
     <Content Include="Views\Bank\Index.cshtml" />
     <Content Include="Views\Employee\Documents.cshtml" />
-    <Content Include="Views\PaymentForm\Index.cshtml" />
+    <Content Include="Views\PaymentFormTakaful\Index.cshtml" />
+    <Content Include="Views\Decision\Index.cshtml" />
+    <Content Include="Views\Accountant\Index.cshtml" />
+    <Content Include="Views\PaidOff\Index.cshtml" />
+    <Content Include="Views\PaymentFormTasfya\Index.cshtml" />
+    <Content Include="Views\Invoice\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Reports\" />
     <Folder Include="Services\" />
+    <Folder Include="Uploads\Decision\Documents\" />
     <Folder Include="Uploads\Employee\Archive\" />
     <Folder Include="Uploads\Profiles\" />
   </ItemGroup>
@@ -2694,10 +2762,48 @@
     <EmbeddedResource Include="Migrations\202112202351111_addEmployeeArchive.resx">
       <DependentUpon>202112202351111_addEmployeeArchive.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112211854058_updateDecisions.resx">
+      <DependentUpon>202112211854058_updateDecisions.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112212230416_updateTables.resx">
+      <DependentUpon>202112212230416_updateTables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112212232079_updateTables1.resx">
+      <DependentUpon>202112212232079_updateTables1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112212234348_updateTables2.resx">
+      <DependentUpon>202112212234348_updateTables2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112212256040_updateTables3.resx">
+      <DependentUpon>202112212256040_updateTables3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112212354534_updateTables21.resx">
+      <DependentUpon>202112212354534_updateTables21.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112220042000_updateTables4.resx">
+      <DependentUpon>202112220042000_updateTables4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241811049_updateTables5.resx">
+      <DependentUpon>202112241811049_updateTables5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112241908465_addInvoice.resx">
+      <DependentUpon>202112241908465_addInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentFormFinal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentFormFinal.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentFormPart1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentFormPart1.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ar.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

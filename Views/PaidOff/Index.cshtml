@@ -1,6 +1,6 @@
 ﻿@using EmployeeCare.Resources;
 @{
-    ViewBag.Title = ar.payment_forms;
+    ViewBag.Title = ar.paid_off;
 }
 <div class="modal fade" id="manage_payment_forms_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
@@ -68,12 +68,13 @@
                             </div>
                             <div class="form-group col-md-12">
                                 <label>@ar.approval_status</label>
-                                <select name="approval_status" class="form-control">
+                                <select name="approval_status" id="approval_status" class="form-control">
                                     <option value="1">@ar.ongoing_approve</option>
                                     <option value="2">@ar.approved</option>
-                                    <option value="3">@ar.paid_off</option>
+                                    @*<option value="3">@ar.paid_off</option>*@
                                 </select>
                             </div>
+
                         </div>
                     </div>
                 </div>
@@ -102,7 +103,7 @@
 
     <div class="card">
         <div class="card-header">
-            <a class="dropdown-item" id="add_payment_form" data-value="<span>Show</span> : @ar.add_payment_form" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_payment_form</a>
+           @* <a class="dropdown-item" id="add_payment_form" data-value="<span>Show</span> : @ar.add_payment_form" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_payment_form</a>*@
 
         </div>
         <div class="card-body">
@@ -209,8 +210,9 @@
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
-                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
-                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
+                                //html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                //html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
+                                html += "<a href='/PaidOff/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
