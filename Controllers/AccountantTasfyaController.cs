@@ -13,7 +13,7 @@ using EmployeeCare.ViewModel;
 namespace EmployeeCare.Controllers
 {
     [CustomAuthenticationFilter]
-    public class AccountantController : Controller
+    public class AccountantTasfyaController : Controller
     {
         EmployeeCareDbContext db = new EmployeeCareDbContext();
 
@@ -36,14 +36,14 @@ namespace EmployeeCare.Controllers
                                        join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
                                        join employee in db.Employees on employeeDocument.employee_id equals employee.id
                                        join document in db.Documents on employeeDocument.document_id equals document.id
-                                       join decision in db.Decisions on paymentform.decision_id equals decision.id
+                                       //join decision in db.Decisions on paymentform.decision_id equals decision.id
                                        select new PaymentFormViewModel
                                        {
                                            id = paymentform.id,
                                            employee_name = employee.name,
                                            document_name = document.name,
                                            created_at = paymentform.created_at,
-                                           decision_name = decision.title,
+                                           //decision_name = decision.title,
                                            employee_document_id = paymentform.employee_document_id,
                                            employee_id = employeeDocument.employee_id,
                                            decision_id = paymentform.decision_id,
@@ -94,7 +94,7 @@ namespace EmployeeCare.Controllers
                                            cheque_number = s.cheque_number,
                                            subscription = s.subscription,
                                            type = s.type
-                                       }).Where(s => s.approval_status == 2 && s.type == (int)PaymentFormTypes.Takaful);
+                                       }).Where(s => s.approval_status == 2 && s.type == (int)PaymentFormTypes.Tasfya);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
@@ -173,37 +173,37 @@ namespace EmployeeCare.Controllers
                                                                 destinaion_name = destination.name,
                                                                 created_at = (DateTime)paymentform.created_at,
                                                                 decision_name = decision.title,
-                                                                employee_document_id = (int)(paymentform.employee_document_id != null ? paymentform.employee_document_id : 0),
-                                                                employee_id = (int)(employeeDocument.employee_id != null ? employeeDocument.employee_id : 0),
-                                                                decision_id = (int)(paymentform.decision_id != null ? paymentform.decision_id : 0),
-                                                                salary = (double)(paymentform.salary != null ? paymentform.salary : 0),
-                                                                no_of_months = (double)(paymentform.no_of_months != null ? paymentform.no_of_months : 0),
+                                                                employee_document_id = (int)paymentform.employee_document_id,
+                                                                employee_id = (int)employeeDocument.employee_id,
+                                                                decision_id = (int)paymentform.decision_id,
+                                                                salary = (double)paymentform.salary,
+                                                                no_of_months = (double)paymentform.no_of_months,
                                                                 last_paid_installment = paymentform.last_paid_installment,
-                                                                deduct_amount_from_takaful = (double)(paymentform.deduct_amount_from_takaful != null ? paymentform.deduct_amount_from_takaful : 0),
-                                                                installment_need_deduct = (double)(paymentform.installment_need_deduct != null ? paymentform.installment_need_deduct : 0),
-                                                                debt_need_deduct = (double)(paymentform.debt_need_deduct != null ? paymentform.debt_need_deduct : 0),
-                                                                membership_subscription_deduct = (double)(paymentform.membership_subscription_deduct != null ? paymentform.membership_subscription_deduct : 0),
-                                                                final_paid = (double)(paymentform.final_paid != null ? paymentform.final_paid : 0),
+                                                                deduct_amount_from_takaful = (double)paymentform.deduct_amount_from_takaful,
+                                                                installment_need_deduct = (double)paymentform.installment_need_deduct,
+                                                                debt_need_deduct = (double)paymentform.debt_need_deduct,
+                                                                membership_subscription_deduct = (double)paymentform.membership_subscription_deduct,
+                                                                final_paid = (double)paymentform.final_paid,
                                                                 notes = paymentform.notes,
-                                                                approval_status = (int)(paymentform.approval_status != null ? paymentform.approval_status : 0),
-                                                                managerial_fees = (double)(paymentform.managerial_fees != null ? paymentform.managerial_fees : 0),
-                                                                gneh_managerial_fees = (int)(paymentform.managerial_fees != null ? paymentform.managerial_fees : 0),
-                                                                ersh_managerial_fees = (double)(paymentform.managerial_fees != null ? ((paymentform.managerial_fees - (int)paymentform.managerial_fees)*100) : 0),
-                                                                installments = (int)(paymentform.installments != null ? paymentform.installments : 0),
-                                                                gneh_installments = (int)(paymentform.installments != null ? paymentform.installments : 0),
-                                                                ersh_installments = (double)(paymentform.installments != null ? ((paymentform.installments - (int)paymentform.installments) * 100) : 0),
-                                                                cheque_cost = (double)(paymentform.cheque_cost != null ? paymentform.cheque_cost : 0),
-                                                                gneh_cheque_cost = (int)(paymentform.cheque_cost != null ? paymentform.cheque_cost : 0),
-                                                                ersh_cheque_cost = (double)(paymentform.cheque_cost != null ? ((paymentform.cheque_cost - (int)paymentform.cheque_cost) * 100) : 0),
-                                                                other_income = (double)(paymentform.other_income != null ? paymentform.other_income : 0),
-                                                                gneh_other_income = (int)(paymentform.other_income != null ? paymentform.other_income : 0),
-                                                                ersh_other_income = (double)(paymentform.other_income != null ? ((paymentform.other_income - (int)paymentform.other_income) * 100) : 0),
-                                                                total_deduction = (double)(paymentform.total_deduction != null ? paymentform.total_deduction : 0),
-                                                                gneh_total_deduction = (int)(paymentform.total_deduction != null ? paymentform.total_deduction : 0),
-                                                                ersh_total_deduction = (double)(paymentform.total_deduction != null ? ((paymentform.total_deduction - (int)paymentform.total_deduction) * 100) : 0),
-                                                                subscription = (double)(paymentform.subscription != null ? paymentform.subscription : 0),
-                                                                gneh_subscription = (int)(paymentform.subscription != null ? paymentform.subscription : 0),
-                                                                ersh_subscription = (double)(paymentform.subscription != null ? ((paymentform.subscription - (int)paymentform.subscription) * 100) : 0),
+                                                                approval_status = (int)paymentform.approval_status,
+                                                                managerial_fees = (double)paymentform.managerial_fees,
+                                                                gneh_managerial_fees = (int)paymentform.managerial_fees,
+                                                                ersh_managerial_fees = (double)((paymentform.managerial_fees - (int)paymentform.managerial_fees)*100),
+                                                                installments = (int)paymentform.installments,
+                                                                gneh_installments = (int)paymentform.installments,
+                                                                ersh_installments = (double)((paymentform.installments - (int)paymentform.installments) * 100),
+                                                                cheque_cost = (double)paymentform.cheque_cost,
+                                                                gneh_cheque_cost = (int)paymentform.cheque_cost,
+                                                                ersh_cheque_cost = (double)((paymentform.cheque_cost - (int)paymentform.cheque_cost) * 100),
+                                                                other_income = (double)paymentform.other_income,
+                                                                gneh_other_income = (int)paymentform.other_income,
+                                                                ersh_other_income = (double)((paymentform.other_income - (int)paymentform.other_income) * 100),
+                                                                total_deduction = (double)paymentform.total_deduction,
+                                                                gneh_total_deduction = (int)paymentform.total_deduction,
+                                                                ersh_total_deduction = (double)((paymentform.total_deduction - (int)paymentform.total_deduction) * 100),
+                                                                subscription = (double)paymentform.subscription,
+                                                                gneh_subscription = (int)paymentform.subscription,
+                                                                ersh_subscription = (double)((paymentform.subscription - (int)paymentform.subscription) * 100),
                                                                 cheque_number = paymentform.cheque_number,
                                                                 modir_3am_elgam3ia = db.Settings.Where(set => set.name == "modir_3am_elgam3ia").FirstOrDefault().value,
                                                                 modir_elhesabat = db.Settings.Where(set => set.name == "modir_elhesabat").FirstOrDefault().value,
@@ -211,7 +211,7 @@ namespace EmployeeCare.Controllers
                                                                 modir_edart_elwasika = db.Settings.Where(set => set.name == "modir_edart_elwasika").FirstOrDefault().value,
                                                                 national_id = employee.national_id,
                                                                 string_birth_date = ((DateTime)employee.birth_date).ToString(),
-                                                                final_paid_after_deduction = (double)(paymentform.final_paid != null ? (paymentform.total_deduction != null ? (paymentform.final_paid - paymentform.total_deduction) : paymentform.final_paid) : 0),
+                                                                final_paid_after_deduction = (double)(paymentform.final_paid - paymentform.total_deduction)
 
                                                             }).Where(s => s.id == id).ToList();
 
@@ -238,6 +238,8 @@ namespace EmployeeCare.Controllers
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "PaymentFormTasfyaFinal.rpt"));
             List<Setting> settings = db.Settings.ToList();
+           
+
             List<PaymentFormReport> paymentFormViewModel = (from paymentform in db.PaymentForms
                                                             join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
                                                             join employee in db.Employees on employeeDocument.employee_id equals employee.id
@@ -289,7 +291,21 @@ namespace EmployeeCare.Controllers
                                                                 //record_date = (DateTime)paymentform.record_date,
                                                                 string_record_date = paymentform.record_date != null ? (paymentform.record_date).ToString() : "",
                                                                 last_installment = paymentform.last_installment,
-                                                                details = paymentform.details
+                                                                details = paymentform.details,
+                                                                gneh_managerial_fees = (int)paymentform.managerial_fees,
+                                                                ersh_managerial_fees = (double)((paymentform.managerial_fees - (int)paymentform.managerial_fees) * 100),
+                                                                gneh_installments = (int)paymentform.installments,
+                                                                ersh_installments = (double)((paymentform.installments - (int)paymentform.installments) * 100),
+                                                                gneh_cheque_cost = (int)paymentform.cheque_cost,
+                                                                ersh_cheque_cost = (double)((paymentform.cheque_cost - (int)paymentform.cheque_cost) * 100),
+                                                                gneh_other_income = (int)paymentform.other_income,
+                                                                ersh_other_income = (double)((paymentform.other_income - (int)paymentform.other_income) * 100),
+                                                                gneh_total_deduction = (int)paymentform.total_deduction,
+                                                                ersh_total_deduction = (double)((paymentform.total_deduction - (int)paymentform.total_deduction) * 100),
+                                                                subscription = (double)paymentform.subscription,
+                                                                gneh_subscription = (int)paymentform.subscription,
+                                                                ersh_subscription = (double)((paymentform.subscription - (int)paymentform.subscription) * 100),
+                                                                final_paid_after_deduction = (double)(paymentform.collected_installments - paymentform.total_deduction)
 
                                                             }).Where(s => s.id == id).ToList();
             //.AsEnumerable().Select(s => new PaymentFormReport

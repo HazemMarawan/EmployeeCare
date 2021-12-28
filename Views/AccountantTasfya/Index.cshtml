@@ -1,6 +1,6 @@
 ﻿@using EmployeeCare.Resources;
 @{
-    ViewBag.Title = ar.accountants_takaful;
+    ViewBag.Title = ar.accountants_tasfya;
 }
 <div class="modal fade" id="manage_payment_forms_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
@@ -143,7 +143,7 @@
                         }
                     },
                     "ajax": {
-                        "url": "@Url.Action("Index", "Accountant")",
+                        "url": "@Url.Action("Index", "AccountantTasfya")",
                         "type": "POST",
                         "datatype": "json",
                         "dataSrc": "data"
@@ -187,8 +187,8 @@
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 //html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
-                                
-                                html += "<a href='/Accountant/View/" + oData.id + "' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
+                               
+                                html += "<a href='/AccountantTasfya/ViewTasfya/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -258,7 +258,7 @@
                 var data = datatable.row($(this).closest('tr')).data();
                 console.log(data);
                 var modal = $('#manage_payment_forms_modal').clone();
-                var action = '@Url.Action("saveAccountant", "Accountant")';
+                var action = '@Url.Action("saveAccountant", "AccountantTasfya")';
                 modal.find('form').attr('action', action);
                 modal.find('#modal_title').text('@ar.edit_payment_form');
                 modal.execModal({
@@ -271,7 +271,7 @@
 
                 }, function (dialog) {
                         dialog.find('#id').val(data.id);
-                       
+
                         dialog.find('#managerial_fees').val(data.managerial_fees);
                         dialog.find('#installments').val(data.installments);
                         dialog.find('#subscription').val(data.subscription);

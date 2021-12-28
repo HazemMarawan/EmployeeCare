@@ -305,5 +305,12 @@ namespace EmployeeCare.Controllers
                                                                  }).Where(s => s.employee_id == id).ToList();
             return Json(new { employeeDocuments = employeeDocuments }, JsonRequestBehavior.AllowGet);
         }
+        [HttpGet]
+        public JsonResult getEmployeeDocumentByID(int id)
+        {
+            EmployeeDocumentViewModel employeeDocument = db.EmployeeDocuments.Where(s=> s.id == id).Select(s => new EmployeeDocumentViewModel { id= s.id, subscription_date = s.subscription_date }).FirstOrDefault();
+
+            return Json(new { employeeDocument = employeeDocument }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

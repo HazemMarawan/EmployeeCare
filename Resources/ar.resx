@@ -123,6 +123,12 @@
   <data name="accountants" xml:space="preserve">
     <value>الحسابات</value>
   </data>
+  <data name="accountants_takaful" xml:space="preserve">
+    <value>حسايات التكافل</value>
+  </data>
+  <data name="accountants_tasfya" xml:space="preserve">
+    <value>حسابات التصفية</value>
+  </data>
   <data name="active" xml:space="preserve">
     <value>مفُعل</value>
   </data>
@@ -210,6 +216,9 @@
   <data name="code" xml:space="preserve">
     <value>الكود</value>
   </data>
+  <data name="collected_installments" xml:space="preserve">
+    <value>الأقساط المحصلة</value>
+  </data>
   <data name="contact" xml:space="preserve">
     <value>بيانات التواصل</value>
   </data>
@@ -218,6 +227,12 @@
   </data>
   <data name="date" xml:space="preserve">
     <value>التاريخ</value>
+  </data>
+  <data name="dates" xml:space="preserve">
+    <value>تواريخ</value>
+  </data>
+  <data name="date_est7kak" xml:space="preserve">
+    <value>تاريخ الأستحقاق</value>
   </data>
   <data name="dead" xml:space="preserve">
     <value>وفاه</value>
@@ -264,11 +279,17 @@
   <data name="destination_name" xml:space="preserve">
     <value>الجهة</value>
   </data>
+  <data name="details" xml:space="preserve">
+    <value>التفاصيل</value>
+  </data>
   <data name="docments_user" xml:space="preserve">
     <value>مسئول استمارات</value>
   </data>
   <data name="documents" xml:space="preserve">
     <value>الوثائق</value>
+  </data>
+  <data name="document_name" xml:space="preserve">
+    <value>الوثيقة</value>
   </data>
   <data name="document_number" xml:space="preserve">
     <value>رقم الوثيقة</value>
@@ -392,6 +413,9 @@
   </data>
   <data name="in_service" xml:space="preserve">
     <value>في الخدمة</value>
+  </data>
+  <data name="last_installment" xml:space="preserve">
+    <value>أخر قسط</value>
   </data>
   <data name="last_paid_installment" xml:space="preserve">
     <value>اخر قسط تم سداده عن شهر</value>
@@ -518,6 +542,15 @@
   </data>
   <data name="primary_data" xml:space="preserve">
     <value>البيانات الأساسية</value>
+  </data>
+  <data name="reason_est7kak" xml:space="preserve">
+    <value>سبب الأستحقاق</value>
+  </data>
+  <data name="record_date" xml:space="preserve">
+    <value>تاريخ المحضر</value>
+  </data>
+  <data name="record_no" xml:space="preserve">
+    <value>محضر رقم</value>
   </data>
   <data name="reset" xml:space="preserve">
     <value>اعاده تعيين</value>

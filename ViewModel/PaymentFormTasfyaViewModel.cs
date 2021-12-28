@@ -5,7 +5,7 @@ using System.Web;
 
 namespace EmployeeCare.ViewModel
 {
-    public class PaymentFormViewModel
+    public class PaymentFormTasfyaViewModel
     {
         public int id { get; set; }
         public string code { get; set; }
@@ -36,8 +36,9 @@ namespace EmployeeCare.ViewModel
         public int? active { get; set; }
         public int? type { get; set; }
         public DateTime? record_date { get; set; }
+        public string string_record_date { get; set; }
         public int? record_number { get; set; }
-        public int? collected_installments { get; set; }
+        public double? collected_installments { get; set; }
         public DateTime? due_date { get; set; }
         public string last_installment { get; set; }
         public int? created_by { get; set; }

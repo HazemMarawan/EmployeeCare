@@ -41,10 +41,14 @@ namespace EmployeeCare.Models
         public int? created_by { get; set; }
         public int? type { get; set; }
         public DateTime? record_date { get; set; }
-        public int? record_number { get; set; }
-        public int? collected_installments { get; set; }
+        public double? collected_installments { get; set; }
         public DateTime? due_date { get; set; }
+        public DateTime? subscription_date { get; set; }
         public string last_installment { get; set; }
+        public int? record_no { get; set; }
+        public string details { get; set; }
+        public string reason_est7kak { get; set; }
+        public DateTime? date_est7kak { get; set; }
         public int? updated_by { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }

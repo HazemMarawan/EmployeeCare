@@ -71,6 +71,7 @@ namespace EmployeeCare.Controllers
             {
                 Destination destination = AutoMapper.Mapper.Map<DestinationViewModel, Destination>(destinationVM);
 
+                //destination.created_by = (int)Session["id"];
                 destination.updated_at = DateTime.Now;
                 destination.created_at = DateTime.Now;
 

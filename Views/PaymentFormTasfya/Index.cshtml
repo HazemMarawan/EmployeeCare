@@ -27,47 +27,47 @@
                                     <option value="">@ar.select_document</option>
                                 </select>
                             </div>
+                            @*<div class="form-group col-md-6">
+            <label>@ar.last_installment</label>
+            @Html.DropDownList("decision_id", new SelectList(ViewBag.decisions, "id", "title"), ar.select_decision, new { @class = "form-control", @name = "decision_id", @id = "decision_id", @required = "required" })
+        </div>*@
                             <div class="form-group col-md-6">
-                                <label>@ar.decisions</label>
-                                @Html.DropDownList("decision_id", new SelectList(ViewBag.decisions, "id", "title"), ar.select_decision, new { @class = "form-control", @name = "decision_id", @id = "decision_id", @required = "required" })
+                                <label>@ar.last_installment</label>
+                                <input type="text" name="last_installment" id="last_installment" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.salary</label>
-                                <input type="number" name="salary" id="salary" class="form-control radius-30" />
+                                <label>@ar.reason_est7kak</label>
+                                <input type="text" name="reason_est7kak" id="reason_est7kak" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.no_of_months</label>
-                                <input type="number" name="no_of_months" id="no_of_months" class="form-control radius-30" />
+                                <label>@ar.subscription_date</label>
+                                <input type="date" name="subscription_date" id="subscription_date" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.last_paid_installment</label>
-                                <input type="number" name="last_paid_installment" id="last_paid_installment" class="form-control radius-30" />
+                                <label>@ar.date_est7kak</label>
+                                <input type="date" name="date_est7kak" id="date_est7kak" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.deduct_amount_from_takaful</label>
-                                <input type="number" name="deduct_amount_from_takaful" id="deduct_amount_from_takaful" class="form-control radius-30" />
+                                <label>@ar.collected_installments</label>
+                                <input type="number" name="collected_installments" id="collected_installments" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.installment_need_deduct</label>
-                                <input type="number" name="installment_need_deduct" id="installment_need_deduct" class="form-control radius-30" />
+                                <label>@ar.record_no</label>
+                                <input type="number" name="record_no" id="record_no" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.debt_need_deduct</label>
-                                <input type="number" name="debt_need_deduct" id="debt_need_deduct" class="form-control radius-30" />
+                                <label>@ar.record_date</label>
+                                <input type="date" name="record_date" id="record_date" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.membership_subscription_deduct</label>
-                                <input type="number" name="membership_subscription_deduct" id="membership_subscription_deduct" class="form-control radius-30" />
-                            </div>
-                            <div class="form-group col-md-6">
-                                <label>@ar.final_paid</label>
-                                <input type="number" name="final_paid" id="final_paid" class="form-control radius-30" />
+                                <label>@ar.details</label>
+                                <input type="text" name="details" id="details" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.notes</label>
-                                <input type="number" name="notes" id="notes" class="form-control radius-30" />
+                                <input type="text" name="notes" id="notes" class="form-control radius-30" />
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
                                 <label>@ar.approval_status</label>
                                 <select name="approval_status" id="approval_status" class="form-control">
                                     <option value="1">@ar.ongoing_approve</option>
@@ -116,8 +116,8 @@
                             <th>@ar.id</th>
                             <th>@ar.employee_name</th>
                             <th>@ar.payment_form_date</th>
-                            <th>@ar.paid_takaful</th>
-                            <th>@ar.decision</th>
+                            <th>@ar.document_name</th>
+                            <th>@ar.dates</th>
                             <th class="no-content"></th>
                         </tr>
                     </thead>
@@ -187,24 +187,52 @@
                             "data": "string_created_at", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
 
-                                var html = "";
-                                var date = new Date(oData.string_created_at);
-                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
-                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
-                                ];
-                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
-                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
-                                html += delDateString;
+                                var html = "-";
+                                if (oData.string_created_at) {
+                                    var date = new Date(oData.string_created_at);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    html = delDateString;
+                                }
+
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
                         {
-                            "data": "final_paid",
+                            "data": "document_name",
                             "searchable": true
                         },
                         {
-                            "data": "decision_name",
-                            "searchable": true
+                            "data": "date_est7kak", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = '';
+                                var htmlSubscription = "-";
+                                var htmlEst7kak = "-";
+                                if (oData.string_subscription_date) {
+                                    var date = new Date(oData.string_subscription_date);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    htmlSubscription = delDateString;
+                                }
+                                if (oData.string_date_est7kak) {
+                                    var date = new Date(oData.string_date_est7kak);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    htmlEst7kak = delDateString;
+                                }
+                                html += '@ar.subscription_date' + " :" +htmlSubscription+"<br/>";
+                                html += '@ar.date_est7kak' + " :" + htmlEst7kak;
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
                         },
                         {
                             "data": "id", "searchable": true,
@@ -213,7 +241,7 @@
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
-                                html += "<a href='/PaymentForm/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
+                                html += "<a href='/PaymentFormTasfya/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -269,10 +297,44 @@
                                     });
                                     html += "</select>";
                                     dialog.find('#employee_document_div').append(html);
-                                    console.log(data.employeeDocuments);
+
+                                    //console.log(data.employeeDocuments);
                                 },
                                 error: function () {
-                                    alert("Dynamic content load failed.");
+                                    //alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
+
+                        $(document).on('change','#employee_document_id', function () {
+
+                            console.log($(this).val())
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("getEmployeeDocumentByID", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    console.log(data)
+                                    if (data.employeeDocument) {
+                                        if (data.employeeDocument.subscription_date) {
+                                            var value = new Date
+                                                (
+                                                    parseInt(data.employeeDocument.subscription_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                );
+                                            var subscription_date = value.getFullYear() +
+                                                "-" +
+                                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                                "-" +
+                                                ("0" + value.getDate()).slice(-2)
+                                                ;
+                                            dialog.find('#subscription_date').val(subscription_date);
+                                        }
+                                    }
+                                },
+                                error: function () {
+                                    //alert("Dynamic content load failed.");
                                 }
                             });
                         });
@@ -315,7 +377,7 @@
                                     console.log(data.employeeDocuments);
                                 },
                                 error: function () {
-                                    alert("Dynamic content load failed.");
+                                    //alert("Dynamic content load failed.");
                                 }
                             });
                         });
@@ -344,22 +406,93 @@
 
                                 },
                                 error: function () {
-                                    alert("Dynamic content load failed.");
+                                    //alert("Dynamic content load failed.");
                                 }
                         });
 
-                        dialog.find('#decision_id option[value=' + data.decision_id + ']').attr('selected', 'selected');
-                        dialog.find('#salary').val(data.salary);
-                        dialog.find('#no_of_months').val(data.no_of_months);
-                        dialog.find('#last_paid_installment').val(data.last_paid_installment);
-                        dialog.find('#deduct_amount_from_takaful').val(data.deduct_amount_from_takaful);
-                        dialog.find('#installment_need_deduct').val(data.installment_need_deduct);
-                        dialog.find('#debt_need_deduct').val(data.debt_need_deduct);
-                        dialog.find('#membership_subscription_deduct').val(data.membership_subscription_deduct);
-                        dialog.find('#final_paid').val(data.final_paid);
-                        dialog.find('#notes').val(data.notes);
+                         $(document).on('change','#employee_document_id', function () {
+
+                            console.log($(this).val())
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("getEmployeeDocumentByID", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    console.log(data)
+                                    if (data.employeeDocument) {
+                                        if (data.employeeDocument.subscription_date) {
+                                            var value = new Date
+                                                (
+                                                    parseInt(data.employeeDocument.subscription_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                                );
+                                            var subscription_date = value.getFullYear() +
+                                                "-" +
+                                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                                "-" +
+                                                ("0" + value.getDate()).slice(-2)
+                                                ;
+                                            dialog.find('#subscription_date').val(subscription_date);
+                                        }
+                                    }
+                                },
+                                error: function () {
+                                    //alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
+
+
                         dialog.find('#approval_status option[value=' + data.approval_status + ']').attr('selected', 'selected');
-                  });
+
+                        dialog.find('#record_no').val(data.record_no);
+                        dialog.find('#collected_installments').val(data.collected_installments);
+                        dialog.find('#reason_est7kak').val(data.reason_est7kak);
+                        dialog.find('#last_installment').val(data.last_installment);
+                        dialog.find('#details').val(data.details);
+                        dialog.find('#notes').val(data.notes);
+
+                        if (data.subscription_date != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.subscription_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var subscription_date = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#subscription_date').val(subscription_date);
+                        }
+                        if (data.date_est7kak != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.date_est7kak.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var date_est7kak = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                            dialog.find('#date_est7kak').val(date_est7kak);
+                        }
+                        if (data.record_date != null) {
+                            var value = new Date
+                                (
+                                    parseInt(data.record_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                                );
+                            var record_date = value.getFullYear() +
+                                "-" +
+                                ("0" + (value.getMonth() + 1)).slice(-2) +
+                                "-" +
+                                ("0" + value.getDate()).slice(-2)
+                                ;
+                                dialog.find('#record_date').val(record_date);
+                        }
+                });
 
             });
 

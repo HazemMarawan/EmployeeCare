@@ -2,6 +2,13 @@
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.1\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
+  </Target>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -135,6 +142,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Auth\CustomAuthenticationFilter.cs" />
+    <Compile Include="Controllers\AccountantTasfyaController.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\BankController.cs" />
@@ -214,6 +222,22 @@
     <Compile Include="Migrations\202112241908465_addInvoice.Designer.cs">
       <DependentUpon>202112241908465_addInvoice.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202112261841095_migPaymentForm.cs" />
+    <Compile Include="Migrations\202112261841095_migPaymentForm.Designer.cs">
+      <DependentUpon>202112261841095_migPaymentForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112261855550_fix_payment_form.cs" />
+    <Compile Include="Migrations\202112261855550_fix_payment_form.Designer.cs">
+      <DependentUpon>202112261855550_fix_payment_form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112262012378_add_subscription_date_payment_form.cs" />
+    <Compile Include="Migrations\202112262012378_add_subscription_date_payment_form.Designer.cs">
+      <DependentUpon>202112262012378_add_subscription_date_payment_form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202112271919356_update_payment_form.cs" />
+    <Compile Include="Migrations\202112271919356_update_payment_form.Designer.cs">
+      <DependentUpon>202112271919356_update_payment_form.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -232,6 +256,18 @@
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Reports\PaymentFormTasfyaFinal.cs">
+      <DependentUpon>PaymentFormTasfyaFinal.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Reports\PaymentFormTasfyaPart1.cs">
+      <DependentUpon>PaymentFormTasfyaPart1.rpt</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <SubType>Component</SubType>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Reports\PaymentFormFinal.cs">
       <DependentUpon>PaymentFormFinal.rpt</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -260,6 +296,7 @@
     <Compile Include="ViewModel\GradeViewModel.cs" />
     <Compile Include="ViewModel\InvoiceViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormReport.cs" />
+    <Compile Include="ViewModel\PaymentFormTasfyaViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormViewModel.cs" />
     <Compile Include="ViewModel\PaymentTypeViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
@@ -2722,6 +2759,7 @@
     <Content Include="Views\PaidOff\Index.cshtml" />
     <Content Include="Views\PaymentFormTasfya\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
+    <Content Include="Views\AccountantTasfya\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2788,6 +2826,26 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112241908465_addInvoice.resx">
       <DependentUpon>202112241908465_addInvoice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112261841095_migPaymentForm.resx">
+      <DependentUpon>202112261841095_migPaymentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112261855550_fix_payment_form.resx">
+      <DependentUpon>202112261855550_fix_payment_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112262012378_add_subscription_date_payment_form.resx">
+      <DependentUpon>202112262012378_add_subscription_date_payment_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202112271919356_update_payment_form.resx">
+      <DependentUpon>202112271919356_update_payment_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentFormTasfyaFinal.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\PaymentFormTasfyaPart1.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>PaymentFormTasfyaPart1.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

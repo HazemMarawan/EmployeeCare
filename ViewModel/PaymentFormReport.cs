@@ -58,6 +58,19 @@ namespace EmployeeCare.ViewModel
         public int  updated_by { get; set; }
         public DateTime  created_at { get; set; }
         public DateTime  updated_at { get; set; }
+        public DateTime birth_date { get; set; }
         public string string_created_at { get; set; }
+        public string details { get; set; }
+        public DateTime subscription_date { get; set; }
+        public string string_subscription_date { get; set; }
+        public string reason_est7kak { get; set; }
+        public DateTime date_est7kak { get; set; }
+        public string string_date_est7kak { get; set; }
+        public int record_no { get; set; }
+        public DateTime record_date { get; set; }
+        public double collected_installments { get; set; }
+        public string last_installment { get; set; }
+        public string string_record_date { get; set; }
+
     }
 }

@@ -168,7 +168,7 @@
                         }
                     },
                     "ajax": {
-                        "url": "@Url.Action("Index", "PaymentForm")",
+                        "url": "@Url.Action("Index", "PaidOff")",
                         "type": "POST",
                         "datatype": "json",
                         "dataSrc": "data"
@@ -186,14 +186,17 @@
                             "data": "string_created_at", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
 
-                                var html = "";
-                                var date = new Date(oData.string_created_at);
-                                var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
-                                    "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
-                                ];
-                                var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
-                                var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
-                                html += delDateString;
+                                var html = "-";
+                                if (oData.string_created_at) {
+                                    var date = new Date(oData.string_created_at);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    html = delDateString;
+                                }
+                               
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },

@@ -79,6 +79,24 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to حسايات التكافل.
+        /// </summary>
+        public static string accountants_takaful {
+            get {
+                return ResourceManager.GetString("accountants_takaful", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to حسابات التصفية.
+        /// </summary>
+        public static string accountants_tasfya {
+            get {
+                return ResourceManager.GetString("accountants_tasfya", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مفُعل.
         /// </summary>
         public static string active {
@@ -340,6 +358,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الأقساط المحصلة.
+        /// </summary>
+        public static string collected_installments {
+            get {
+                return ResourceManager.GetString("collected_installments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to بيانات التواصل.
         /// </summary>
         public static string contact {
@@ -363,6 +390,24 @@ namespace EmployeeCare.Resources {
         public static string date {
             get {
                 return ResourceManager.GetString("date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ الأستحقاق.
+        /// </summary>
+        public static string date_est7kak {
+            get {
+                return ResourceManager.GetString("date_est7kak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تواريخ.
+        /// </summary>
+        public static string dates {
+            get {
+                return ResourceManager.GetString("dates", resourceCulture);
             }
         }
         
@@ -502,11 +547,29 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to التفاصيل.
+        /// </summary>
+        public static string details {
+            get {
+                return ResourceManager.GetString("details", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مسئول استمارات.
         /// </summary>
         public static string docments_user {
             get {
                 return ResourceManager.GetString("docments_user", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to الوثيقة.
+        /// </summary>
+        public static string document_name {
+            get {
+                return ResourceManager.GetString("document_name", resourceCulture);
             }
         }
         
@@ -889,6 +952,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to أخر قسط.
+        /// </summary>
+        public static string last_installment {
+            get {
+                return ResourceManager.GetString("last_installment", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to اخر قسط تم سداده عن شهر.
         /// </summary>
         public static string last_paid_installment {
@@ -1263,6 +1335,33 @@ namespace EmployeeCare.Resources {
         public static string primary_data {
             get {
                 return ResourceManager.GetString("primary_data", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to سبب الأستحقاق.
+        /// </summary>
+        public static string reason_est7kak {
+            get {
+                return ResourceManager.GetString("reason_est7kak", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to تاريخ المحضر.
+        /// </summary>
+        public static string record_date {
+            get {
+                return ResourceManager.GetString("record_date", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to محضر رقم.
+        /// </summary>
+        public static string record_no {
+            get {
+                return ResourceManager.GetString("record_no", resourceCulture);
             }
         }
         

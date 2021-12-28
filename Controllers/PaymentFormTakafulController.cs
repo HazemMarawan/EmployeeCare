@@ -134,11 +134,13 @@ namespace EmployeeCare.Controllers
                 oldPaymentForm.salary = paymentFormVM.salary;
                 oldPaymentForm.no_of_months = paymentFormVM.no_of_months;
                 oldPaymentForm.last_paid_installment = paymentFormVM.last_paid_installment;
-                oldPaymentForm.deduct_amount_from_takaful = paymentFormVM.deduct_amount_from_takaful;
+                oldPaymentForm.deduct_amount_from_takaful = paymentFormVM.salary * paymentFormVM.no_of_months;
+
                 oldPaymentForm.installment_need_deduct = paymentFormVM.installment_need_deduct;
                 oldPaymentForm.debt_need_deduct = paymentFormVM.debt_need_deduct;
                 oldPaymentForm.membership_subscription_deduct = paymentFormVM.membership_subscription_deduct;
-                oldPaymentForm.final_paid = paymentFormVM.final_paid;
+
+                oldPaymentForm.final_paid = (paymentFormVM.salary * paymentFormVM.no_of_months) - paymentFormVM.installment_need_deduct - paymentFormVM.debt_need_deduct - paymentFormVM.membership_subscription_deduct;
                 oldPaymentForm.notes = paymentFormVM.notes;
                 oldPaymentForm.approval_status = paymentFormVM.approval_status;
                 oldPaymentForm.managerial_fees = paymentFormVM.managerial_fees;
@@ -188,24 +190,24 @@ namespace EmployeeCare.Controllers
                                            destinaion_name = destination.name,
                                            created_at = (DateTime)paymentform.created_at,
                                            decision_name = decision.title,
-                                           employee_document_id = (int)paymentform.employee_document_id,
-                                           employee_id = (int)employeeDocument.employee_id,
-                                           decision_id = (int)paymentform.decision_id,
-                                           salary = (double)paymentform.salary,
-                                           no_of_months = (double)paymentform.no_of_months,
+                                           employee_document_id = (int)(paymentform.employee_document_id != null ? paymentform.employee_document_id : 0),
+                                           employee_id = (int)(employeeDocument.employee_id != null ? employeeDocument.employee_id : 0),
+                                           decision_id = (int)(paymentform.decision_id != null ? paymentform.decision_id : 0),
+                                           salary = (double)(paymentform.salary != null ? paymentform.salary : 0),
+                                           no_of_months = (double)(paymentform.no_of_months != null ? paymentform.no_of_months : 0),
                                            last_paid_installment = paymentform.last_paid_installment,
-                                           deduct_amount_from_takaful = (double)paymentform.deduct_amount_from_takaful,
-                                           installment_need_deduct = (double)paymentform.installment_need_deduct,
-                                           debt_need_deduct = (double)paymentform.debt_need_deduct,
-                                           membership_subscription_deduct = (double)paymentform.membership_subscription_deduct,
-                                           final_paid = (double)paymentform.final_paid,
+                                           deduct_amount_from_takaful = (double)(paymentform.deduct_amount_from_takaful != null ? paymentform.deduct_amount_from_takaful : 0),
+                                           installment_need_deduct = (double)(paymentform.installment_need_deduct != null ? paymentform.installment_need_deduct : 0),
+                                           debt_need_deduct = (double)(paymentform.debt_need_deduct != null ? paymentform.debt_need_deduct : 0),
+                                           membership_subscription_deduct = (double)(paymentform.membership_subscription_deduct != null ? paymentform.membership_subscription_deduct : 0),
+                                           final_paid = (double)(paymentform.final_paid != null ? paymentform.final_paid : 0),
                                            notes = paymentform.notes,
-                                           approval_status = (int)paymentform.approval_status,
-                                           managerial_fees = (double)paymentform.managerial_fees,
-                                           installments = (int)paymentform.installments,
-                                           cheque_cost = (double)paymentform.cheque_cost,
-                                           other_income = (double)paymentform.other_income,
-                                           total_deduction = (double)paymentform.total_deduction,
+                                           approval_status = (int)(paymentform.approval_status != null ? paymentform.approval_status : 0),
+                                           managerial_fees = (double)(paymentform.managerial_fees != null ? paymentform.managerial_fees : 0),
+                                           installments = (int)(paymentform.installments != null ? paymentform.installments : 0),
+                                           cheque_cost = (double)(paymentform.cheque_cost != null ? paymentform.cheque_cost : 0),
+                                           other_income = (double)(paymentform.other_income != null ? paymentform.other_income : 0),
+                                           total_deduction = (double)(paymentform.total_deduction != null ? paymentform.total_deduction : 0),
                                            cheque_number = paymentform.cheque_number,
                                            modir_3am_elgam3ia = db.Settings.Where(set=>set.name == "modir_3am_elgam3ia").FirstOrDefault().value,
                                            modir_elhesabat = db.Settings.Where(set=>set.name == "modir_elhesabat").FirstOrDefault().value,
@@ -232,5 +234,6 @@ namespace EmployeeCare.Controllers
 
             return File(stream, "application/pdf", "PaymentForm"+ paymentFormViewModel[0].employee_name+DateTime.Now.ToString()+ ".pdf");
         }
+    
     }
 }

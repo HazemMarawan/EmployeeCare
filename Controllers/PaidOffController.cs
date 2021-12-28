@@ -82,12 +82,12 @@ namespace EmployeeCare.Controllers
                                            final_paid = s.final_paid,
                                            notes = s.notes,
                                            approval_status = s.approval_status,
-                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd"),
-                                           managerial_fees = db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value,
-                                           installments = db.Deductions.Select(m => m.installments).FirstOrDefault().Value,
-                                           other_income = db.Deductions.Select(m => m.other_income).FirstOrDefault().Value,
-                                           cheque_cost = (int)db.Deductions.Select(m => m.cheque_cost).FirstOrDefault().Value,
-                                           total_deduction = (double)db.Deductions.Select(m => m.total_deduction).FirstOrDefault().Value,
+                                           string_created_at = s.created_at != null?((DateTime)s.created_at).ToString("yyyy-MM-dd") :"",
+                                           managerial_fees = db.Deductions.Select(m => m.managerial_fees).FirstOrDefault() != null ? db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value : 0,
+                                           installments = db.Deductions.Select(m => m.installments).FirstOrDefault() != null ? db.Deductions.Select(m => m.installments).FirstOrDefault().Value : 0,
+                                           other_income = db.Deductions.Select(m => m.other_income).FirstOrDefault() != null ? db.Deductions.Select(m => m.other_income).FirstOrDefault().Value : 0,
+                                           cheque_cost = (int)(db.Deductions.Select(m => m.cheque_cost).FirstOrDefault() != null ? db.Deductions.Select(m => m.cheque_cost).FirstOrDefault().Value : 0),
+                                           total_deduction = (double)(db.Deductions.Select(m => m.total_deduction).FirstOrDefault() != null ? db.Deductions.Select(m => m.total_deduction).FirstOrDefault().Value : 0),
 
                                        }).Where(s => s.approval_status == 3);
 

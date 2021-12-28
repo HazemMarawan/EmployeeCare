@@ -41,12 +41,12 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.last_paid_installment</label>
-                                <input type="number" name="last_paid_installment" id="last_paid_installment" class="form-control radius-30" />
+                                <input type="text" name="last_paid_installment" id="last_paid_installment" class="form-control radius-30" />
                             </div>
-                            <div class="form-group col-md-6">
+                            @*<div class="form-group col-md-6">
                                 <label>@ar.deduct_amount_from_takaful</label>
                                 <input type="number" name="deduct_amount_from_takaful" id="deduct_amount_from_takaful" class="form-control radius-30" />
-                            </div>
+                            </div>*@
                             <div class="form-group col-md-6">
                                 <label>@ar.installment_need_deduct</label>
                                 <input type="number" name="installment_need_deduct" id="installment_need_deduct" class="form-control radius-30" />
@@ -59,13 +59,13 @@
                                 <label>@ar.membership_subscription_deduct</label>
                                 <input type="number" name="membership_subscription_deduct" id="membership_subscription_deduct" class="form-control radius-30" />
                             </div>
-                            <div class="form-group col-md-6">
+                            @*<div class="form-group col-md-6">
                                 <label>@ar.final_paid</label>
                                 <input type="number" name="final_paid" id="final_paid" class="form-control radius-30" />
-                            </div>
+                            </div>*@
                             <div class="form-group col-md-6">
                                 <label>@ar.notes</label>
-                                <input type="number" name="notes" id="notes" class="form-control radius-30" />
+                                <input type="text" name="notes" id="notes" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-12">
                                 <label>@ar.approval_status</label>
@@ -213,7 +213,7 @@
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
-                                html += "<a href='/PaymentForm/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
+                                html += "<a href='/PaymentFormTakaful/View/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
