@@ -162,6 +162,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\Tafkit.cs" />
     <Compile Include="Migrations\202112181600165_createDB.cs" />
     <Compile Include="Migrations\202112181600165_createDB.Designer.cs">
       <DependentUpon>202112181600165_createDB.cs</DependentUpon>

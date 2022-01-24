@@ -19,6 +19,7 @@ namespace EmployeeCare
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
             Mapper.CreateMap<DestinationViewModel, Destination>();
             Mapper.CreateMap<GradeViewModel, Grade>();
             Mapper.CreateMap<DocumentViewModel, Document>();

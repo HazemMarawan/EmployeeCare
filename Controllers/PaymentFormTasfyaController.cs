@@ -139,7 +139,9 @@ namespace EmployeeCare.Controllers
             if (paymentFormVM.id == 0)
             {
                 PaymentForm paymentForm = AutoMapper.Mapper.Map<PaymentFormViewModel, PaymentForm>(paymentFormVM);
-
+                paymentForm.deduct_amount_from_takaful = paymentForm.no_of_months * paymentForm.salary;
+                paymentForm.final_paid = paymentForm.deduct_amount_from_takaful - paymentForm.installment_need_deduct - paymentForm.debt_need_deduct - paymentForm.membership_subscription_deduct;
+                
                 paymentForm.updated_at = DateTime.Now;
                 paymentForm.created_at = DateTime.Now;
 
@@ -160,6 +162,9 @@ namespace EmployeeCare.Controllers
                 oldPaymentForm.details = paymentFormVM.details;
                 oldPaymentForm.type = (int)PaymentFormTypes.Tasfya;
                 oldPaymentForm.approval_status = paymentFormVM.approval_status;
+                oldPaymentForm.deduct_amount_from_takaful = paymentFormVM.no_of_months * paymentFormVM.salary;
+                oldPaymentForm.final_paid = paymentFormVM.deduct_amount_from_takaful - paymentFormVM.installment_need_deduct - paymentFormVM.debt_need_deduct - paymentFormVM.membership_subscription_deduct;
+
                 oldPaymentForm.notes = paymentFormVM.notes;               
                 oldPaymentForm.updated_at = DateTime.Now;
 
@@ -227,64 +232,63 @@ namespace EmployeeCare.Controllers
                                                                 modir_edart_elwasika = db.Settings.Where(set => set.name == "modir_edart_elwasika").FirstOrDefault().value,
                                                                 national_id = employee.national_id,
                                                                 //birth_date = (DateTime)employee.birth_date,
-                                                                string_birth_date = ((DateTime)employee.birth_date).ToString(),
-                                                                string_subscription_date = paymentform.subscription_date != null ? (paymentform.subscription_date).ToString() : "",
+                                                                string_birth_date = employee.birth_date != null ? ((DateTime)employee.birth_date).ToString() : "",
+                                                                string_subscription_date = paymentform.subscription_date != null ? ((DateTime)employee.birth_date).ToString() : "",
                                                                 reason_est7kak = paymentform.reason_est7kak,
                                                                 //date_est7kak = (DateTime)paymentform.date_est7kak,
-                                                                string_date_est7kak = paymentform.subscription_date != null ? (paymentform.date_est7kak).ToString() : "",
+                                                                string_date_est7kak = paymentform.date_est7kak != null ? ((DateTime)paymentform.date_est7kak).ToString() : "",
                                                                 collected_installments = (double)(paymentform.collected_installments != null ? paymentform.collected_installments : 0),
                                                                 //record_no = (int)(paymentform.record_no != null ? paymentform.record_no : 0),
                                                                 //record_date = (DateTime)paymentform.record_date,
-                                                                string_record_date = paymentform.record_date != null ? (paymentform.record_date).ToString() : "",
+                                                                string_record_date = paymentform.record_date != null ? ((DateTime)paymentform.record_date).ToString() : "",
                                                                 last_installment = paymentform.last_installment,
                                                                 details = paymentform.details
 
-                                                            }).Where(s => s.id == id).ToList();
-                                                            //.AsEnumerable().Select(s => new PaymentFormReport
-                                                            //{
-                                                            //    id = s.id,
-                                                            //    employee_name = s.employee_name,
-                                                            //    document_name = s.document_name,
-                                                            //    grade_name = s.grade_name,
-                                                            //    destinaion_name = s.destinaion_name,
-                                                            //    //created_at = s.created_at,
-                                                            //    //decision_name = decision.title,
-                                                            //    employee_document_id = s.employee_document_id,
-                                                            //    employee_id = s.employee_id,
-                                                            //    decision_id = s.decision_id,
-                                                            //    salary = s.salary,
-                                                            //    no_of_months = s.no_of_months,
-                                                            //    last_paid_installment = s.last_paid_installment,
-                                                            //    deduct_amount_from_takaful = s.deduct_amount_from_takaful,
-                                                            //    installment_need_deduct = s.installment_need_deduct,
-                                                            //    debt_need_deduct = s.debt_need_deduct,
-                                                            //    membership_subscription_deduct = s.membership_subscription_deduct,
-                                                            //    final_paid = s.final_paid,
-                                                            //    notes = s.notes,
-                                                            //    approval_status = s.approval_status,
-                                                            //    managerial_fees = s.managerial_fees,
-                                                            //    installments = s.installments,
-                                                            //    cheque_cost = s.cheque_cost,
-                                                            //    other_income = s.other_income,
-                                                            //    total_deduction = s.total_deduction,
-                                                            //    cheque_number = s.cheque_number,
-                                                            //    modir_3am_elgam3ia = s.modir_3am_elgam3ia,
-                                                            //    modir_elhesabat = s.modir_elhesabat,
-                                                            //    amin_elsandok = s.amin_elsandok,
-                                                            //    modir_edart_elwasika = s.modir_edart_elwasika,
-                                                            //    national_id = s.national_id,
-                                                            //    string_birth_date = s.birth_date != null ? s.birth_date.ToString() : "",
-                                                            //    string_subscription_date = s.subscription_date != null ? s.subscription_date.ToString() : "",
-                                                            //    reason_est7kak = s.reason_est7kak,
-                                                            //    //date_est7kak = s.date_est7kak,
-                                                            //    string_date_est7kak = s.date_est7kak != null ? s.date_est7kak.ToString() : "",
-                                                            //    collected_installments = s.collected_installments,
-                                                            //    record_no = s.record_no,
-                                                            //    //record_date = s.record_date,
-                                                            //    string_record_date = s.record_date != null ? s.record_date.ToString() : "",
-                                                            //    last_installment = s.last_installment,
-                                                            //    details = s.details
-                                                            //});
+                                                            }).Where(s => s.id == id).AsEnumerable().Select(s => new PaymentFormReport
+                                                             {
+                                                                id = s.id,
+                                                                employee_name = s.employee_name,
+                                                                document_name = s.document_name,
+                                                                grade_name = s.grade_name,
+                                                                destinaion_name = s.destinaion_name,
+                                                                created_at = s.created_at,
+                                                                //decision_name = decision.title,
+                                                                employee_document_id = s.employee_document_id,
+                                                                employee_id = s.employee_id,
+                                                                decision_id = s.decision_id,
+                                                                salary = s.salary,
+                                                                no_of_months = s.no_of_months,
+                                                                last_paid_installment = s.last_paid_installment,
+                                                                deduct_amount_from_takaful = s.deduct_amount_from_takaful,
+                                                                installment_need_deduct = s.installment_need_deduct,
+                                                                debt_need_deduct = s.debt_need_deduct,
+                                                                membership_subscription_deduct = s.membership_subscription_deduct,
+                                                                final_paid = s.final_paid,
+                                                                notes = s.notes,
+                                                                approval_status = s.approval_status,
+                                                                managerial_fees = s.managerial_fees,
+                                                                installments = s.installments,
+                                                                cheque_cost = s.cheque_cost,
+                                                                other_income = s.other_income,
+                                                                total_deduction =s.total_deduction,
+                                                                cheque_number = s.cheque_number,
+                                                                modir_3am_elgam3ia = s.modir_3am_elgam3ia,
+                                                                modir_elhesabat = s.modir_elhesabat,
+                                                                amin_elsandok = s.amin_elsandok,
+                                                                modir_edart_elwasika = s.modir_edart_elwasika,
+                                                                national_id = s.national_id,
+                                                                string_birth_date = !String.IsNullOrEmpty(s.string_birth_date) ? s.string_birth_date.Split(' ')[0] : "-",
+                                                                string_subscription_date = !String.IsNullOrEmpty(s.string_subscription_date) ? s.string_subscription_date.Split(' ')[0] : "-",
+                                                                reason_est7kak = s.reason_est7kak,
+                                                                string_date_est7kak = !String.IsNullOrEmpty(s.string_date_est7kak) ?s.string_date_est7kak.Split(' ')[0]:"-",
+                                                                collected_installments = s.collected_installments,
+                                                                string_record_date = !String.IsNullOrEmpty(s.string_record_date) ? s.string_record_date.Split(' ')[0] : "-",
+                                                                last_installment = s.last_installment,
+                                                                details = s.details,
+                                                                final_paid_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid.ToString())),
+                                                                collected_installments_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.collected_installments.ToString())),
+                                                                final_paid_after_deduction_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid_after_deduction.ToString())),
+                                                            }).ToList();
 
             rd.SetDataSource(paymentFormViewModel);
 

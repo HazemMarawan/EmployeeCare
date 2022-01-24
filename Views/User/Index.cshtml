@@ -421,7 +421,8 @@
                             ;
                             dialog.find('#birthDate').val(date_birthDate);
                         }
-                        dialog.find('#imageProfile').attr('src', data.imagePath);
+                        if (data.imagePath)
+                            dialog.find('#imageProfile').attr('src', data.imagePath);
                         dialog.find('#gender option[value=' + data.gender + ']').attr('selected', 'selected');
                         dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
                         dialog.find('#type option[value=' + data.type + ']').attr('selected', 'selected');

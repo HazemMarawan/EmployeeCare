@@ -29,7 +29,7 @@
                                 @Html.DropDownList("destination_id", new SelectList(ViewBag.destinations, "id", "name"), ar.select_destination, new { @class = "form-control", @name = "destination_id", @id = "destination_id", @required = "required" })
                             </div>
                             <div class="form-group col-md-6">
-                                <label>@ar.employee_file_number</label>
+                                <label>@ar.document_number</label>
                                 <input required name="employee_file_number" id="employee_file_number" type="text" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
@@ -225,7 +225,7 @@
                                 if (oData.code)
                                     html += "<small>" + '@ar.code' + ': ' + oData.code + "</small><br>";
                                 if (oData.employee_file_number)
-                                    html += "<small>" + '@ar.employee_file_number' + ': ' + oData.employee_file_number + "</small><br>";
+                                    html += "<small>" + '@ar.document_number' + ': ' + oData.employee_file_number + "</small><br>";
                                 if (oData.grade_name)
                                     html += "<small>" + '@ar.grade' + ': ' + oData.grade_name + "</small><br>";
 

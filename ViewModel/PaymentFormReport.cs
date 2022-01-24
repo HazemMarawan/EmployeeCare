@@ -27,7 +27,9 @@ namespace EmployeeCare.ViewModel
         public double  membership_subscription_deduct { get; set; }
         public double  final_paid { get; set; }
         public double  final_paid_after_deduction { get; set; }
+        public string  final_paid_after_deduction_tafkit { get; set; }
         public string notes { get; set; }
+        public string final_paid_tafkit { get; set; }
         public int  approval_status { get; set; }
         public double managerial_fees { get; set; }
         public double installments { get; set; }
@@ -69,6 +71,7 @@ namespace EmployeeCare.ViewModel
         public int record_no { get; set; }
         public DateTime record_date { get; set; }
         public double collected_installments { get; set; }
+        public string collected_installments_tafkit { get; set; }
         public string last_installment { get; set; }
         public string string_record_date { get; set; }
 

@@ -90,7 +90,7 @@
                             <th>@ar.id</th>
                             <th>@ar.employee_name</th>
                             <th>@ar.payment_form_date</th>
-                            <th>@ar.paid_takaful</th>
+                            <th>@ar.collected_installments</th>
                             <th>@ar.decision</th>
                             <th class="no-content"></th>
                         </tr>
@@ -173,7 +173,7 @@
                             }
                         },
                         {
-                            "data": "final_paid",
+                            "data": "collected_installments",
                             "searchable": true
                         },
                         {
@@ -187,8 +187,8 @@
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 //html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fa fa-trash'></i></a>&nbsp;";
-                               
-                                html += "<a href='/AccountantTasfya/ViewTasfya/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
+                                if (oData.subscription && oData.cheque_number)
+                                    html += "<a href='/AccountantTasfya/ViewTasfya/"+oData.id+"' title='@ar.payment_form_view'><i class='fa fa-eye'></i></a>&nbsp;";
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },

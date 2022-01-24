@@ -56,10 +56,11 @@ namespace EmployeeCare.Controllers
                                            membership_subscription_deduct = paymentform.membership_subscription_deduct,
                                            final_paid = paymentform.final_paid,
                                            notes = paymentform.notes,
+                                           collected_installments = paymentform.collected_installments,
                                            approval_status = paymentform.approval_status,
-                                           managerial_fees = paymentform.managerial_fees == null? db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value: paymentform.managerial_fees,
-                                           installments = paymentform.installments == null ? db.Deductions.Select(m => m.installments).FirstOrDefault().Value: paymentform.installments,
-                                           subscription = paymentform.subscription == null ? db.Deductions.Select(m => m.subscription).FirstOrDefault().Value: paymentform.subscription,
+                                           managerial_fees = paymentform.managerial_fees == null ? db.Deductions.Select(m => m.managerial_fees).FirstOrDefault().Value : paymentform.managerial_fees,
+                                           installments = paymentform.installments == null ? db.Deductions.Select(m => m.installments).FirstOrDefault().Value : paymentform.installments,
+                                           subscription = paymentform.subscription == null ? db.Deductions.Select(m => m.subscription).FirstOrDefault().Value : paymentform.subscription,
                                            other_income = paymentform.other_income == null ? db.Deductions.Select(m => m.other_income).FirstOrDefault().Value : paymentform.other_income,
                                            cheque_cost = paymentform.cheque_cost == null ? (int)db.Deductions.Select(m => m.cheque_cost).FirstOrDefault().Value : (int)paymentform.cheque_cost,
                                            total_deduction = (double)db.Deductions.Select(m => m.total_deduction).FirstOrDefault().Value,
@@ -76,6 +77,7 @@ namespace EmployeeCare.Controllers
                                            employee_id = s.employee_id,
                                            decision_id = s.decision_id,
                                            salary = s.salary,
+                                           collected_installments= s.collected_installments,
                                            no_of_months = s.no_of_months,
                                            last_paid_installment = s.last_paid_installment,
                                            deduct_amount_from_takaful = s.deduct_amount_from_takaful,
@@ -132,7 +134,7 @@ namespace EmployeeCare.Controllers
         [HttpPost]
         public JsonResult saveAccountant(PaymentFormViewModel paymentFormVM)
         {
-         
+
             PaymentForm oldPaymentForm = db.PaymentForms.Find(paymentFormVM.id);
 
             oldPaymentForm.approval_status = paymentFormVM.approval_status;
@@ -169,6 +171,7 @@ namespace EmployeeCare.Controllers
                                                                 id = paymentform.id,
                                                                 employee_name = employee.name,
                                                                 document_name = document.name,
+                                                                collected_installments = (double)paymentform.collected_installments,
                                                                 grade_name = grade.name,
                                                                 destinaion_name = destination.name,
                                                                 created_at = (DateTime)paymentform.created_at,
@@ -188,7 +191,7 @@ namespace EmployeeCare.Controllers
                                                                 approval_status = (int)paymentform.approval_status,
                                                                 managerial_fees = (double)paymentform.managerial_fees,
                                                                 gneh_managerial_fees = (int)paymentform.managerial_fees,
-                                                                ersh_managerial_fees = (double)((paymentform.managerial_fees - (int)paymentform.managerial_fees)*100),
+                                                                ersh_managerial_fees = (double)((paymentform.managerial_fees - (int)paymentform.managerial_fees) * 100),
                                                                 installments = (int)paymentform.installments,
                                                                 gneh_installments = (int)paymentform.installments,
                                                                 ersh_installments = (double)((paymentform.installments - (int)paymentform.installments) * 100),
@@ -210,10 +213,62 @@ namespace EmployeeCare.Controllers
                                                                 amin_elsandok = db.Settings.Where(set => set.name == "amin_elsandok").FirstOrDefault().value,
                                                                 modir_edart_elwasika = db.Settings.Where(set => set.name == "modir_edart_elwasika").FirstOrDefault().value,
                                                                 national_id = employee.national_id,
-                                                                string_birth_date = ((DateTime)employee.birth_date).ToString(),
+                                                                string_birth_date = employee.birth_date != null ? ((DateTime)employee.birth_date).ToString() : "",
                                                                 final_paid_after_deduction = (double)(paymentform.final_paid - paymentform.total_deduction)
 
-                                                            }).Where(s => s.id == id).ToList();
+                                                            }).Where(s => s.id == id).AsEnumerable().Select(s => new PaymentFormReport
+                                                            {
+                                                                id = s.id,
+                                                                employee_name = s.employee_name,
+                                                                document_name = s.document_name,
+                                                                grade_name = s.grade_name,
+                                                                destinaion_name = s.destinaion_name,
+                                                                created_at = s.created_at,
+                                                                decision_name = s.decision_name,
+                                                                employee_document_id = s.employee_document_id,
+                                                                employee_id = s.employee_id,
+                                                                decision_id = s.decision_id,
+                                                                collected_installments = s.collected_installments,
+                                                                salary = s.salary,
+                                                                no_of_months = s.no_of_months,
+                                                                last_paid_installment = s.last_paid_installment,
+                                                                deduct_amount_from_takaful = s.deduct_amount_from_takaful,
+                                                                installment_need_deduct = s.installment_need_deduct,
+                                                                debt_need_deduct = s.debt_need_deduct,
+                                                                membership_subscription_deduct = s.membership_subscription_deduct,
+                                                                final_paid = s.final_paid,
+                                                                notes = s.notes,
+                                                                approval_status = s.approval_status,
+                                                                managerial_fees = s.managerial_fees,
+                                                                gneh_managerial_fees = s.gneh_managerial_fees,
+                                                                ersh_managerial_fees = s.ersh_managerial_fees,
+                                                                installments = s.installments,
+                                                                gneh_installments = s.gneh_installments,
+                                                                ersh_installments = s.ersh_installments,
+                                                                cheque_cost = s.cheque_cost,
+                                                                gneh_cheque_cost = s.gneh_cheque_cost,
+                                                                ersh_cheque_cost = s.ersh_cheque_cost,
+                                                                other_income = s.other_income,
+                                                                gneh_other_income = s.gneh_other_income,
+                                                                ersh_other_income = s.ersh_other_income,
+                                                                total_deduction = s.total_deduction,
+                                                                gneh_total_deduction = s.gneh_total_deduction,
+                                                                ersh_total_deduction = s.ersh_total_deduction,
+                                                                subscription = s.subscription,
+                                                                gneh_subscription = s.gneh_subscription,
+                                                                ersh_subscription = s.ersh_subscription,
+                                                                cheque_number = s.cheque_number,
+                                                                modir_3am_elgam3ia = s.modir_3am_elgam3ia,
+                                                                modir_elhesabat = s.modir_elhesabat,
+                                                                amin_elsandok = s.amin_elsandok,
+                                                                modir_edart_elwasika = s.modir_edart_elwasika,
+                                                                national_id = s.national_id,
+                                                                string_birth_date = !String.IsNullOrEmpty(s.string_birth_date) ? s.string_birth_date.Split(' ')[0] : "-",
+                                                                final_paid_after_deduction = s.final_paid_after_deduction,
+                                                                final_paid_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid.ToString())),
+                                                                final_paid_after_deduction_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid_after_deduction.ToString())),
+                                                                collected_installments_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.collected_installments.ToString()))
+                                                            }).ToList();
 
             rd.SetDataSource(paymentFormViewModel);
 
@@ -238,7 +293,7 @@ namespace EmployeeCare.Controllers
             ReportDocument rd = new ReportDocument();
             rd.Load(Path.Combine(Server.MapPath("~/Reports"), "PaymentFormTasfyaFinal.rpt"));
             List<Setting> settings = db.Settings.ToList();
-           
+
 
             List<PaymentFormReport> paymentFormViewModel = (from paymentform in db.PaymentForms
                                                             join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
@@ -255,7 +310,6 @@ namespace EmployeeCare.Controllers
                                                                 grade_name = grade.name,
                                                                 destinaion_name = destination.name,
                                                                 created_at = (DateTime)paymentform.created_at,
-                                                                //decision_name = decision.title,
                                                                 employee_document_id = (int)(paymentform.employee_document_id != null ? paymentform.employee_document_id : 0),
                                                                 employee_id = (int)(employeeDocument.employee_id != null ? employeeDocument.employee_id : 0),
                                                                 decision_id = (int)(paymentform.decision_id != null ? paymentform.decision_id : 0),
@@ -280,16 +334,12 @@ namespace EmployeeCare.Controllers
                                                                 amin_elsandok = db.Settings.Where(set => set.name == "amin_elsandok").FirstOrDefault().value,
                                                                 modir_edart_elwasika = db.Settings.Where(set => set.name == "modir_edart_elwasika").FirstOrDefault().value,
                                                                 national_id = employee.national_id,
-                                                                //birth_date = (DateTime)employee.birth_date,
-                                                                string_birth_date = ((DateTime)employee.birth_date).ToString(),
-                                                                string_subscription_date = paymentform.subscription_date != null ? (paymentform.subscription_date).ToString() : "",
+                                                                string_birth_date = employee.birth_date != null ? ((DateTime)employee.birth_date).ToString() : "",
+                                                                string_subscription_date = paymentform.subscription_date != null ? ((DateTime)paymentform.subscription_date).ToString() : "",
                                                                 reason_est7kak = paymentform.reason_est7kak,
-                                                                //date_est7kak = (DateTime)paymentform.date_est7kak,
-                                                                string_date_est7kak = paymentform.subscription_date != null ? (paymentform.date_est7kak).ToString() : "",
+                                                                string_date_est7kak = paymentform.date_est7kak != null ? ((DateTime)paymentform.date_est7kak).ToString() : "",
                                                                 collected_installments = (double)(paymentform.collected_installments != null ? paymentform.collected_installments : 0),
-                                                                //record_no = (int)(paymentform.record_no != null ? paymentform.record_no : 0),
-                                                                //record_date = (DateTime)paymentform.record_date,
-                                                                string_record_date = paymentform.record_date != null ? (paymentform.record_date).ToString() : "",
+                                                                string_record_date = paymentform.record_date != null ? ((DateTime)paymentform.record_date).ToString() : "",
                                                                 last_installment = paymentform.last_installment,
                                                                 details = paymentform.details,
                                                                 gneh_managerial_fees = (int)paymentform.managerial_fees,
@@ -307,59 +357,70 @@ namespace EmployeeCare.Controllers
                                                                 ersh_subscription = (double)((paymentform.subscription - (int)paymentform.subscription) * 100),
                                                                 final_paid_after_deduction = (double)(paymentform.collected_installments - paymentform.total_deduction)
 
-                                                            }).Where(s => s.id == id).ToList();
-            //.AsEnumerable().Select(s => new PaymentFormReport
-            //{
-            //    id = s.id,
-            //    employee_name = s.employee_name,
-            //    document_name = s.document_name,
-            //    grade_name = s.grade_name,
-            //    destinaion_name = s.destinaion_name,
-            //    //created_at = s.created_at,
-            //    //decision_name = decision.title,
-            //    employee_document_id = s.employee_document_id,
-            //    employee_id = s.employee_id,
-            //    decision_id = s.decision_id,
-            //    salary = s.salary,
-            //    no_of_months = s.no_of_months,
-            //    last_paid_installment = s.last_paid_installment,
-            //    deduct_amount_from_takaful = s.deduct_amount_from_takaful,
-            //    installment_need_deduct = s.installment_need_deduct,
-            //    debt_need_deduct = s.debt_need_deduct,
-            //    membership_subscription_deduct = s.membership_subscription_deduct,
-            //    final_paid = s.final_paid,
-            //    notes = s.notes,
-            //    approval_status = s.approval_status,
-            //    managerial_fees = s.managerial_fees,
-            //    installments = s.installments,
-            //    cheque_cost = s.cheque_cost,
-            //    other_income = s.other_income,
-            //    total_deduction = s.total_deduction,
-            //    cheque_number = s.cheque_number,
-            //    modir_3am_elgam3ia = s.modir_3am_elgam3ia,
-            //    modir_elhesabat = s.modir_elhesabat,
-            //    amin_elsandok = s.amin_elsandok,
-            //    modir_edart_elwasika = s.modir_edart_elwasika,
-            //    national_id = s.national_id,
-            //    string_birth_date = s.birth_date != null ? s.birth_date.ToString() : "",
-            //    string_subscription_date = s.subscription_date != null ? s.subscription_date.ToString() : "",
-            //    reason_est7kak = s.reason_est7kak,
-            //    //date_est7kak = s.date_est7kak,
-            //    string_date_est7kak = s.date_est7kak != null ? s.date_est7kak.ToString() : "",
-            //    collected_installments = s.collected_installments,
-            //    record_no = s.record_no,
-            //    //record_date = s.record_date,
-            //    string_record_date = s.record_date != null ? s.record_date.ToString() : "",
-            //    last_installment = s.last_installment,
-            //    details = s.details
-            //});
+                                                            }).Where(s => s.id == id).AsEnumerable().Select(s => new PaymentFormReport
+                                                            {
+                                                                id = s.id,
+                                                                employee_name = s.employee_name,
+                                                                document_name = s.document_name,
+                                                                grade_name = s.grade_name,
+                                                                destinaion_name = s.destinaion_name,
+                                                                created_at = s.created_at,
+                                                                employee_document_id = s.employee_document_id,
+                                                                employee_id = s.employee_id,
+                                                                decision_id = s.decision_id,
+                                                                salary = s.salary,
+                                                                no_of_months = s.no_of_months,
+                                                                last_paid_installment = s.last_paid_installment,
+                                                                deduct_amount_from_takaful = s.deduct_amount_from_takaful,
+                                                                installment_need_deduct = s.installment_need_deduct,
+                                                                debt_need_deduct = s.debt_need_deduct,
+                                                                membership_subscription_deduct = s.membership_subscription_deduct,
+                                                                final_paid = s.final_paid,
+                                                                notes = s.notes,
+                                                                approval_status = s.approval_status,
+                                                                managerial_fees = s.managerial_fees,
+                                                                installments = s.installments,
+                                                                cheque_cost = s.cheque_cost,
+                                                                other_income = s.other_income,
+                                                                total_deduction = s.total_deduction,
+                                                                cheque_number = s.cheque_number,
+                                                                modir_3am_elgam3ia = s.modir_3am_elgam3ia,
+                                                                modir_elhesabat = s.modir_elhesabat,
+                                                                amin_elsandok = s.amin_elsandok,
+                                                                modir_edart_elwasika = s.modir_edart_elwasika,
+                                                                national_id = s.national_id,
+                                                                string_birth_date = s.string_birth_date != null ? s.string_birth_date.Split(' ')[0] : "",
+                                                                string_subscription_date = s.string_subscription_date != null ? s.string_subscription_date.Split(' ')[0] : "",
+                                                                reason_est7kak = s.reason_est7kak,
+                                                                string_date_est7kak = s.string_date_est7kak != null ? s.string_date_est7kak.Split(' ')[0] : "",
+                                                                collected_installments = s.collected_installments,
+                                                                string_record_date = s.string_record_date != null ? s.string_record_date.Split(' ')[0] : "",
+                                                                last_installment = s.last_installment,
+                                                                details = s.details,
+                                                                gneh_managerial_fees = s.gneh_managerial_fees,
+                                                                ersh_managerial_fees = s.ersh_managerial_fees,
+                                                                gneh_installments = s.gneh_installments,
+                                                                ersh_installments = s.ersh_installments,
+                                                                gneh_cheque_cost = s.gneh_cheque_cost,
+                                                                ersh_cheque_cost = s.ersh_cheque_cost,
+                                                                gneh_other_income = s.gneh_other_income,
+                                                                ersh_other_income = s.ersh_other_income,
+                                                                gneh_total_deduction = s.gneh_total_deduction,
+                                                                ersh_total_deduction = s.ersh_total_deduction,
+                                                                subscription = s.subscription,
+                                                                gneh_subscription = s.gneh_subscription,
+                                                                ersh_subscription = s.ersh_subscription,
+                                                                final_paid_after_deduction = s.final_paid_after_deduction,
+                                                                final_paid_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid.ToString())),
+                                                                final_paid_after_deduction_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.final_paid_after_deduction.ToString())),
+                                                                collected_installments_tafkit = Tafkit.ConvertToText(Decimal.Parse(s.collected_installments.ToString()))
+                                                            }).ToList();
 
             rd.SetDataSource(paymentFormViewModel);
 
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
-
 
             rd.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
             rd.PrintOptions.ApplyPageMargins(new CrystalDecisions.Shared.PageMargins(5, 5, 5, 5));

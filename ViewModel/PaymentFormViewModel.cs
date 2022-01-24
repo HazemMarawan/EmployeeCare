@@ -37,7 +37,7 @@ namespace EmployeeCare.ViewModel
         public int? type { get; set; }
         public DateTime? record_date { get; set; }
         public int? record_number { get; set; }
-        public int? collected_installments { get; set; }
+        public double? collected_installments { get; set; }
         public DateTime? due_date { get; set; }
         public string last_installment { get; set; }
         public int? created_by { get; set; }

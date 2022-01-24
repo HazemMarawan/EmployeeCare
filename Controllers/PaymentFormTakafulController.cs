@@ -119,6 +119,8 @@ namespace EmployeeCare.Controllers
             if (paymentFormVM.id == 0)
             {
                 PaymentForm paymentForm = AutoMapper.Mapper.Map<PaymentFormViewModel, PaymentForm>(paymentFormVM);
+                paymentForm.deduct_amount_from_takaful = paymentForm.no_of_months * paymentForm.salary;
+                paymentForm.final_paid = paymentForm.deduct_amount_from_takaful - paymentForm.installment_need_deduct - paymentForm.debt_need_deduct - paymentForm.membership_subscription_deduct;
 
                 paymentForm.updated_at = DateTime.Now;
                 paymentForm.created_at = DateTime.Now;
@@ -139,7 +141,6 @@ namespace EmployeeCare.Controllers
                 oldPaymentForm.installment_need_deduct = paymentFormVM.installment_need_deduct;
                 oldPaymentForm.debt_need_deduct = paymentFormVM.debt_need_deduct;
                 oldPaymentForm.membership_subscription_deduct = paymentFormVM.membership_subscription_deduct;
-
                 oldPaymentForm.final_paid = (paymentFormVM.salary * paymentFormVM.no_of_months) - paymentFormVM.installment_need_deduct - paymentFormVM.debt_need_deduct - paymentFormVM.membership_subscription_deduct;
                 oldPaymentForm.notes = paymentFormVM.notes;
                 oldPaymentForm.approval_status = paymentFormVM.approval_status;
@@ -151,7 +152,6 @@ namespace EmployeeCare.Controllers
                 oldPaymentForm.cheque_number = paymentFormVM.cheque_number;
                 oldPaymentForm.updated_at = DateTime.Now;
 
-                db.Entry(oldPaymentForm).State = System.Data.Entity.EntityState.Modified;
             }   
             db.SaveChanges();
 
@@ -214,9 +214,43 @@ namespace EmployeeCare.Controllers
                                            amin_elsandok = db.Settings.Where(set=>set.name == "amin_elsandok").FirstOrDefault().value,
                                            modir_edart_elwasika = db.Settings.Where(set=>set.name == "modir_edart_elwasika").FirstOrDefault().value,
                                            national_id = employee.national_id,
-                                           string_birth_date = ((DateTime)employee.birth_date).ToString()
+                                           string_birth_date = employee.birth_date != null ? ((DateTime)employee.birth_date).ToString() : "",
 
-                                       }).Where(s=>s.id == id).ToList();
+                                       }).Where(s=>s.id == id).AsEnumerable().Select(s=> new PaymentFormReport {
+                                           id = s.id,
+                                           employee_name = s.employee_name,
+                                           document_name = s.document_name,
+                                           grade_name = s.grade_name,
+                                           destinaion_name = s.destinaion_name,
+                                           created_at = s.created_at,
+                                           decision_name = s.decision_name,
+                                           employee_document_id = s.employee_document_id,
+                                           employee_id = s.employee_id,
+                                           decision_id = s.decision_id,
+                                           salary = s.salary,
+                                           no_of_months = s.no_of_months,
+                                           last_paid_installment = s.last_paid_installment,
+                                           deduct_amount_from_takaful = s.deduct_amount_from_takaful,
+                                           installment_need_deduct = s.installment_need_deduct,
+                                           debt_need_deduct = s.debt_need_deduct,
+                                           membership_subscription_deduct = s.membership_subscription_deduct,
+                                           final_paid = s.final_paid,
+                                           notes = s.notes,
+                                           approval_status = s.approval_status,
+                                           managerial_fees = s.managerial_fees,
+                                           installments = s.installments,
+                                           cheque_cost = s.cheque_cost,
+                                           other_income = s.other_income,
+                                           total_deduction = s.total_deduction,
+                                           cheque_number = s.cheque_number,
+                                           modir_3am_elgam3ia = s.modir_3am_elgam3ia,
+                                           modir_elhesabat = s.modir_elhesabat,
+                                           amin_elsandok = s.amin_elsandok,
+                                           modir_edart_elwasika = s.modir_edart_elwasika,
+                                           national_id = s.national_id,
+                                           string_birth_date = !String.IsNullOrEmpty(s.string_birth_date) ? s.string_birth_date.Split(' ')[0] : "-",
+                                           final_paid_tafkit = Tafkit.ConvertToText((decimal)s.final_paid)
+                                       }).ToList();
 
             rd.SetDataSource(paymentFormViewModel);
 
