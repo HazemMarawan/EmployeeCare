@@ -23,8 +23,11 @@ namespace EmployeeCare.Controllers
                 var start = Request.Form.GetValues("start").FirstOrDefault();
                 var length = Request.Form.GetValues("length").FirstOrDefault();
                 var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
-                var from_date = Request.Form.GetValues("columns[0][search][value]")[0];
-                var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
+                var search_destination_id = Request.Form.GetValues("columns[0][search][value]")[0];
+                var search_grade_id = Request.Form.GetValues("columns[1][search][value]")[0];
+                var search_status = Request.Form.GetValues("columns[2][search][value]")[0];
+                var search_membership_status = Request.Form.GetValues("columns[3][search][value]")[0];
+                var search_bank_id = Request.Form.GetValues("columns[4][search][value]")[0];
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
@@ -90,6 +93,32 @@ namespace EmployeeCare.Controllers
                        );
                 }
 
+                if (!string.IsNullOrEmpty(search_destination_id))
+                {
+                    int search_destination_id_int = int.Parse(search_destination_id);
+                    destinationData = destinationData.Where(s => s.destination_id == search_destination_id_int);
+                }
+
+                if (!string.IsNullOrEmpty(search_grade_id))
+                {
+                    int search_grade_id_int = int.Parse(search_grade_id);
+                    destinationData = destinationData.Where(s => s.grade_id == search_grade_id_int);
+                }
+                if (!string.IsNullOrEmpty(search_status))
+                {
+                    int search_status_id = int.Parse(search_status);
+                    destinationData = destinationData.Where(s => s.employee_status == search_status_id);
+                }
+                if (!string.IsNullOrEmpty(search_membership_status))
+                {
+                    int search_membership_status_int = int.Parse(search_membership_status);
+                    destinationData = destinationData.Where(s => s.membership_status == search_membership_status_int);
+                }
+                if (!string.IsNullOrEmpty(search_bank_id))
+                {
+                    int search_bank_id_int = int.Parse(search_bank_id);
+                    destinationData = destinationData.Where(s => s.bank_id == search_bank_id_int);
+                }
                 //total number of rows count     
                 var displayResult = destinationData.OrderByDescending(u => u.id).Skip(skip)
                      .Take(pageSize).ToList();

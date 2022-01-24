@@ -126,6 +126,32 @@
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
     <div class="row">
         <div class="form-group col-4">
+            @Html.DropDownList("search_destination_id", new SelectList(ViewBag.destinations, "id", "name"), ar.select_destination, new { @class = "form-control", @name = "search_destination_id", @id = "search_destination_id" })
+        </div>
+        <div class="form-group col-4">
+            @Html.DropDownList("search_grade_id", new SelectList(ViewBag.grades, "id", "name"), ar.select_grade, new { @class = "form-control", @name = "search_grade_id", @id = "search_grade_id" })
+        </div>
+        <div class="form-group col-4">
+            <select class="form-control" name="search_status" id="search_status">
+                <option value="">@ar.employee_status</option>
+                <option value="1">@ar.in_service</option>
+                <option value="2">@ar.end_of_service</option>
+                <option value="3">@ar.dead</option>
+                <option value="4">@ar.pension</option>
+                <option value="5">@ar.filtering</option>
+                <option value="6">@ar.deputation</option>
+                <option value="7">@ar.leave_without_pay</option>
+            </select>        </div>
+        <div class="form-group col-4">
+            <select class="form-control" name="search_membership_status" id="search_membership_status">
+                <option value=""">@ar.membership_status</option>
+                <option value="1">@ar.member_only</option>
+                <option value="2">@ar.member_and_subscription</option>
+            </select>        </div>
+        <div class="form-group col-4">
+            @Html.DropDownList("search_bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "search_bank_id", @id = "search_bank_id" })
+        </div>
+        <div class="form-group col-4">
             <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
         </div>
         <div class="form-group col-2">
@@ -325,6 +351,12 @@
 
             $('#search').on('click', function () {
                 datatable.search($("#text_search").val());
+                datatable.columns(0).search($("#search_destination_id").val());
+                datatable.columns(1).search($("#search_grade_id").val());
+                datatable.columns(2).search($("#search_status").val());
+                datatable.columns(3).search($("#search_membership_status").val());
+                datatable.columns(4).search($("#search_bank_id").val());
+
                 datatable.draw();
             });
 
@@ -335,6 +367,11 @@
 
             $('#reset').on('click', function () {
                 $("#text_search").val("");
+                $("#search_destination_id").val("");
+                $("#search_grade_id").val("");
+                $("#search_status").val("");
+                $("#search_membership_status").val("");
+                $("#search_bank_id").val("");
 
                 $('#search').trigger('click');
 
