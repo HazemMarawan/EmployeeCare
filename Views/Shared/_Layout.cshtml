@@ -374,6 +374,19 @@
     <script>
         $(document).ready(function () {
             App.init();
+            function fixDate(input_date) {
+                var value = new Date
+                    (
+                        parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                    );
+                var output_date = value.getFullYear() +
+                    "-" +
+                    ("0" + (value.getMonth() + 1)).slice(-2) +
+                    "-" +
+                    ("0" + value.getDate()).slice(-2)
+                    ;
+                return output_date;
+            }
         });
     </script>
     <script src="~/Content/AdminPanel/assets/js/custom.js"></script>

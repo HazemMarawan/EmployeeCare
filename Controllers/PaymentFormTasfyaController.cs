@@ -306,5 +306,110 @@ namespace EmployeeCare.Controllers
 
             return File(stream, "application/pdf", "PaymentFormTasfya" + paymentFormViewModel[0].employee_name + DateTime.Now.ToString() + ".pdf");
         }
+
+        public ActionResult Report(int id)
+        {
+
+            if (Request.IsAjaxRequest())
+            {
+                var draw = Request.Form.GetValues("draw").FirstOrDefault();
+                var start = Request.Form.GetValues("start").FirstOrDefault();
+                var length = Request.Form.GetValues("length").FirstOrDefault();
+                var searchValue = Request.Form.GetValues("search[value]").FirstOrDefault();
+                var from_date = Request.Form.GetValues("columns[0][search][value]")[0];
+                var to_date = Request.Form.GetValues("columns[1][search][value]")[0];
+                int pageSize = length != null ? Convert.ToInt32(length) : 0;
+                int skip = start != null ? Convert.ToInt32(start) : 0;
+
+                // Getting all data    
+                var reportData = (from paymentFormTasfyaReport in db.PaymentFormTasfyaReports
+
+                                       select new PaymentFormTasfyaReportViewModel
+                                       {
+                                           id = paymentFormTasfyaReport.id,
+                                           subscription_date = paymentFormTasfyaReport.subscription_date,
+                                           salary = paymentFormTasfyaReport.salary,
+                                           discount_percentage = paymentFormTasfyaReport.discount_percentage,
+                                           reserved_months = paymentFormTasfyaReport.reserved_months,
+                                           total = paymentFormTasfyaReport.total,
+                                           payment_form_id = paymentFormTasfyaReport.payment_form_id,
+                                           created_at = paymentFormTasfyaReport.created_at
+                                       }).Where(r=>r.payment_form_id == id).AsEnumerable().Select(s => new PaymentFormTasfyaReportViewModel
+                                       {
+                                           id = s.id,
+                                           string_subscription_date = ((DateTime)s.subscription_date).ToString("yyyy-MM-dd"),
+                                           salary = s.salary,
+                                           subscription_date = s.subscription_date,
+                                           discount_percentage = s.discount_percentage,
+                                           reserved_months = s.reserved_months,
+                                           total = s.total,
+                                           payment_form_id = s.payment_form_id,
+                                           string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
+                                       });
+
+                //Search    
+                if (!string.IsNullOrEmpty(searchValue))
+                {
+                    reportData = reportData.Where(m => m.salary.ToString().ToLower().Contains(searchValue.ToLower()) || m.id.ToString().ToLower().Contains(searchValue.ToLower()));
+                }
+
+                //total number of rows count     
+                var displayResult = reportData.OrderByDescending(u => u.id).Skip(skip)
+                     .Take(pageSize).ToList();
+                var totalRecords = reportData.Count();
+
+                return Json(new
+                {
+                    draw = draw,
+                    recordsTotal = totalRecords,
+                    recordsFiltered = totalRecords,
+                    data = displayResult
+
+                }, JsonRequestBehavior.AllowGet);
+
+            }
+            ViewBag.payment_form_id = id;
+            return View();
+        }
+
+        public JsonResult savePaymentFormTasfyaReport(PaymentFormTasfyaReportViewModel paymentFormTasfyaReportViewModel)
+        {
+            if (paymentFormTasfyaReportViewModel.id == 0)
+            {
+                PaymentFormTasfyaReport paymentFormTasfyaReport = AutoMapper.Mapper.Map<PaymentFormTasfyaReportViewModel, PaymentFormTasfyaReport>(paymentFormTasfyaReportViewModel);
+
+                //destination.created_by = (int)Session["id"];
+                paymentFormTasfyaReport.updated_at = DateTime.Now;
+                paymentFormTasfyaReport.created_at = DateTime.Now;
+
+                db.PaymentFormTasfyaReports.Add(paymentFormTasfyaReport);
+            }
+            else
+            {
+                PaymentFormTasfyaReport oldPaymentFormTasfyaReport = db.PaymentFormTasfyaReports.Find(paymentFormTasfyaReportViewModel.id);
+
+                oldPaymentFormTasfyaReport.subscription_date = paymentFormTasfyaReportViewModel.subscription_date;
+                oldPaymentFormTasfyaReport.salary = paymentFormTasfyaReportViewModel.salary;
+                oldPaymentFormTasfyaReport.discount_percentage = paymentFormTasfyaReportViewModel.discount_percentage;
+                oldPaymentFormTasfyaReport.reserved_months = paymentFormTasfyaReportViewModel.reserved_months;
+                oldPaymentFormTasfyaReport.total = paymentFormTasfyaReportViewModel.total;
+                oldPaymentFormTasfyaReport.updated_at = DateTime.Now;
+
+            }
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+
+        }
+
+        [HttpGet]
+        public JsonResult deletePaymentFormTasfyaReport(int id)
+        {
+            PaymentFormTasfyaReport deletePaymentFormTasfyaReport = db.PaymentFormTasfyaReports.Find(id);
+            db.PaymentFormTasfyaReports.Remove(deletePaymentFormTasfyaReport);
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

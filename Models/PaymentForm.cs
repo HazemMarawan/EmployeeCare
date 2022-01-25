@@ -52,5 +52,6 @@ namespace EmployeeCare.Models
         public int? updated_by { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
+        public virtual ICollection<PaymentFormTasfyaReport> PaymentFormReports { get; set; }
     }
 }

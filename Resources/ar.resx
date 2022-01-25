@@ -618,6 +618,9 @@
   <data name="tasfya" xml:space="preserve">
     <value>تصفية</value>
   </data>
+  <data name="tasfya_report" xml:space="preserve">
+    <value>كشف التصفية</value>
+  </data>
   <data name="to" xml:space="preserve">
     <value>الي</value>
   </data>

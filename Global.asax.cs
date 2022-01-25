@@ -31,6 +31,7 @@ namespace EmployeeCare
             Mapper.CreateMap<PaymentFormViewModel, PaymentForm>();
             Mapper.CreateMap<DecisionViewModel, Decision>();
             Mapper.CreateMap<InvoiceViewModel, Invoice>();
+            Mapper.CreateMap<PaymentFormTasfyaReportViewModel, PaymentFormTasfyaReport>();
         }
     }
 }

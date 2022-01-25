@@ -1564,6 +1564,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to كشف التصفية.
+        /// </summary>
+        public static string tasfya_report {
+            get {
+                return ResourceManager.GetString("tasfya_report", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الي.
         /// </summary>
         public static string to {

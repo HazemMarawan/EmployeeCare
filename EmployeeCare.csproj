@@ -243,6 +243,10 @@
     <Compile Include="Migrations\202201250814447_updatePaymentForm.Designer.cs">
       <DependentUpon>202201250814447_updatePaymentForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201250904125_paymentFormReport.cs" />
+    <Compile Include="Migrations\202201250904125_paymentFormReport.Designer.cs">
+      <DependentUpon>202201250904125_paymentFormReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -257,6 +261,7 @@
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\Invoice.cs" />
     <Compile Include="Models\PaymentForm.cs" />
+    <Compile Include="Models\PaymentFormTasfyaReport.cs" />
     <Compile Include="Models\PaymentType.cs" />
     <Compile Include="Models\Setting.cs" />
     <Compile Include="Models\User.cs" />
@@ -303,6 +308,7 @@
     <Compile Include="ViewModel\PaymentFormReport.cs" />
     <Compile Include="ViewModel\PaymentFormTasfyaViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormViewModel.cs" />
+    <Compile Include="ViewModel\PaymentFormTasfyaReportViewModel.cs" />
     <Compile Include="ViewModel\PaymentTypeViewModel.cs" />
     <Compile Include="ViewModel\UserViewModel.cs" />
   </ItemGroup>
@@ -2765,6 +2771,7 @@
     <Content Include="Views\PaymentFormTasfya\Index.cshtml" />
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\AccountantTasfya\Index.cshtml" />
+    <Content Include="Views\PaymentFormTasfya\Report.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2846,6 +2853,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201250814447_updatePaymentForm.resx">
       <DependentUpon>202201250814447_updatePaymentForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201250904125_paymentFormReport.resx">
+      <DependentUpon>202201250904125_paymentFormReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
