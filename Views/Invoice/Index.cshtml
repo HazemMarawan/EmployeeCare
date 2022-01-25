@@ -44,14 +44,15 @@
                                 <label>@ar.documents</label>
                                 @Html.DropDownList("document_id", new SelectList(ViewBag.documents, "id", "name"), ar.select_document, new { @class = "form-control", @name = "document_id", @id = "document_id", @required = "required" })
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6" style="display:none;" id="vacation_from_div">
                                 <label>@ar.vacation_from</label>
-                                <input required name="vacation_from" id="vacation_from" type="date" class="form-control radius-30" />
+                                <input name="vacation_from" id="vacation_from" type="date" class="form-control radius-30" />
                             </div>
-                            <div class="form-group col-md-6">
+                            <div class="form-group col-md-6" style="display:none;" id="vacation_to_div">
                                 <label>@ar.vacation_to</label>
-                                <input required name="vacation_to" id="vacation_to" type="date" class="form-control radius-30" />
+                                <input name="vacation_to" id="vacation_to" type="date" class="form-control radius-30" />
                             </div>
+                           
                         </div>
 
 
@@ -244,8 +245,32 @@
                 }, function (response) {
 
                 }, function (dialog) {
-                        
-                
+                        $(document).on("change", "#payment_type_id", function () {
+                            console.log($(this).val());
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("checkPaymentType", "Invoice")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    if (data.hasFromTo == 1) {
+                                        dialog.find("#vacation_from_div").show();
+                                        dialog.find("#vacation_to_div").show();
+                                    }
+                                    else {
+                                        dialog.find("#vacation_from").val("");
+                                        dialog.find("#vacation_to").val("");
+                                        dialog.find("#vacation_from_div").hide();
+                                        dialog.find("#vacation_to_div").hide();                                    }
+                                },
+                                error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
+
+
                 });
             });
 
@@ -265,7 +290,7 @@
 
                 }, function (dialog) {
                         dialog.find('#id').val(data.id);
-                        dialog.find('#payment_type_id option[value=' + data.payment_type_id + ']').attr('selected', 'selected');   
+                        dialog.find('#payment_type_id option[value=' + data.payment_type_id + ']').attr('selected', 'selected');
                         console.log(data.payment_date);
                         if (data.payment_date != null) {
                             var value = new Date
@@ -281,10 +306,10 @@
                             dialog.find('#payment_date').val(date_payment_date);
                         }
                         dialog.find('#amount').val(data.amount);
-                        dialog.find('#bank_id option[value=' + data.bank_id + ']').attr('selected', 'selected');   
+                        dialog.find('#bank_id option[value=' + data.bank_id + ']').attr('selected', 'selected');
                         dialog.find('#invoice_number').val(data.invoice_number);
-                        dialog.find('#employee_id option[value=' + data.employee_id + ']').attr('selected', 'selected');   
-                        dialog.find('#document_id option[value=' + data.document_id + ']').attr('selected', 'selected');   
+                        dialog.find('#employee_id option[value=' + data.employee_id + ']').attr('selected', 'selected');
+                        dialog.find('#document_id option[value=' + data.document_id + ']').attr('selected', 'selected');
 
                         if (data.vacation_from != null) {
                             var value = new Date
@@ -314,6 +339,30 @@
                             dialog.find('#vacation_to').val(date_vacation_to);
                         }
 
+                        $(document).on("change", "#payment_type_id", function () {
+                            console.log($(this).val());
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("checkPaymentType", "Invoice")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "id": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    if (data.hasFromTo) {
+                                        dialog.find("#vacation_from_div").show();
+                                        dialog.find("#vacation_to_div").show();
+                                    }
+                                    else {
+                                        dialog.find("#vacation_from").val("");
+                                        dialog.find("#vacation_to").val("");
+                                        dialog.find("#vacation_from_div").hide();
+                                        dialog.find("#vacation_to_div").hide();                                    }
+                                },
+                                error: function () {
+                                    alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
                   });
 
             });

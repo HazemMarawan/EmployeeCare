@@ -375,6 +375,9 @@
   <data name="final_paid" xml:space="preserve">
     <value>صافي المبلغ المستحق للعضو</value>
   </data>
+  <data name="from_to" xml:space="preserve">
+    <value>يشمل من و الي</value>
+  </data>
   <data name="full_name" xml:space="preserve">
     <value>الأسم بالكامل</value>
   </data>

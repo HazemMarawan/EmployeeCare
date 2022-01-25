@@ -153,5 +153,13 @@ namespace EmployeeCare.Controllers
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
         }
+
+        [HttpGet]
+        public JsonResult checkPaymentType(int id)
+        {
+            PaymentType paymentType = db.PaymentTypes.Find(id);
+            int hasFromTo = paymentType.from_to == 1 ? 1 : 0;
+            return Json(new { hasFromTo = hasFromTo }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -835,6 +835,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to يشمل من و الي.
+        /// </summary>
+        public static string from_to {
+            get {
+                return ResourceManager.GetString("from_to", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to الأسم بالكامل.
         /// </summary>
         public static string full_name {

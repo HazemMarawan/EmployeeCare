@@ -11,6 +11,7 @@ namespace EmployeeCare.Models
         [Key]
         public int id { get; set; }
         public string name { get; set; }
+        public int? from_to { get; set; }
         public string code { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }

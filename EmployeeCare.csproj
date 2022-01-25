@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202112271919356_update_payment_form.Designer.cs">
       <DependentUpon>202112271919356_update_payment_form.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202201250814447_updatePaymentForm.cs" />
+    <Compile Include="Migrations\202201250814447_updatePaymentForm.Designer.cs">
+      <DependentUpon>202201250814447_updatePaymentForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -2839,6 +2843,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202112271919356_update_payment_form.resx">
       <DependentUpon>202112271919356_update_payment_form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202201250814447_updatePaymentForm.resx">
+      <DependentUpon>202201250814447_updatePaymentForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

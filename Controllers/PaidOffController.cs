@@ -32,10 +32,14 @@ namespace EmployeeCare.Controllers
 
                 // Getting all data    
                 var paymentFormData = (from paymentform in db.PaymentForms
-                                       join employeeDocument in db.EmployeeDocuments on paymentform.employee_document_id equals employeeDocument.id
-                                       join employee in db.Employees on employeeDocument.employee_id equals employee.id
-                                       join document in db.Documents on employeeDocument.document_id equals document.id
-                                       join decision in db.Decisions on paymentform.decision_id equals decision.id
+                                       join empDoc in db.EmployeeDocuments on paymentform.employee_document_id equals empDoc.id into ed
+                                       from employeeDocument in ed.DefaultIfEmpty()
+                                       join emp in db.Employees on employeeDocument.employee_id equals emp.id into em
+                                       from employee in em.DefaultIfEmpty()
+                                       join doc in db.Documents on employeeDocument.document_id equals doc.id into dc
+                                       from document in dc.DefaultIfEmpty()
+                                       join dec in db.Decisions on paymentform.decision_id equals dec.id into dci
+                                       from decision in dci.DefaultIfEmpty()
                                        select new PaymentFormViewModel
                                        {
                                            id = paymentform.id,
