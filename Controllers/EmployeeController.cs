@@ -28,6 +28,7 @@ namespace EmployeeCare.Controllers
                 var search_status = Request.Form.GetValues("columns[2][search][value]")[0];
                 var search_membership_status = Request.Form.GetValues("columns[3][search][value]")[0];
                 var search_bank_id = Request.Form.GetValues("columns[4][search][value]")[0];
+                var document_number = Request.Form.GetValues("columns[5][search][value]")[0];
                 int pageSize = length != null ? Convert.ToInt32(length) : 0;
                 int skip = start != null ? Convert.ToInt32(start) : 0;
 
@@ -35,7 +36,8 @@ namespace EmployeeCare.Controllers
                 var destinationData = (from employee in db.Employees
                                        join destination in db.Destinations on employee.destination_id equals destination.id
                                        join grade in db.Grades on employee.grade_id equals grade.id
-                                       join bank in db.Banks on employee.bank_id equals bank.id
+                                       join ba in db.Banks on employee.bank_id equals ba.id into b
+                                       from bank in b.DefaultIfEmpty()
                                        select new EmployeeViewModel
                                        {
                                            id = employee.id,
@@ -55,6 +57,7 @@ namespace EmployeeCare.Controllers
                                            bank_name = bank.name,
                                            active = employee.active,
                                            created_at = employee.created_at,
+                                           status = employee.status,
                                            archivesPaths = db.EmployeeArchives.Where(s=>s.employee_id == employee.id).Select(s=>s.path).ToList()
                                        }).AsEnumerable().Select(s => new EmployeeViewModel
                                        {
@@ -75,7 +78,8 @@ namespace EmployeeCare.Controllers
                                            bank_name = s.bank_name,
                                            active = s.active,
                                            string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd"),
-                                           archivesPaths = s.archivesPaths
+                                           archivesPaths = s.archivesPaths,
+                                           status = s.status
                                        });
 
                 //Search    
@@ -118,6 +122,11 @@ namespace EmployeeCare.Controllers
                 {
                     int search_bank_id_int = int.Parse(search_bank_id);
                     destinationData = destinationData.Where(s => s.bank_id == search_bank_id_int);
+                }
+                if (!string.IsNullOrEmpty(document_number))
+                {
+                    int employee_file_number = int.Parse(document_number);
+                    destinationData = destinationData.Where(s => s.employee_file_number == employee_file_number);
                 }
                 //total number of rows count     
                 var displayResult = destinationData.OrderByDescending(u => u.id).Skip(skip)
@@ -168,6 +177,7 @@ namespace EmployeeCare.Controllers
                 oldEmployee.bank_id = employeeVM.bank_id;
                 oldEmployee.active = employeeVM.active;
                 oldEmployee.updated_at = DateTime.Now;
+                oldEmployee.employee_file_number = employeeVM.employee_file_number;
 
                 db.Entry(oldEmployee).State = System.Data.Entity.EntityState.Modified;
             }

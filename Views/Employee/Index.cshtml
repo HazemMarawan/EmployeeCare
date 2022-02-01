@@ -38,11 +38,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.national_id</label>
-                                <input required name="national_id" id="national_id" type="text" class="form-control radius-30" />
+                                <input name="national_id" id="national_id" type="text" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.email</label>
-                                <input required name="email" id="email" type="text" class="form-control radius-30" />
+                                <input name="email" id="email" type="text" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.employee_status</label>
@@ -65,11 +65,11 @@
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.bank_account_number</label>
-                                <input required name="bank_account_number" id="bank_account_number" type="text" class="form-control radius-30" />
+                                <input name="bank_account_number" id="bank_account_number" type="text" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
                                 <label>@ar.bank</label>
-                                @Html.DropDownList("bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "bank_id", @id = "bank_id", @required = "required" })
+                                @Html.DropDownList("bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "bank_id", @id = "bank_id" })
                             </div>
                             <div class="form-group col-md-12">
                                 <label>@ar.status</label>
@@ -141,15 +141,20 @@
                 <option value="5">@ar.filtering</option>
                 <option value="6">@ar.deputation</option>
                 <option value="7">@ar.leave_without_pay</option>
-            </select>        </div>
+            </select>
+        </div>
         <div class="form-group col-4">
             <select class="form-control" name="search_membership_status" id="search_membership_status">
-                <option value=""">@ar.membership_status</option>
+                <option value="" ">@ar.membership_status</option>
                 <option value="1">@ar.member_only</option>
                 <option value="2">@ar.member_and_subscription</option>
-            </select>        </div>
+            </select>
+        </div>
         <div class="form-group col-4">
             @Html.DropDownList("search_bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "search_bank_id", @id = "search_bank_id" })
+        </div>
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="document_number" name="document_number" placeholder="@ar.document_number">
         </div>
         <div class="form-group col-4">
             <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
@@ -356,22 +361,24 @@
                 datatable.columns(2).search($("#search_status").val());
                 datatable.columns(3).search($("#search_membership_status").val());
                 datatable.columns(4).search($("#search_bank_id").val());
+                datatable.columns(5).search($("#document_number").val());
 
                 datatable.draw();
             });
 
-            $('#text_search').on('keyup', function (e) {
-                if (e.keyCode == 13)
-                    $('#search_button').trigger('click');
-            });
+           $('#text_search').on('keyup', function (e) {
+               if (e.keyCode == 13)
+                   $('#search_button').trigger('click');
+           });
 
-            $('#reset').on('click', function () {
-                $("#text_search").val("");
-                $("#search_destination_id").val("");
-                $("#search_grade_id").val("");
-                $("#search_status").val("");
-                $("#search_membership_status").val("");
-                $("#search_bank_id").val("");
+           $('#reset').on('click', function () {
+               $("#text_search").val("");
+               $("#search_destination_id").val("");
+               $("#search_grade_id").val("");
+               $("#search_status").val("");
+               $("#search_membership_status").val("");
+               $("#search_bank_id").val("");
+               $("#document_number").val("");
 
                 $('#search').trigger('click');
 
