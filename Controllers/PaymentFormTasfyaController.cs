@@ -411,5 +411,53 @@ namespace EmployeeCare.Controllers
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
         }
+
+        public ActionResult TasfyaDetails(int id)
+        {
+
+            ReportDocument rd = new ReportDocument();
+            rd.Load(Path.Combine(Server.MapPath("~/Reports"), "TasfyaReportDetails.rpt"));
+            List<Setting> settings = db.Settings.ToList();
+            List<PaymentFormTasfyaReportDetailsViewModel> reportData = (from paymentFormTasfyaReport in db.PaymentFormTasfyaReports
+                                                                        select new PaymentFormTasfyaReportDetailsViewModel
+                                                                        {
+                                                                            id = paymentFormTasfyaReport.id,
+                                                                            string_subscription_date = paymentFormTasfyaReport.subscription_date != null ? ((DateTime)paymentFormTasfyaReport.subscription_date).ToString() : "",
+                                                                            salary = (double)paymentFormTasfyaReport.salary,
+                                                                            discount_percentage = (double)paymentFormTasfyaReport.discount_percentage,
+                                                                            reserved_months = (double)paymentFormTasfyaReport.reserved_months,
+                                                                            total = (double)paymentFormTasfyaReport.total,
+                                                                            payment_form_id = (int)paymentFormTasfyaReport.payment_form_id,
+                                                                            string_created_at = paymentFormTasfyaReport.created_at != null ? ((DateTime)paymentFormTasfyaReport.created_at).ToString() : "",
+
+                                                                        }).Where(r => r.payment_form_id == id).AsEnumerable().Select(s => new PaymentFormTasfyaReportDetailsViewModel
+                                                                        {
+                                                                            id = s.id,
+                                                                            string_subscription_date = !String.IsNullOrEmpty(s.string_subscription_date)? s.string_subscription_date.Split(' ')[0]:"-",
+                                                                            salary = s.salary,
+                                                                            subscription_date = s.subscription_date,
+                                                                            discount_percentage = s.discount_percentage,
+                                                                            reserved_months = s.reserved_months,
+                                                                            total = s.total,
+                                                                            payment_form_id = s.payment_form_id,
+                                                                            string_created_at = !String.IsNullOrEmpty(s.string_created_at) ? s.string_created_at.Split(' ')[0] : "-",
+                                                                        }).ToList();
+
+            rd.SetDataSource(reportData);
+
+            Response.Buffer = false;
+            Response.ClearContent();
+            Response.ClearHeaders();
+
+            rd.PrintOptions.PaperOrientation = CrystalDecisions.Shared.PaperOrientation.Landscape;
+            rd.PrintOptions.ApplyPageMargins(new CrystalDecisions.Shared.PageMargins(5, 5, 5, 5));
+            rd.PrintOptions.PaperSize = CrystalDecisions.Shared.PaperSize.PaperA5;
+
+            Stream stream = rd.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
+            stream.Seek(0, SeekOrigin.Begin);
+
+            return File(stream, "application/pdf", "PaymentFormTasfyaReportDetails" + reportData[0].id + DateTime.Now.ToString() + ".pdf");
+        }
+
     }
 }

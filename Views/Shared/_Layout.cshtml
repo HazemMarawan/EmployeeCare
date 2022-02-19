@@ -374,6 +374,13 @@
     <script>
         $(document).ready(function () {
             App.init();
+            function zeroPadded(val) {
+                if (val >= 10)
+                    return val;
+                else
+                    return '0' + val;
+            }
+
             function fixDate(input_date) {
                 var value = new Date
                     (
@@ -381,11 +388,45 @@
                     );
                 var output_date = value.getFullYear() +
                     "-" +
-                    ("0" + (value.getMonth() + 1)).slice(-2) +
+                    zeroPadded(value.getMonth() + 1) +
                     "-" +
-                    ("0" + value.getDate()).slice(-2)
-                    ;
+                    zeroPadded(value.getDate());
                 return output_date;
+            }
+
+            function fixDateTimeLocal(input_date) {
+
+                var value = new Date
+                    (
+                        parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                    );
+                var output_date = value.getFullYear() +
+                    "-" +
+                    zeroPadded(value.getMonth() + 1) +
+                    "-" +
+                    zeroPadded(value.getDate())
+                    + "T"
+                    + zeroPadded(value.getHours())
+                    + ":"
+                    + zeroPadded(value.getMinutes());
+                return output_date;
+            }
+
+            function fixTime(input_time) {
+
+                var Hours = null;
+                if (input_time.Hours < 10)
+                    Hours = "0" + input_time.Hours;
+                else
+                    Hours = input_time.Hours;
+
+                var Minutes = null;
+                if (input_time.Minutes < 10)
+                    Minutes = "0" + input_time.Minutes;
+                else
+                    Minutes = input_time.Minutes;
+                var output_time = Hours + ":" + Minutes;
+                return output_time;
             }
         });
     </script>

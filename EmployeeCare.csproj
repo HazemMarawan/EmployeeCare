@@ -290,6 +290,12 @@
       <DependentUpon>PaymentFormPart1.rpt</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Reports\TasfyaReportDetails.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>TasfyaReportDetails.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Resources\ar.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -2872,6 +2878,10 @@
     <EmbeddedResource Include="Reports\PaymentFormPart1.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
       <LastGenOutput>PaymentFormPart1.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reports\TasfyaReportDetails.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>TasfyaReportDetails.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\ar.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
