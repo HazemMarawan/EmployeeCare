@@ -18,7 +18,7 @@
   height: calc(100vh - 312px); }
 
 #calendar {
-  height: calc(100vh - 257px); }
+  height: calc(100vh - 274px); }
 
 .popover {
   border: none;
@@ -153,12 +153,12 @@ a.bg-primary:hover, a.bg-success:hover, a.bg-warning:hover, a.bg-danger:hover {
 .fc-scroller {
   height: 100% !important;
   position: relative;
-  height: calc(100vh - 311px) !important; }
+  height: calc(100vh - 335px) !important; }
   .fc-scroller.fc-time-grid-container {
     height: calc(100vh - 420px) !important; }
 
 .fc-agendaWeek-view .fc-scroller.fc-time-grid-container, .fc-agendaDay-view .fc-scroller.fc-time-grid-container {
-  height: calc(100vh - 360px) !important; }
+  height: calc(100vh - 380px) !important; }
 
 /*
     Modal
@@ -183,14 +183,14 @@ a.bg-primary:hover, a.bg-success:hover, a.bg-warning:hover, a.bg-danger:hover {
       margin-bottom: 5px;
       font-size: 14px;
       font-weight: 600;
-      color: #e3e4eb; }
+      color: #888ea8; }
     #addEventsModal form .event-badge {
       margin-top: 16px; }
       #addEventsModal form .event-badge p {
         margin-bottom: 10px;
         font-size: 14px;
         font-weight: 600;
-        color: #e3e4eb; }
+        color: #888ea8; }
     #addEventsModal form input {
       margin-bottom: 25px; }
     #addEventsModal form .form-group {

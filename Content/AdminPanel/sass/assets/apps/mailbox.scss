@@ -125,17 +125,10 @@
   display: flex;
   border-radius: 6px;
   background-color: #fff;
-   box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px;
-  height: calc(100vh - 135px);
+   box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+  height: calc(100vh - 150px);
   margin-bottom: 10px;
-}
 
-body.minimal .mail-box-container {
-  border: 1px solid #e0e6ed !important;
-  box-shadow: none;
-}
-
-.mail-box-container {
   .avatar-sm {
     width: 2.5rem;
     height: 2.5rem;
@@ -188,7 +181,7 @@ body.minimal .mail-box-container {
 
   #btn-compose-mail {
     transform: none;
-    background: #3b3f5c;
+    background: #506690;
     border: none !important;
     padding: 7px 9px;
     font-size: 14px;
@@ -562,7 +555,7 @@ body.minimal .mail-box-container {
       margin: auto;
       width: 100%;
       overflow: auto;
-      height: calc(100vh - 240px);
+      height: calc(100vh - 255px);
     }
   }
 
@@ -794,7 +787,7 @@ body.minimal .mail-box-container {
 .mailbox-inbox {
   .collapse {
     position: relative;
-    height: calc(100vh - 189px);
+    height: calc(100vh - 203px);
   }
 
   .mail-content-container {
@@ -1147,7 +1140,7 @@ body.minimal .mail-box-container {
     }
 
     .attachments {
-      width: calc(100vw - 750px);
+      width: calc(100vw - 940px);
     }
   }
 }
@@ -1167,12 +1160,12 @@ body.minimal .mail-box-container {
     z-index: 4;
     right: -147px;
     width: 0;
+    background: #fff;
 
     &.mail-menu-show {
       right: 0;
       width: 100%;
       min-width: 111px;
-      background: #fff;
     }
   }
 

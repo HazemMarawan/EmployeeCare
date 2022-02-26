@@ -26,7 +26,7 @@ try {
             },
         },
         series: [{
-            data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25]
+            data: [21, 9, 36, 12, 44, 25, 59, 41, 66, 25].reverse()
         }],
         stroke: {
           curve: 'smooth',
@@ -87,7 +87,7 @@ try {
           },
         },
         series: [{
-          data: [22, 19, 30, 47, 32, 44, 34, 55, 41, 69]
+          data: [22, 19, 30, 47, 32, 44, 34, 55, 41, 69].reverse()
         }],
         stroke: {
           curve: 'smooth',
@@ -140,78 +140,60 @@ try {
           Unique Visitors | Options
       ===================================
   */
-var d_1options1 = {
-    chart: {
+ var d_1options1 = {
+  chart: {
       height: 350,
-      type: 'line',
+      type: 'bar',
       toolbar: {
         show: false,
       }
-    },
-    plotOptions: {
+  },
+  colors: ['#517281', '#f67062'].reverse(),
+  plotOptions: {
       bar: {
           horizontal: false,
           columnWidth: '55%',
+          endingShape: 'rounded'  
       },
-    },
-    legend: {
-      offsetX: 0,
-      offsetY: -10,
-    },
-    colors: ['#61b6cd', '#805dca'],
-    
-    series: [{
-      name: 'Organic',
-      type: 'column',
-      data: [4400, 5050, 4140, 6710, 2270, 4130, 2010, 3520, 7520, 3200, 2570, 1600].reverse()
-    }, {
-      name: 'Direct',
-      type: 'line',
-      data: [230, 420, 350, 270, 430, 220, 170, 310, 220, 220, 120, 160].reverse()
-    }],
-    stroke: {
+  },
+  dataLabels: {
+      enabled: false
+  },
+  legend: {
+        position: 'bottom',
+        horizontalAlign: 'center',
+        fontSize: '14px',
+        markers: {
+          width: 10,
+          height: 10,
+        },
+        itemMargin: {
+          horizontal: 0,
+          vertical: 8
+        }
+  },
+  stroke: {
       show: true,
-      curve: 'smooth',
-      width: [0, 4],
-      lineCap: 'square'
-    },
-    xaxis: {
+      width: 2,
+      colors: ['transparent']
+  },
+  series: [{
+      name: 'Direct',
+      data: [58, 44, 55, 57, 56, 61, 58, 63, 60, 66, 56, 63].reverse()
+  }, {
+    name: 'Organic',
+    data: [91, 76, 85, 101, 98, 87, 105, 91, 114, 94, 66, 70].reverse()
+  }],
+  xaxis: {
       categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].reverse(),
-    },
-    yaxis: [{
-      title: {
-        text: 'Organic',
-        offsetX: -15,
-      },
-      labels: {
-        offsetX: -30,
-        offsetY: 0,
-      }
-  
-    }, {
-      opposite: true,
-      title: {
-        text: 'Direct'
-      }
-    }],
-
-    responsive: [{
-      breakpoint: 576,
-      options: {
-        yaxis: [{
-          title: {
-            text: undefined,
-          },
-      
-        }, {
-          opposite: true,
-          title: {
-            text: undefined
+  },
+  tooltip: {
+      y: {
+          formatter: function (val) {
+              return val
           }
-        }],
-      },
-    }]
-  
+      }
+  }
 }
   
   /*
@@ -237,9 +219,9 @@ var d_1options1 = {
     },
     series: [{
       name: 'Sales',
-      data: [38, 60, 38, 52, 36, 40, 28 ]
+      data: [38, 60, 38, 52, 36, 40, 28 ].reverse()
     }],
-    labels: ['1', '2', '3', '4', '5', '6', '7'],
+    labels: ['1', '2', '3', '4', '5', '6', '7'].reverse(),
     yaxis: {
       min: 0
     },
@@ -268,9 +250,9 @@ var d_1options1 = {
     },
     series: [{
       name: 'Sales',
-      data: [ 60, 28, 52, 38, 40, 36, 38]
+      data: [ 60, 28, 52, 38, 40, 36, 38].reverse()
     }],
-    labels: ['1', '2', '3', '4', '5', '6', '7'],
+    labels: ['1', '2', '3', '4', '5', '6', '7'].reverse(),
     yaxis: {
       min: 0
     },
@@ -302,9 +284,9 @@ var d_1options1 = {
     },
     series: [{
       name: 'Sales',
-      data: [28, 50, 36, 60, 38, 52, 38 ]
+      data: [28, 50, 36, 60, 38, 52, 38 ].reverse()
     }],
-    labels: ['1', '2', '3', '4', '5', '6', '7'],
+    labels: ['1', '2', '3', '4', '5', '6', '7'].reverse(),
     yaxis: {
       min: 0
     },
@@ -434,16 +416,16 @@ try {
       }],
       series: [{
           name: 'Sales',
-          data: [44, 55, 41, 67, 22, 43, 21]
+          data: [44, 55, 41, 67, 22, 43, 21].reverse()
       },{
           name: 'Last Week',
-          data: [13, 23, 20, 8, 13, 27, 33]
+          data: [13, 23, 20, 8, 13, 27, 33].reverse()
       }],
       xaxis: {
           labels: {
               show: false,
           },
-          categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'],
+          categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thur', 'Fri', 'Sat'].reverse(),
       },
       yaxis: {
           show: false
@@ -503,9 +485,9 @@ try {
     },
     series: [{
       name: 'Sales',
-      data: [28, 40, 36, 52, 38, 60, 38, 52, 36, 40]
+      data: [28, 40, 36, 52, 38, 60, 38, 52, 36, 40].reverse()
     }],
-    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'],
+    labels: ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10'].reverse(),
     yaxis: {
       min: 0
     },
@@ -532,218 +514,219 @@ try {
           Revenue Monthly | Options
       =================================
   */
- var options1 = {
-  chart: {
-    fontFamily: 'Quicksand, sans-serif',
-    height: 365,
-    type: 'area',
-    zoom: {
+
+  var options1 = {
+    chart: {
+      fontFamily: 'Nunito, sans-serif',
+      height: 365,
+      type: 'area',
+      zoom: {
+          enabled: false
+      },
+      dropShadow: {
+        enabled: true,
+        opacity: 0.2,
+        blur: 10,
+        left: -7,
+        top: 22
+      },
+      toolbar: {
+        show: false
+      },
+      events: {
+        mounted: function(ctx, config) {
+          const highest1 = ctx.getHighestValueInSeries(0);
+          const highest2 = ctx.getHighestValueInSeries(1);
+  
+          ctx.addPointAnnotation({
+            x: new Date(ctx.w.globals.seriesX[0][ctx.w.globals.series[0].indexOf(highest1)]).getTime(),
+            y: highest1,
+            label: {
+              style: {
+                cssClass: 'd-none'
+              }
+            },
+            customSVG: {
+              SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#6d17cb" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
+                cssClass: undefined,
+                offsetX: -8,
+                offsetY: 5
+            }
+          })
+  
+          ctx.addPointAnnotation({
+            x: new Date(ctx.w.globals.seriesX[1][ctx.w.globals.series[1].indexOf(highest2)]).getTime(),
+            y: highest2,
+            label: {
+              style: {
+                cssClass: 'd-none'
+              }
+            },
+            customSVG: {
+                SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#2196f3" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
+                cssClass: undefined,
+                offsetX: -8,
+                offsetY: 5
+            }
+          })
+        },
+      }
+    },
+    colors: ['#2196f3', '#6d17cb'].reverse(),
+    dataLabels: {
         enabled: false
     },
-    dropShadow: {
-      enabled: true,
-      opacity: 0.2,
-      blur: 10,
-      left: -7,
-      top: 22
-    },
-    toolbar: {
-      show: false
-    },
-    events: {
-      mounted: function(ctx, config) {
-        const highest1 = ctx.getHighestValueInSeries(0);
-        const highest2 = ctx.getHighestValueInSeries(1);
-
-        ctx.addPointAnnotation({
-          x: new Date(ctx.w.globals.seriesX[0][ctx.w.globals.series[0].indexOf(highest1)]).getTime(),
-          y: highest1,
-          label: {
-            style: {
-              cssClass: 'd-none'
-            }
-          },
-          customSVG: {
-            SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#6d17cb" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
-              cssClass: undefined,
-              offsetX: -8,
-              offsetY: 5
-          }
-        })
-
-        ctx.addPointAnnotation({
-          x: new Date(ctx.w.globals.seriesX[1][ctx.w.globals.series[1].indexOf(highest2)]).getTime(),
-          y: highest2,
-          label: {
-            style: {
-              cssClass: 'd-none'
-            }
-          },
-          customSVG: {
-              SVG: '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="#2196f3" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-circle"><circle cx="12" cy="12" r="10"></circle></svg>',
-              cssClass: undefined,
-              offsetX: -8,
-              offsetY: 5
-          }
-        })
-      },
-    }
-  },
-  colors: ['#2196f3', '#6d17cb'].reverse(),
-  dataLabels: {
-      enabled: false
-  },
-  markers: {
-    discrete: [{
-    seriesIndex: 0,
-    dataPointIndex: 7,
-    fillColor: '#000',
-    strokeColor: '#000',
-    size: 5
-  }, {
-    seriesIndex: 2,
-    dataPointIndex: 11,
-    fillColor: '#000',
-    strokeColor: '#000',
-    size: 4
-  }]
-  },
-  subtitle: {
-    text: '$10,840',
-    align: 'right',
-    margin: 0,
-    offsetX: -80,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize: '18px',
-      color:  '#4361ee'
-    }
-  },
-  title: {
-    text: 'Total Profit',
-    align: 'right',
-    margin: 0,
-    offsetX: -185,
-    offsetY: 0,
-    floating: false,
-    style: {
-      fontSize: '18px',
-      color:  '#0e1726'
-    },
-  },
-  stroke: {
-      show: true,
-      curve: 'smooth',
-      width: 2,
-      lineCap: 'square'
-  },
-  series: [{
-      name: 'Income',
-      data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000, 15000, 17000, 14000, 17000].reverse()
-  }, {
-      name: 'Expenses',
-      data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000, 16000, 19000, 18000, 19000].reverse()
-  }],
-  labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].reverse(),
-  xaxis: {
-    axisBorder: {
-      show: false
-    },
-    axisTicks: {
-      show: false
-    },
-    crosshairs: {
-      show: true
-    },
-    labels: {
-      offsetX: 0,
-      offsetY: 5,
-      style: {
-          fontSize: '12px',
-          fontFamily: 'Quicksand, sans-serif',
-          cssClass: 'apexcharts-xaxis-title',
-      },
-    }
-  },
-  yaxis: {
-    labels: {
-      formatter: function(value, index) {
-        return (value / 1000) + 'K'
-      },
-      offsetX: -25,
-      style: {
-          fontSize: '12px',
-          fontFamily: 'Quicksand, sans-serif',
-          cssClass: 'apexcharts-yaxis-title',
-      },
-    }
-  },
-  grid: {
-    borderColor: '#e0e6ed',
-    strokeDashArray: 5,
-    xaxis: {
-        lines: {
-            show: true
-        }
-    },   
-    yaxis: {
-        lines: {
-            show: false,
-        }
-    }
-  }, 
-  legend: {
-    position: 'top',
-    horizontalAlign: 'right',
-    offsetY: -50,
-    fontSize: '16px',
-    fontFamily: 'Quicksand, sans-serif',
     markers: {
-      width: 10,
-      height: 10,
-      strokeWidth: 0,
-      strokeColor: '#fff',
-      fillColors: undefined,
-      radius: 12,
-      onClick: undefined,
-      offsetX: 0,
-      offsetY: 0
-    },    
-    itemMargin: {
-      horizontal: 0,
-      vertical: 20
-    }
-  },
-  tooltip: {
-    theme: 'dark',
-    marker: {
-      show: true,
+      discrete: [{
+      seriesIndex: 0,
+      dataPointIndex: 7,
+      fillColor: '#000',
+      strokeColor: '#000',
+      size: 5
+    }, {
+      seriesIndex: 2,
+      dataPointIndex: 11,
+      fillColor: '#000',
+      strokeColor: '#000',
+      size: 4
+    }]
     },
-    x: {
-      show: false,
-    }
-  },
-  fill: {
-    type:"gradient",
-    gradient: {
-        type: "vertical",
-        shadeIntensity: 1,
-        inverseColors: !1,
-        opacityFrom: .19,
-        opacityTo: .05,
-        stops: [100, 100]
-    }
-  },
-  responsive: [{
-    breakpoint: 575,
-    options: {
-      legend: {
-          offsetY: -30,
+    subtitle: {
+      text: '$10,840',
+      align: 'right',
+      margin: 0,
+      offsetX: -80,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize: '18px',
+        color:  '#4361ee'
+      }
+    },
+    title: {
+      text: 'Total Profit',
+      align: 'right',
+      margin: 0,
+      offsetX: -185,
+      offsetY: 0,
+      floating: false,
+      style: {
+        fontSize: '18px',
+        color:  '#0e1726'
       },
     },
-  }]
-}
+    stroke: {
+        show: true,
+        curve: 'smooth',
+        width: 2,
+        lineCap: 'square'
+    },
+    series: [{
+        name: 'Income',
+        data: [16800, 16800, 15500, 17800, 15500, 17000, 19000, 16000, 15000, 17000, 14000, 17000].reverse()
+    }, {
+        name: 'Expenses',
+        data: [16500, 17500, 16200, 17300, 16000, 19500, 16000, 17000, 16000, 19000, 18000, 19000].reverse()
+    }],
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'].reverse(),
+    xaxis: {
+      axisBorder: {
+        show: false
+      },
+      axisTicks: {
+        show: false
+      },
+      crosshairs: {
+        show: true
+      },
+      labels: {
+        offsetX: 0,
+        offsetY: 5,
+        style: {
+            fontSize: '12px',
+            fontFamily: 'Nunito, sans-serif',
+            cssClass: 'apexcharts-xaxis-title',
+        },
+      }
+    },
+    yaxis: {
+      labels: {
+        formatter: function(value, index) {
+          return (value / 1000) + 'K'
+        },
+        offsetX: -25,
+        style: {
+            fontSize: '12px',
+            fontFamily: 'Nunito, sans-serif',
+            cssClass: 'apexcharts-yaxis-title',
+        },
+      }
+    },
+    grid: {
+      borderColor: '#e0e6ed',
+      strokeDashArray: 5,
+      xaxis: {
+          lines: {
+              show: true
+          }
+      },   
+      yaxis: {
+          lines: {
+              show: false,
+          }
+      }
+    }, 
+    legend: {
+      position: 'top',
+      horizontalAlign: 'right',
+      offsetY: -50,
+      fontSize: '16px',
+      fontFamily: 'Nunito, sans-serif',
+      markers: {
+        width: 10,
+        height: 10,
+        strokeWidth: 0,
+        strokeColor: '#fff',
+        fillColors: undefined,
+        radius: 12,
+        onClick: undefined,
+        offsetX: 0,
+        offsetY: 0
+      },    
+      itemMargin: {
+        horizontal: 0,
+        vertical: 20
+      }
+    },
+    tooltip: {
+      theme: 'dark',
+      marker: {
+        show: true,
+      },
+      x: {
+        show: false,
+      }
+    },
+    fill: {
+      type:"gradient",
+      gradient: {
+          type: "vertical",
+          shadeIntensity: 1,
+          inverseColors: !1,
+          opacityFrom: .19,
+          opacityTo: .05,
+          stops: [100, 100]
+      }
+    },
+    responsive: [{
+      breakpoint: 575,
+      options: {
+        legend: {
+            offsetY: -30,
+        },
+      },
+    }]
+  }
   
   /*
       ==================================
@@ -756,7 +739,7 @@ try {
             type: 'donut',
             width: 397
         },
-        colors: ['#2196f3', '#e2a03f', '#8738a7'],
+        colors: ['#5c1ac3', '#e2a03f', '#e7515a'].reverse(),
         dataLabels: {
           enabled: false
         },
@@ -783,14 +766,14 @@ try {
                 name: {
                   show: true,
                   fontSize: '29px',
-                  fontFamily: 'quicksand, sans-serif',
+                  fontFamily: 'Nunito, sans-serif',
                   color: undefined,
                   offsetY: -10
                 },
                 value: {
                   show: true,
                   fontSize: '26px',
-                  fontFamily: 'quicksand, sans-serif',
+                  fontFamily: 'Nunito, sans-serif',
                   color: '20',
                   offsetY: 16,
                   formatter: function (val) {
@@ -817,7 +800,7 @@ try {
           width: 25,
         },
         series: [985, 737, 270],
-        labels: ['Apparel', 'Sports', 'Others'],
+        labels: ['Apparel', 'Sports', 'Others'].reverse(),
         responsive: [{
             breakpoint: 1599,
             options: {

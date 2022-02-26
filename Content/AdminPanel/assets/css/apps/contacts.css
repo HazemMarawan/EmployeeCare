@@ -8,6 +8,16 @@
 			@Import	Mixins
 	===============================
 */
+#content:before {
+  content: '';
+  position: absolute;
+  right: 0;
+  left: 0;
+  /* background: rgba(136, 142, 168, 0.21176470588235294); */
+  background: #ebedf2;
+  width: 100%;
+  height: 183px; }
+
 /*----------Theme checkbox---------*/
 .new-control {
   padding-right: 0;
@@ -28,19 +38,19 @@
   .filtered-list-search form > div svg {
     position: absolute;
     left: 11px;
-    color: #e3e4eb;
+    color: #888ea8;
     height: 36px;
     width: 19px;
-    top: 4px; }
+    top: 4px;
+    stroke-width: 1.4; }
 
 .filtered-list-search form input {
   padding: 6px 15px 6px 27px;
   color: #d3d3d3;
   border: none;
+  box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
   width: 100% !important;
-  background-color: #fff;
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+  background-color: #fff; }
   .filtered-list-search form input:focus {
     border-color: #d3d3d3; }
   .filtered-list-search form input::-webkit-input-placeholder {
@@ -56,9 +66,6 @@
     /* Firefox 18- */
     color: #888ea8; }
 
-.searchable-container .searchable-items.list .items .item-content:hover .user-meta-info .user-name, .searchable-container .searchable-items.list .items .item-content:hover .user-email p, .searchable-container .searchable-items.list .items .item-content:hover .user-location p, .searchable-container .searchable-items.list .items .item-content:hover .user-phone p {
-  color: #2196f3; }
-
 .searchable-container .switch {
   text-align: left; }
   .searchable-container .switch .view-grid {
@@ -67,11 +74,14 @@
     border-radius: 5px;
     cursor: pointer;
     color: #515365;
+    box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
     width: 43px;
     height: 41px;
-    fill: rgba(0, 23, 55, 0.08);
-    border: 1px solid #e0e6ed;
-    box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+    color: #888ea8;
+    /* margin-right: 18px; */
+    stroke-width: 1px;
+    fill: rgba(172, 176, 195, 0.35);
+    transition: all .2s ease-in-out; }
   .searchable-container .switch .view-list {
     padding: 10px;
     background: #fff;
@@ -82,8 +92,10 @@
     width: 43px;
     height: 41px;
     fill: rgba(0, 23, 55, 0.08);
-    border: 1px solid #e0e6ed;
-    box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+    /* margin-right: 14px; */
+    /* stroke-width: 1px; */
+    fill: rgba(172, 176, 195, 0.35);
+    transition: all .2s ease-in-out; }
 
 .searchable-container #btn-add-contact {
   padding: 9px;
@@ -91,12 +103,14 @@
   border-radius: 5px;
   cursor: pointer;
   margin-left: 35px;
+  box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
   width: 43px;
   height: 41px;
   color: #4361ee;
   fill: rgba(27, 85, 226, 0.239216);
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+  /* margin-right: 18px; */
+  stroke-width: 1px;
+  transition: all .2s ease-in-out; }
   .searchable-container #btn-add-contact:hover {
     color: #515365;
     fill: rgba(0, 23, 55, 0.08); }
@@ -208,9 +222,12 @@
   width: 100%;
   min-width: 767px;
   transition: all 0.35s ease;
-  /* box-shadow: 0px 2px 4px rgba(126,142,177,0.12); */
   border: 1px solid #e0e6ed;
   box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+
+.searchable-container .searchable-items.list .items .item-content:hover .user-meta-info .user-name, .searchable-container .searchable-items.list .items .item-content:hover .user-email p, .searchable-container .searchable-items.list .items .item-content:hover .user-location p, .searchable-container .searchable-items.list .items .item-content:hover .user-phone p {
+  color: #2196f3;
+}
 
 .searchable-container .searchable-items.list .items .user-profile {
   display: flex; }
@@ -307,9 +324,10 @@
   .searchable-container .searchable-items.grid .items .item-content {
     background-color: #fff;
     padding: 13px 18px;
+    -webkit-box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
+    box-shadow: 0px 2px 4px rgba(126, 142, 177, 0.12);
     border-radius: 6px;
-    border: 1px solid #e0e6ed;
-    box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06); }
+        box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px; }
   .searchable-container .searchable-items.grid .items.items-header-section {
     display: none; }
   .searchable-container .searchable-items.grid .items .user-profile {

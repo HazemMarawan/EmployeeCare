@@ -27,11 +27,11 @@
   width: 100%; }
 
 .invoice-inbox {
-  padding: 0;
-  background-color: #fff;
-  border: 1px solid #e0e6ed;
-  box-shadow: 0 0 40px 0 rgba(94, 92, 154, 0.06);
-  border-radius: 6px; }
+    padding: 0;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+}
   .invoice-inbox .inv-number {
     font-size: 18px;
     font-weight: 700;
@@ -250,12 +250,13 @@
 ===============================
 */
 .invoice-actions-btn {
-  padding: 25px;
-  padding-top: 32px;
-  padding-bottom: 32px;
-  background-color: #fff;
-  border: 1px solid #e0e6ed;
-  border-radius: 6px; }
+    padding: 25px;
+    padding-top: 32px;
+    padding-bottom: 32px;
+    background-color: #fff;
+    border-radius: 6px;
+    box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px;
+}
   .invoice-actions-btn label {
     font-size: 14px;
     font-weight: 600;

@@ -1,3 +1,13 @@
+/*
+	===============================
+			@Import	Function
+	===============================
+*/
+/*
+	===============================
+			@Import	Mixins
+	===============================
+*/
 .layout-px-spacing {
   min-height: auto !important; }
 
@@ -59,11 +69,7 @@
   margin-bottom: 10px;
   border-radius: 6px;
   background: #fff;
-  box-shadow: rgba(145, 158, 171, 0.24) 0px 0px 2px 0px, rgba(145, 158, 171, 0.24) 0px 16px 32px -4px; }
-
-body.minimal .mail-box-container {
-  border: 1px solid #e0e6ed !important;
-  box-shadow: none; }
+   box-shadow: rgb(145 158 171 / 24%) 0px 0px 2px 0px, rgb(145 158 171 / 24%) 0px 16px 32px -4px; }
 
 .mail-overlay {
   display: none;
@@ -84,8 +90,8 @@ body.minimal .mail-box-container {
   max-width: 240px;
   border-left: 1px solid #e0e6ed; }
   .tab-title svg.feather-clipboard {
-    color: #4361ee;
-    fill: rgba(27, 85, 226, 0.239216);
+    color: #506690;
+    fill: rgba(80, 102, 144, 0.239);
     margin-bottom: 13px; }
   .tab-title h5 {
     position: relative;
@@ -101,7 +107,7 @@ body.minimal .mail-box-container {
     color: #fff;
     bottom: 32px;
     right: 17%;
-    background-color: #4361ee; }
+    background-color: #506690; }
     .tab-title #addTask svg {
       margin-left: 5px; }
   .tab-title.mail-menu-show {
@@ -208,7 +214,7 @@ body.minimal .mail-box-container {
   margin: auto;
   width: 100%;
   overflow: auto;
-  height: calc(100vh - 180px); }
+  height: calc(100vh - 195px); }
 
 .todo-inbox .todo-item {
   cursor: pointer;
@@ -454,7 +460,6 @@ body.minimal .mail-box-container {
     z-index: 4;
     right: -100px;
     width: 0;
-    border-left: none;
     background: #fff; }
   .todo-inbox {
     -ms-flex: 0 0 100%;
