@@ -26,8 +26,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44324</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication />
-    <IISExpressWindowsAuthentication />
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -153,6 +153,7 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\OtherSystemController.cs" />
     <Compile Include="Controllers\PaidOffController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
     <Compile Include="Controllers\PaymentFormTakafulController.cs" />
@@ -247,6 +248,14 @@
     <Compile Include="Migrations\202201250904125_paymentFormReport.Designer.cs">
       <DependentUpon>202201250904125_paymentFormReport.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202202261942089_update-other-systems.cs" />
+    <Compile Include="Migrations\202202261942089_update-other-systems.Designer.cs">
+      <DependentUpon>202202261942089_update-other-systems.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202262014324_update-other-systems2.cs" />
+    <Compile Include="Migrations\202202262014324_update-other-systems2.Designer.cs">
+      <DependentUpon>202202262014324_update-other-systems2.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -258,8 +267,10 @@
     <Compile Include="Models\EmployeeArchive.cs" />
     <Compile Include="Models\EmployeeCareDbContext.cs" />
     <Compile Include="Models\EmployeeDocument.cs" />
+    <Compile Include="Models\EmployeeOtherSystem.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\OtherSystem.cs" />
     <Compile Include="Models\PaymentForm.cs" />
     <Compile Include="Models\PaymentFormTasfyaReport.cs" />
     <Compile Include="Models\PaymentType.cs" />
@@ -308,9 +319,11 @@
     <Compile Include="ViewModel\DestinationViewModel.cs" />
     <Compile Include="ViewModel\DocumentViewModel.cs" />
     <Compile Include="ViewModel\EmployeeDocumentViewModel.cs" />
+    <Compile Include="ViewModel\EmployeeOtherSystemViewModel.cs" />
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\GradeViewModel.cs" />
     <Compile Include="ViewModel\InvoiceViewModel.cs" />
+    <Compile Include="ViewModel\OtherSystemViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormReport.cs" />
     <Compile Include="ViewModel\PaymentFormTasfyaViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormViewModel.cs" />
@@ -2511,6 +2524,7 @@
     <Content Include="Content\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Content\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\selectize.css" />
     <Content Include="Content\selectize.js" />
     <Content Include="Content\sweetalert2%4010.js" />
     <Content Include="favicon.ico" />
@@ -2524,6 +2538,73 @@
     <Content Include="Images\userProfile.jpeg" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="fonts\Almarai\Almarai-Bold.ttf" />
+    <Content Include="fonts\Almarai\Almarai-ExtraBold.ttf" />
+    <Content Include="fonts\Almarai\Almarai-Light.ttf" />
+    <Content Include="fonts\Almarai\Almarai-Regular.ttf" />
+    <Content Include="fonts\Cairo\Cairo-VariableFont_wght.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-Black.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-Bold.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-ExtraBold.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-ExtraLight.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-Light.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-Medium.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-Regular.ttf" />
+    <Content Include="fonts\Cairo\static\Cairo-SemiBold.ttf" />
+    <Content Include="Content\fontawesome\less\brands.less" />
+    <Content Include="Content\fontawesome\less\fontawesome.less" />
+    <Content Include="Content\fontawesome\less\regular.less" />
+    <Content Include="Content\fontawesome\less\solid.less" />
+    <Content Include="Content\fontawesome\less\v4-shims.less" />
+    <Content Include="Content\fontawesome\less\_animated.less" />
+    <Content Include="Content\fontawesome\less\_bordered-pulled.less" />
+    <Content Include="Content\fontawesome\less\_core.less" />
+    <Content Include="Content\fontawesome\less\_fixed-width.less" />
+    <Content Include="Content\fontawesome\less\_icons.less" />
+    <Content Include="Content\fontawesome\less\_larger.less" />
+    <Content Include="Content\fontawesome\less\_list.less" />
+    <Content Include="Content\fontawesome\less\_mixins.less" />
+    <Content Include="Content\fontawesome\less\_rotated-flipped.less" />
+    <Content Include="Content\fontawesome\less\_screen-reader.less" />
+    <Content Include="Content\fontawesome\less\_shims.less" />
+    <Content Include="Content\fontawesome\less\_stacked.less" />
+    <Content Include="Content\fontawesome\less\_variables.less" />
+    <Content Include="Content\fontawesome\metadata\categories.yml" />
+    <Content Include="Content\fontawesome\metadata\icons.json" />
+    <Content Include="Content\fontawesome\metadata\icons.yml" />
+    <Content Include="Content\fontawesome\metadata\shims.json" />
+    <Content Include="Content\fontawesome\metadata\shims.yml" />
+    <Content Include="Content\fontawesome\metadata\sponsors.yml" />
+    <Content Include="Content\fontawesome\scss\brands.scss" />
+    <Content Include="Content\fontawesome\scss\fontawesome.scss" />
+    <Content Include="Content\fontawesome\scss\regular.scss" />
+    <Content Include="Content\fontawesome\scss\solid.scss" />
+    <Content Include="Content\fontawesome\scss\v4-shims.scss" />
+    <Content Include="Content\fontawesome\scss\_animated.scss" />
+    <Content Include="Content\fontawesome\scss\_bordered-pulled.scss" />
+    <Content Include="Content\fontawesome\scss\_core.scss" />
+    <Content Include="Content\fontawesome\scss\_fixed-width.scss" />
+    <Content Include="Content\fontawesome\scss\_icons.scss" />
+    <Content Include="Content\fontawesome\scss\_larger.scss" />
+    <Content Include="Content\fontawesome\scss\_list.scss" />
+    <Content Include="Content\fontawesome\scss\_mixins.scss" />
+    <Content Include="Content\fontawesome\scss\_rotated-flipped.scss" />
+    <Content Include="Content\fontawesome\scss\_screen-reader.scss" />
+    <Content Include="Content\fontawesome\scss\_shims.scss" />
+    <Content Include="Content\fontawesome\scss\_stacked.scss" />
+    <Content Include="Content\fontawesome\scss\_variables.scss" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff2" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.eot" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.ttf" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
+    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
     <Content Include="Content\AdminPanel\plugins\dropify\fonts\dropify.eot" />
     <Content Include="Content\AdminPanel\plugins\dropify\fonts\dropify.ttf" />
     <Content Include="Content\AdminPanel\plugins\dropify\fonts\dropify.woff" />
@@ -2670,73 +2751,6 @@
     <Content Include="Content\AdminPanel\sass\plugins\table\datatable\datatables.scss" />
     <Content Include="Content\AdminPanel\sass\plugins\table\datatable\dt-global_style.scss" />
     <Content Include="Content\AdminPanel\sass\plugins\tagInput\tags-input.scss" />
-    <Content Include="fonts\Almarai\Almarai-Bold.ttf" />
-    <Content Include="fonts\Almarai\Almarai-ExtraBold.ttf" />
-    <Content Include="fonts\Almarai\Almarai-Light.ttf" />
-    <Content Include="fonts\Almarai\Almarai-Regular.ttf" />
-    <Content Include="fonts\Cairo\Cairo-VariableFont_wght.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-Black.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-Bold.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-ExtraBold.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-ExtraLight.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-Light.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-Medium.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-Regular.ttf" />
-    <Content Include="fonts\Cairo\static\Cairo-SemiBold.ttf" />
-    <Content Include="Content\fontawesome\less\brands.less" />
-    <Content Include="Content\fontawesome\less\fontawesome.less" />
-    <Content Include="Content\fontawesome\less\regular.less" />
-    <Content Include="Content\fontawesome\less\solid.less" />
-    <Content Include="Content\fontawesome\less\v4-shims.less" />
-    <Content Include="Content\fontawesome\less\_animated.less" />
-    <Content Include="Content\fontawesome\less\_bordered-pulled.less" />
-    <Content Include="Content\fontawesome\less\_core.less" />
-    <Content Include="Content\fontawesome\less\_fixed-width.less" />
-    <Content Include="Content\fontawesome\less\_icons.less" />
-    <Content Include="Content\fontawesome\less\_larger.less" />
-    <Content Include="Content\fontawesome\less\_list.less" />
-    <Content Include="Content\fontawesome\less\_mixins.less" />
-    <Content Include="Content\fontawesome\less\_rotated-flipped.less" />
-    <Content Include="Content\fontawesome\less\_screen-reader.less" />
-    <Content Include="Content\fontawesome\less\_shims.less" />
-    <Content Include="Content\fontawesome\less\_stacked.less" />
-    <Content Include="Content\fontawesome\less\_variables.less" />
-    <Content Include="Content\fontawesome\metadata\categories.yml" />
-    <Content Include="Content\fontawesome\metadata\icons.json" />
-    <Content Include="Content\fontawesome\metadata\icons.yml" />
-    <Content Include="Content\fontawesome\metadata\shims.json" />
-    <Content Include="Content\fontawesome\metadata\shims.yml" />
-    <Content Include="Content\fontawesome\metadata\sponsors.yml" />
-    <Content Include="Content\fontawesome\scss\brands.scss" />
-    <Content Include="Content\fontawesome\scss\fontawesome.scss" />
-    <Content Include="Content\fontawesome\scss\regular.scss" />
-    <Content Include="Content\fontawesome\scss\solid.scss" />
-    <Content Include="Content\fontawesome\scss\v4-shims.scss" />
-    <Content Include="Content\fontawesome\scss\_animated.scss" />
-    <Content Include="Content\fontawesome\scss\_bordered-pulled.scss" />
-    <Content Include="Content\fontawesome\scss\_core.scss" />
-    <Content Include="Content\fontawesome\scss\_fixed-width.scss" />
-    <Content Include="Content\fontawesome\scss\_icons.scss" />
-    <Content Include="Content\fontawesome\scss\_larger.scss" />
-    <Content Include="Content\fontawesome\scss\_list.scss" />
-    <Content Include="Content\fontawesome\scss\_mixins.scss" />
-    <Content Include="Content\fontawesome\scss\_rotated-flipped.scss" />
-    <Content Include="Content\fontawesome\scss\_screen-reader.scss" />
-    <Content Include="Content\fontawesome\scss\_shims.scss" />
-    <Content Include="Content\fontawesome\scss\_stacked.scss" />
-    <Content Include="Content\fontawesome\scss\_variables.scss" />
-    <Content Include="Content\fontawesome\webfonts\fa-brands-400.eot" />
-    <Content Include="Content\fontawesome\webfonts\fa-brands-400.ttf" />
-    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff" />
-    <Content Include="Content\fontawesome\webfonts\fa-brands-400.woff2" />
-    <Content Include="Content\fontawesome\webfonts\fa-regular-400.eot" />
-    <Content Include="Content\fontawesome\webfonts\fa-regular-400.ttf" />
-    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff" />
-    <Content Include="Content\fontawesome\webfonts\fa-regular-400.woff2" />
-    <Content Include="Content\fontawesome\webfonts\fa-solid-900.eot" />
-    <Content Include="Content\fontawesome\webfonts\fa-solid-900.ttf" />
-    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff" />
-    <Content Include="Content\fontawesome\webfonts\fa-solid-900.woff2" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\factory.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -2778,6 +2792,8 @@
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\AccountantTasfya\Index.cshtml" />
     <Content Include="Views\PaymentFormTasfya\Report.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
+    <Content Include="Views\OtherSystem\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2785,6 +2801,7 @@
     <Folder Include="Uploads\Decision\Documents\" />
     <Folder Include="Uploads\Employee\Archive\" />
     <Folder Include="Uploads\Profiles\" />
+    <Folder Include="Views\OtherSystems\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -2862,6 +2879,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202201250904125_paymentFormReport.resx">
       <DependentUpon>202201250904125_paymentFormReport.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202261942089_update-other-systems.resx">
+      <DependentUpon>202202261942089_update-other-systems.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202262014324_update-other-systems2.resx">
+      <DependentUpon>202202262014324_update-other-systems2.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -1,0 +1,267 @@
+﻿@using EmployeeCare.Resources;
+
+@{
+    ViewBag.Title = "Costing Methods";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="modal fade" id="manage_OtherSystem_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.name</label>
+                                <input required name="name" id="name" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.description</label>
+                                <input name="description" id="description" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.status</label>
+                                <select class="form-control" name="active" id="active">
+                                    <option value="1">@ar.active</option>
+                                    <option value="2">@ar.inactive</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+
+            <a class="dropdown-item" id="add_OtherSystem" data-value="<span>Show</span> : " href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_other_system</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="OtherSystemTable" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.name</th>
+                            <th>@ar.description</th>
+                            <th>@ar.active</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#OtherSystemTable')
+               .DataTable({/* we added this from the other system to have same search and same pagination*/
+                   "dom": "<'dt--top-section '<'row'<'col-sm-12 col-md-6 d-flex justify-content-md-start justify-content-center'B><'col-sm-12 col-md-6 d-flex justify-content-md-end justify-content-center mt-md-0 mt-3'f>>>" +
+                       "<'table-responsive  'tr>" +
+                       "<'dt--bottom-section d-sm-flex justify-content-sm-between text-center'<'dt--pages-count  mb-sm-0 mb-3'i><'dt--pagination'p>>",
+                   "buttons": {
+                       buttons: [
+                           { extend: 'copy', className: 'btn btn-sm' },
+                           { extend: 'csv', className: 'btn btn-sm' },
+                           { extend: 'excel', className: 'btn btn-sm' },
+                           { extend: 'print', className: 'btn btn-sm' }
+                       ]
+                   },
+                   "oLanguage": {
+                       "oPaginate": { "sPrevious": 'Perivous', "sNext": 'Next' },
+                       "sInfo": "Showing page _PAGE_ of _PAGES_",
+                       "sSearch": '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-search"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>',
+                       "sSearchPlaceholder": "Search...",
+                       "sLengthMenu": "Results :  _MENU_",
+                   },
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+                   "filter": true, // this is for disable filter (search box)
+                   "orderMulti": false, // for disable multiple column at once
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "ajax": {
+                        "url": "@Url.Action("Index", "OtherSystem")",
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                   },
+                   "columnDefs":
+                       [{
+                           "targets": [3],
+                           //"visible": false,
+                           "orderable": false,
+                           "searchable": false
+                       },
+                       {
+                           "targets": [4],
+                           "searchable": false,
+                           "orderable": false
+                       }],
+                    "columns": [
+                        {
+                            "data": "id",
+                            "name": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "name",
+                            "name": "name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "description",
+                            "name": "description",
+                            "searchable": true
+                        },
+                        {
+                            "data": "active", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.active == 1)
+                                    html += "<span class='badge badge-primary'>Active</span>";
+                                else
+                                    html += "<span class='badge badge-danger'>Not Active</span>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='Edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='Delete'><i class='fas fa-trash'></i></a>&nbsp;";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                 });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+           $("#add_OtherSystem").click(function () {
+               var modal = $('#manage_OtherSystem_modal').clone();
+                var action = '@Url.Action("saveOtherSystem", "OtherSystem")';
+                modal.find('form').attr('action', action);
+               modal.find('#modal_title').text("@ar.add_other_system");
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_OtherSystem_modal').clone();
+                var action = '@Url.Action("saveOtherSystem", "OtherSystem")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text("@ar.edit_other_system");
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#name').val(data.name);
+                        dialog.find('#description').val(data.description);
+                        dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
+
+                });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("Are you sure you want to delete this Other System (<b>" + data.name +"</b>) ?", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteOtherSystem", "OtherSystem")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+        });
+
+    </script>
+}
+

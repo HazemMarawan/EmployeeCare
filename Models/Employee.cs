@@ -41,6 +41,7 @@ namespace EmployeeCare.Models
         public virtual ICollection<PaymentForm> PaymentForms { get; set; }
         public virtual ICollection<EmployeeArchive> EmployeeArchives { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
+        public virtual ICollection<OtherSystem> OtherSystems { get; set; }
 
     }
 }

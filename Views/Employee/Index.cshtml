@@ -56,7 +56,11 @@
                                     <option value="7">@ar.leave_without_pay</option>
                                 </select>
                             </div>
-                            <div class="form-group col-md-12">
+                            <div class="form-group col-md-6">
+                                <label>@ar.birth_date</label>
+                                <input name="birth_date" required id="birth_date" type="date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
                                 <label>@ar.membership_status</label>
                                 <select class="form-control" name="membership_status" id="membership_status">
                                     <option value="1">@ar.member_only</option>
@@ -91,6 +95,41 @@
         </div>
     </form>
 </div>
+
+<div class="modal fade" id="manage_other_systems_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="employee_id" id="other_systems_employee_id" value="0" />
+                           
+                            <div class="form-group col-md-12">
+                                <label>@ar.other_systems</label>
+                                @Html.DropDownList("other_systems", new SelectList(ViewBag.otherSystems, "id", "name"), ar.other_systems, new { @class = "selectize", @name = "other_systems", @multiple = "multiple", @id = "other_systems", @required = "required" })
+                            </div>
+                           
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
 
 <div class="modal fade" id="manage_employee_files_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
@@ -185,6 +224,7 @@
                             <th>@ar.info</th>
                             <th>@ar.date</th>
                             <th>@ar.archive_documens</th>
+                            <th>@ar.other_systems</th>
                             <th class="no-content"></th>
                         </tr>
                     </thead>
@@ -259,6 +299,8 @@
                                     html += "<small>" + '@ar.document_number' + ': ' + oData.employee_file_number + "</small><br>";
                                 if (oData.grade_name)
                                     html += "<small>" + '@ar.grade' + ': ' + oData.grade_name + "</small><br>";
+                                if (oData.birth_date)
+                                    html += "<small>" + '@ar.birth_date' + ': ' + fixDate(oData.birth_date) + "</small><br>";
 
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
@@ -340,14 +382,34 @@
                             }
                         },
                         {
+                            "data": "EmployeeOtherSystems", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+                                if (oData.EmployeeOtherSystems) {
+                                    
+                                    oData.EmployeeOtherSystems.forEach(function (value) {
+                                       
+                                        html += "<span class='badge badge-primary'>" + value.other_system_name + "</span> <br/>";
+                                      
+                                    });
+                                    //html = html.substring(0, html.length - 1);
+                                }
+                                else
+                                    html += "<span class='badge badge-danger'>-</span>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
                             "data": "id", "searchable": true,
                             fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
                                 var html = "";
 
                                 html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
                                 html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>&nbsp";
-                                html += "<a class='upload_files' href='javascript:void(0)' title='@ar.files'><i class='fas fa-file-upload'></i></a>&nbsp";
-                                html += "<a href='/Employee/Documents/"+oData.id+"' title='@ar.employee_documents'><i class='fas fa-file-alt'></i></a>";
+                                html += "<a class='upload_files' href='javascript:void(0)' title='@ar.files'><i class='fas fa-file-upload'></i></a>&nbsp | &nbsp";
+                                html += "<a href='/Employee/Documents/" + oData.id +"' title='@ar.employee_documents'><i class='fas fa-file-alt'></i></a>&nbsp | &nbsp";
+                                html += "<a class='other_systems' href='javascript:void(0)' title='@ar.other_systems'><i class='far fa-edit'></i></a>&nbsp";
+
                                 $(nTd).html("<span class='action-column'>" + html + "</span>");
                             }
                         },
@@ -400,7 +462,28 @@
                 }, function (response) {
 
                 }, function (dialog) {
+                        $(document).on("change", "#birth_date", function () {
 
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("checkIfM3ash", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "birth_date": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    dialog.find('#status option:selected').removeAttr("selected");
+
+                                    console.lo
+                                    if (data.message == "done")
+                                        dialog.find('#status option[value=4]').attr('selected', 'selected');
+                                    else
+                                        dialog.find('#status option[value=1]').attr('selected', 'selected');
+                                },
+                                error: function () {
+                                    //alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
                 });
             });
 
@@ -427,11 +510,36 @@
                         dialog.find('#grade_id option[value=' + data.grade_id + ']').attr('selected', 'selected');
                         dialog.find('#national_id').val(data.national_id);
                         dialog.find('#email').val(data.email);
+                        if (data.birth_date)
+                            dialog.find('#birth_date').val(fixDate(data.birth_date));
                         dialog.find('#status option[value=' + data.status + ']').attr('selected', 'selected');
                         dialog.find('#membership_status option[value=' + data.membership_status + ']').attr('selected', 'selected');
                         dialog.find('#bank_account_number').val(data.bank_account_number);
                         dialog.find('#bank_id option[value=' + data.bank_id + ']').attr('selected', 'selected');
                         dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
+
+                        $(document).on("change", "#birth_date", function () {
+
+                            $.ajax({
+                                type: "GET",
+                                url: '@Url.Action("checkIfM3ash", "Employee")',
+                                contentType: "application/json; charset=utf-8",
+                                data: { "birth_date": $(this).val() },
+                                datatype: "json",
+                                success: function (data) {
+                                    dialog.find('#status option:selected').removeAttr("selected");
+
+                                    console.lo
+                                    if (data.message == "done")
+                                        dialog.find('#status option[value=4]').attr('selected', 'selected');
+                                    else
+                                        dialog.find('#status option[value=1]').attr('selected', 'selected');
+                                },
+                                error: function () {
+                                    //alert("Dynamic content load failed.");
+                                }
+                            });
+                        });
                   });
             });
 
@@ -453,7 +561,7 @@
                     });
                 });
             });
-           
+
            $(document).on("click", ".upload_files", function () {
                var data = datatable.row($(this).closest('tr')).data();
                var modal = $('#manage_employee_files_modal').clone();
@@ -471,7 +579,42 @@
                 }, function (dialog) {
                         dialog.find('#id').val(data.id);
                   });
+           });
+
+           $(document).on("click", ".other_systems", function () {
+               var data = datatable.row($(this).closest('tr')).data();
+               var modal = $('#manage_other_systems_modal').clone();
+                var action = '@Url.Action("saveOtherSystems", "Employee")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.other_systems');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                    dialog.find('#other_systems_employee_id').val(data.id);
+                    //dialog.find('#other_systems').selectize({
+                    //    plugins: ['remove_button'],
+                    //});
+                    var $select = dialog.find('#other_systems').selectize({ plugins: ['remove_button'], });
+                    $select[0].selectize.clear();
+                    var selectize = $select[0].selectize;
+
+                    var ids = [];
+                    console.log(data.EmployeeOtherSystems)
+                    data.EmployeeOtherSystems.forEach(function ( value) {
+                        console.log(value.other_system_id)
+                        ids.push(value.other_system_id);
+                    });
+
+                    selectize.setValue(ids);
+                });
             });
+
         });
 
     </script>

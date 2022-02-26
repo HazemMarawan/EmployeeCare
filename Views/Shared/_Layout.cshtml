@@ -17,6 +17,7 @@
     <link href="~/Content/AdminPanel/assets/css/dashboard/dash_1.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="~/Content/AdminPanel/plugins/table/datatable/datatables.css">
     <link rel="stylesheet" type="text/css" href="~/Content/AdminPanel/plugins/table/datatable/dt-global_style.css">
+    <link href="~/Content/selectize.css" rel="stylesheet" />
     <!-- END PAGE LEVEL PLUGINS/CUSTOM STYLES -->
     <style>
         @@font-face {
@@ -267,8 +268,8 @@
                     </li>
 
                     @*<li class="menu md-visible menu-heading">
-            <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>Apps</span></div>
-        </li>*@
+                        <div class="heading"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-minus"><line x1="5" y1="12" x2="19" y2="12"></line></svg><span>Apps</span></div>
+                    </li>*@
 
                     <li class="menu">
                         <a href="#primary_data" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
@@ -295,6 +296,9 @@
                             </li>
                             <li>
                                 <a href="@Url.Action("Index","Bank")"> @ar.banks </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index","OtherSystem")"> @ar.other_systems </a>
                             </li>
                             <li>
                                 <a href="@Url.Action("Index","Employee")"> @ar.employee_data </a>
@@ -404,62 +408,65 @@
     <script src="~/Content/AdminPanel/plugins/apex/apexcharts.min.js"></script>
     <script src="~/Content/AdminPanel/assets/js/dashboard/dash_1.js"></script>
     <script>
+        function zeroPadded(val) {
+            if (val >= 10)
+                return val;
+            else
+                return '0' + val;
+        }
+        function fixDate(input_date) {
+            var value = new Date
+                (
+                    parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                );
+            var output_date = value.getFullYear() +
+                "-" +
+                zeroPadded(value.getMonth() + 1) +
+                "-" +
+                zeroPadded(value.getDate());
+            return output_date;
+        }
+        function fixDateTimeLocal(input_date) {
+
+            var value = new Date
+                (
+                    parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                );
+            var output_date = value.getFullYear() +
+                "-" +
+                zeroPadded(value.getMonth() + 1) +
+                "-" +
+                zeroPadded(value.getDate())
+                + "T"
+                + zeroPadded(value.getHours())
+                + ":"
+                + zeroPadded(value.getMinutes());
+            return output_date;
+        }
+
+        function fixTime(input_time) {
+
+            var Hours = null;
+            if (input_time.Hours < 10)
+                Hours = "0" + input_time.Hours;
+            else
+                Hours = input_time.Hours;
+
+            var Minutes = null;
+            if (input_time.Minutes < 10)
+                Minutes = "0" + input_time.Minutes;
+            else
+                Minutes = input_time.Minutes;
+            var output_time = Hours + ":" + Minutes;
+            return output_time;
+        }
         $(document).ready(function () {
             App.init();
-            function zeroPadded(val) {
-                if (val >= 10)
-                    return val;
-                else
-                    return '0' + val;
-            }
+            
 
-            function fixDate(input_date) {
-                var value = new Date
-                    (
-                        parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
-                    );
-                var output_date = value.getFullYear() +
-                    "-" +
-                    zeroPadded(value.getMonth() + 1) +
-                    "-" +
-                    zeroPadded(value.getDate());
-                return output_date;
-            }
+            
 
-            function fixDateTimeLocal(input_date) {
-
-                var value = new Date
-                    (
-                        parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
-                    );
-                var output_date = value.getFullYear() +
-                    "-" +
-                    zeroPadded(value.getMonth() + 1) +
-                    "-" +
-                    zeroPadded(value.getDate())
-                    + "T"
-                    + zeroPadded(value.getHours())
-                    + ":"
-                    + zeroPadded(value.getMinutes());
-                return output_date;
-            }
-
-            function fixTime(input_time) {
-
-                var Hours = null;
-                if (input_time.Hours < 10)
-                    Hours = "0" + input_time.Hours;
-                else
-                    Hours = input_time.Hours;
-
-                var Minutes = null;
-                if (input_time.Minutes < 10)
-                    Minutes = "0" + input_time.Minutes;
-                else
-                    Minutes = input_time.Minutes;
-                var output_time = Hours + ":" + Minutes;
-                return output_time;
-            }
+            
         });
     </script>
     <script src="~/Content/AdminPanel/plugins/table/datatable/datatables.js"></script>

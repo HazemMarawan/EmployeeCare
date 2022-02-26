@@ -26,10 +26,12 @@ namespace EmployeeCare.ViewModel
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
+        public DateTime? birth_date { get; set; }
         public DateTime? created_at { get; set; }
         public DateTime? updated_at { get; set; }
         public string string_created_at { get; set; }
         public List<string> archivesPaths { get; set; }
         public List<HttpPostedFileBase> files { get; set; }
+        public List<EmployeeOtherSystemViewModel> EmployeeOtherSystems { get; set; }
     }
 }

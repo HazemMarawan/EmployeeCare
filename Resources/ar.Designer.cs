@@ -178,6 +178,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to إضافة أنظمة أخرى.
+        /// </summary>
+        public static string add_other_system {
+            get {
+                return ResourceManager.GetString("add_other_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to أضافة استمارة.
         /// </summary>
         public static string add_payment_form {
@@ -691,6 +700,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to تعديل أنظمة أخرى.
+        /// </summary>
+        public static string edit_other_system {
+            get {
+                return ResourceManager.GetString("edit_other_system", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تعديل أستماره.
         /// </summary>
         public static string edit_payment_form {
@@ -1200,6 +1218,15 @@ namespace EmployeeCare.Resources {
         public static string other_income {
             get {
                 return ResourceManager.GetString("other_income", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أنظمة أخرى.
+        /// </summary>
+        public static string other_systems {
+            get {
+                return ResourceManager.GetString("other_systems", resourceCulture);
             }
         }
         

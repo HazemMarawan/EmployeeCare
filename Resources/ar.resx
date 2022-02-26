@@ -159,6 +159,9 @@
   <data name="add_invoice" xml:space="preserve">
     <value>ايصاد جديد</value>
   </data>
+  <data name="add_other_system" xml:space="preserve">
+    <value>إضافة أنظمة أخرى</value>
+  </data>
   <data name="add_payment_form" xml:space="preserve">
     <value>أضافة استمارة</value>
   </data>
@@ -326,6 +329,9 @@
   </data>
   <data name="edit_invoice" xml:space="preserve">
     <value>تعديل الأيصال</value>
+  </data>
+  <data name="edit_other_system" xml:space="preserve">
+    <value>تعديل أنظمة أخرى</value>
   </data>
   <data name="edit_payment_form" xml:space="preserve">
     <value>تعديل أستماره</value>
@@ -497,6 +503,9 @@
   </data>
   <data name="other_income" xml:space="preserve">
     <value>إيرادات أخرى</value>
+  </data>
+  <data name="other_systems" xml:space="preserve">
+    <value>أنظمة أخرى</value>
   </data>
   <data name="paid_off" xml:space="preserve">
     <value>تم الصرف</value>

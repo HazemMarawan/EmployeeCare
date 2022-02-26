@@ -36,5 +36,7 @@ namespace EmployeeCare.Models
          public virtual DbSet<Setting> Settings { get; set; }
          public virtual DbSet<Invoice> Invoices { get; set; }
          public virtual DbSet<PaymentFormTasfyaReport> PaymentFormTasfyaReports { get; set; }
+         public virtual DbSet<OtherSystem> OtherSystems { get; set; }
+         public virtual DbSet<EmployeeOtherSystem> EmployeeOtherSystems { get; set; }
     }
 }

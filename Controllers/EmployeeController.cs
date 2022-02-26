@@ -7,6 +7,7 @@ using System.Web.Mvc;
 using EmployeeCare.Auth;
 using EmployeeCare.Models;
 using EmployeeCare.ViewModel;
+
 namespace EmployeeCare.Controllers
 {
     [CustomAuthenticationFilter]
@@ -58,7 +59,17 @@ namespace EmployeeCare.Controllers
                                            active = employee.active,
                                            created_at = employee.created_at,
                                            status = employee.status,
-                                           archivesPaths = db.EmployeeArchives.Where(s=>s.employee_id == employee.id).Select(s=>s.path).ToList()
+                                           birth_date = employee.birth_date,
+                                           EmployeeOtherSystems = (from other in db.OtherSystems
+                                                                    join EOther in db.EmployeeOtherSystems on other.id equals EOther.other_system_id
+                                                                    select new EmployeeOtherSystemViewModel
+                                                                    {
+                                                                        employee_id = EOther.employee_id,
+                                                                        other_system_id = EOther.other_system_id,
+                                                                        other_system_name = other.name,
+                                                                        active = other.active
+                                                                    }).Where(o => o.active == 1 && o.employee_id == employee.id).ToList(),
+                                           archivesPaths = db.EmployeeArchives.Where(s => s.employee_id == employee.id).Select(s => s.path).ToList()
                                        }).AsEnumerable().Select(s => new EmployeeViewModel
                                        {
                                            id = s.id,
@@ -77,6 +88,8 @@ namespace EmployeeCare.Controllers
                                            bank_account_number = s.bank_account_number,
                                            bank_name = s.bank_name,
                                            active = s.active,
+                                           birth_date = s.birth_date,
+                                           EmployeeOtherSystems = s.EmployeeOtherSystems,
                                            string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd"),
                                            archivesPaths = s.archivesPaths,
                                            status = s.status
@@ -146,6 +159,7 @@ namespace EmployeeCare.Controllers
             ViewBag.destinations = db.Destinations.Select(d => new { d.id, d.name }).ToList();
             ViewBag.grades = db.Grades.Select(d => new { d.id, d.name }).ToList();
             ViewBag.banks = db.Banks.Select(d => new { d.id, d.name }).ToList();
+            ViewBag.otherSystems = db.OtherSystems.Select(d => new { d.id, d.name }).ToList();
 
             return View();
         }
@@ -155,7 +169,7 @@ namespace EmployeeCare.Controllers
             if (employeeVM.id == 0)
             {
                 Employee employee = AutoMapper.Mapper.Map<EmployeeViewModel, Employee>(employeeVM);
-
+       
                 employee.updated_at = DateTime.Now;
                 employee.created_at = DateTime.Now;
 
@@ -178,6 +192,9 @@ namespace EmployeeCare.Controllers
                 oldEmployee.active = employeeVM.active;
                 oldEmployee.updated_at = DateTime.Now;
                 oldEmployee.employee_file_number = employeeVM.employee_file_number;
+                oldEmployee.birth_date = employeeVM.birth_date;
+
+               
 
                 db.Entry(oldEmployee).State = System.Data.Entity.EntityState.Modified;
             }
@@ -185,6 +202,42 @@ namespace EmployeeCare.Controllers
 
             return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
 
+        }
+
+        [HttpGet]
+        public JsonResult checkIfM3ash(string birth_date)
+        {
+            if (Convert.ToDateTime(birth_date) != DateTime.MinValue)
+            {
+                double years = Convert.ToDateTime(DateTime.Now.ToShortDateString()).Date.Subtract(Convert.ToDateTime(Convert.ToDateTime(birth_date).ToShortDateString())).TotalDays / 365;
+                if (years >= 60)
+                {
+                    return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+
+                }
+            }
+
+            return Json(new { message = "fail" }, JsonRequestBehavior.AllowGet);
+        }  
+        
+        [HttpPost]
+        public JsonResult saveOtherSystems(EmployeeOtherSystemViewModel employeeOtherSystemViewModel)
+        {
+            if(employeeOtherSystemViewModel.other_systems.Count > 0)
+            {
+                db.EmployeeOtherSystems.Where(s => s.employee_id == employeeOtherSystemViewModel.employee_id).ToList().ForEach(s => db.EmployeeOtherSystems.Remove(s));
+
+                foreach (var otherSystem in employeeOtherSystemViewModel.other_systems)
+                {
+                    EmployeeOtherSystem employeeOtherSystem = new EmployeeOtherSystem();
+                    employeeOtherSystem.employee_id = employeeOtherSystemViewModel.employee_id;
+                    employeeOtherSystem.other_system_id = otherSystem;
+                    db.EmployeeOtherSystems.Add(employeeOtherSystem);
+                    db.SaveChanges();
+                }
+            }
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
         }
 
         [HttpGet]
