@@ -10,6 +10,7 @@ namespace EmployeeCare.ViewModel
         public int id { get; set; }
         public string code { get; set; }
         public int? employee_document_id { get; set; }
+        public int? employee_file_number { get; set; }
         public int? employee_id { get; set; }
         public string employee_name { get; set; }
         public string document_name { get; set; }
@@ -25,6 +26,7 @@ namespace EmployeeCare.ViewModel
         public double? membership_subscription_deduct { get; set; }
         public double? final_paid { get; set; }
         public string notes { get; set; }
+        public string employee_national_id { get; set; }
         public int? approval_status { get; set; }
         public double? managerial_fees { get; set; }
         public double? installments { get; set; }

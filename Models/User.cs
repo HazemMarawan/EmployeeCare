@@ -21,6 +21,12 @@ namespace EmployeeCare.Models
         public DateTime? birthDate { get; set; }
         public string image { get; set; }
         public int? type { get; set; }
+        public int? users_access { get; set; }
+        public int? primary_data_access { get; set; }
+        public int? payment_forms_management_access { get; set; }
+        public int? manage_inventory_access { get; set; }
+        public int? accountants_access { get; set; }
+        public int? paid_off_access { get; set; }
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }

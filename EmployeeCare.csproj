@@ -141,6 +141,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Auth\can.cs" />
     <Compile Include="Auth\CustomAuthenticationFilter.cs" />
     <Compile Include="Controllers\AccountantTasfyaController.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
@@ -255,6 +256,10 @@
     <Compile Include="Migrations\202202262014324_update-other-systems2.cs" />
     <Compile Include="Migrations\202202262014324_update-other-systems2.Designer.cs">
       <DependentUpon>202202262014324_update-other-systems2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202202271544273_updates.cs" />
+    <Compile Include="Migrations\202202271544273_updates.Designer.cs">
+      <DependentUpon>202202271544273_updates.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Bank.cs" />
@@ -2885,6 +2890,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202262014324_update-other-systems2.resx">
       <DependentUpon>202202262014324_update-other-systems2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202202271544273_updates.resx">
+      <DependentUpon>202202271544273_updates.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -44,6 +44,12 @@ namespace EmployeeCare.Controllers
                                     code = user.code,
                                     email = user.email,
                                     gender = user.gender,
+                                    users_access = user.users_access,
+                                    primary_data_access = user.primary_data_access,
+                                    payment_forms_management_access = user.payment_forms_management_access,
+                                    manage_inventory_access = user.manage_inventory_access,
+                                    accountants_access = user.accountants_access,
+                                    paid_off_access = user.paid_off_access,
                                     active = user.active,
                                 });
 
@@ -113,6 +119,13 @@ namespace EmployeeCare.Controllers
                 oldUser.gender = userVM.gender;
                 oldUser.type = userVM.type;
                 oldUser.active = userVM.active;
+                oldUser.users_access = userVM.users_access;
+                oldUser.primary_data_access = userVM.primary_data_access;
+                oldUser.payment_forms_management_access = userVM.payment_forms_management_access;
+                oldUser.manage_inventory_access = userVM.manage_inventory_access;
+                oldUser.accountants_access = userVM.accountants_access;
+                oldUser.paid_off_access = userVM.paid_off_access;
+
                 if (userVM.image != null)
                 {
                     Guid guid = Guid.NewGuid();

@@ -40,6 +40,8 @@ namespace EmployeeCare.Controllers
                                        {
                                            id = paymentform.id,
                                            employee_name = employee.name,
+                                           employee_national_id = employee.national_id,
+                                           employee_file_number = employee.employee_file_number,
                                            document_name = document.name,
                                            created_at = paymentform.created_at,
                                            decision_name = decision.title,
@@ -78,19 +80,17 @@ namespace EmployeeCare.Controllers
                                            notes = s.notes,
                                            type = s.type,
                                            approval_status = s.approval_status,
+                                           employee_national_id = s.employee_national_id,
+                                           employee_file_number = s.employee_file_number,
                                            string_created_at = ((DateTime)s.created_at).ToString("yyyy-MM-dd")
                                        }).Where(s => s.approval_status == 1 && s.type == (int)PaymentFormTypes.Takaful);
 
                 //Search    
                 if (!string.IsNullOrEmpty(searchValue))
                 {
-                    paymentFormData = paymentFormData.Where(m => m.notes.ToLower().Contains(searchValue.ToLower())
-                        || m.id.ToString().ToLower().Contains(searchValue.ToLower())
-                        || m.employee_name.ToString().ToLower().Contains(searchValue.ToLower())
-                        || m.document_name.ToString().ToLower().Contains(searchValue.ToLower())
-                        || m.decision_name.ToString().ToLower().Contains(searchValue.ToLower())
-                        || m.salary.ToString().ToLower().Contains(searchValue.ToLower())
-                       );
+                    paymentFormData = paymentFormData.Where(m => m.employee_name.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.employee_national_id.ToString().ToLower().Contains(searchValue.ToLower())
+                        || m.employee_file_number.ToString().ToLower().Contains(searchValue.ToLower()));
                 }
 
                 //total number of rows count     

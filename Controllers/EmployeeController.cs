@@ -318,7 +318,10 @@ namespace EmployeeCare.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
             }
-            ViewBag.documents = db.Documents.Select(d => new { d.id, d.name }).ToList();
+
+            List<int> emDoc = db.EmployeeDocuments.Where(e => e.employee_id == id).Select(e => (int)e.document_id).ToList();
+            ViewBag.documents = db.Documents.Where(e => !emDoc.Contains(e.id)).Select(d => new { d.id, d.name }).ToList();
+
             return View();
         }
         [HttpPost]

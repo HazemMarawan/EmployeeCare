@@ -34,6 +34,7 @@
                                     <option value="">@ar.select_decision_type</option>
                                     <option value="1">@ar.takaful</option>
                                     <option value="2">@ar.tasfya</option>
+                                    <option value="3">@ar.dead</option>
                                 </select>
                             </div>
                             <div class="form-group col-md-12">
@@ -214,6 +215,8 @@
                                         html += '@ar.takaful';
                                     else if (oData.decision_type == 2)
                                         html += '@ar.tasfya';
+                                    else if (oData.decision_type == 3)
+                                        html += '@ar.dead';
                                 }
                                 else
                                     html += "-";

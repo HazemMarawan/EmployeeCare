@@ -80,6 +80,30 @@
                                     <label class="custom-file-label" for="inputGroupFile01">@ar.choose_file</label>
                                 </div>
                             </div>
+                            <div class="form-group col-md-4">
+                                <label for="users_access">@ar.users</label>
+                                <input name="users_access" id="users_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="primary_data_access">@ar.primary_data</label>
+                                <input name="primary_data_access" id="primary_data_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="payment_forms_management_access">@ar.payment_forms_management</label>
+                                <input name="payment_forms_management_access" id="payment_forms_management_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="manage_inventory_access">@ar.manage_inventory</label>
+                                <input name="manage_inventory_access" id="manage_inventory_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="accountants_access">@ar.accountants</label>
+                                <input name="accountants_access" id="accountants_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
+                            <div class="form-group col-md-4">
+                                <label for="paid_off_access">@ar.paid_off</label>
+                                <input name="paid_off_access" id="paid_off_access" value="1" type="checkbox" class="radius-30" />
+                            </div>
                             <div class="form-group col-md-12">
                                 <label>@ar.status</label>
                                 <select class="form-control" name="active" id="active">
@@ -427,6 +451,18 @@
                         dialog.find('#active option[value=' + data.active + ']').attr('selected', 'selected');
                         dialog.find('#type option[value=' + data.type + ']').attr('selected', 'selected');
 
+                        if (data.users_access == 1)
+                            dialog.find('#users_access').prop('checked', true);
+                        if (data.primary_data_access == 1)
+                            dialog.find('#primary_data_access').prop('checked', true);
+                        if (data.payment_forms_management_access == 1)
+                            dialog.find('#payment_forms_management_access').prop('checked', true);
+                        if (data.manage_inventory_access == 1)
+                            dialog.find('#manage_inventory_access').prop('checked', true);
+                        if (data.accountants_access == 1)
+                            dialog.find('#accountants_access').prop('checked', true);
+                        if (data.paid_off_access == 1)
+                            dialog.find('#paid_off_access').prop('checked', true);
 
                         $(document).on('change', '#image', function (event) {
 
