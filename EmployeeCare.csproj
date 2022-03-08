@@ -2799,6 +2799,7 @@
     <Content Include="Views\PaymentFormTasfya\Report.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\OtherSystem\Index.cshtml" />
+    <Content Include="Views\Shared\_Layout - Copy %282%29.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

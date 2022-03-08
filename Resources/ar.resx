@@ -621,6 +621,9 @@
   <data name="subscription_date" xml:space="preserve">
     <value>تاريخ الأشتراك</value>
   </data>
+  <data name="system" xml:space="preserve">
+    <value>النظام</value>
+  </data>
   <data name="takaful" xml:space="preserve">
     <value>تكافل</value>
   </data>
