@@ -108,7 +108,7 @@ namespace EmployeeCare.Controllers
                 }, JsonRequestBehavior.AllowGet);
 
             }
-            ViewBag.employees = db.Employees.Select(d => new { d.id, d.name }).ToList();
+            ViewBag.employees = db.Employees.Select(d => new EmployeeViewModel { id = d.id, name = d.national_id + " - " + d.name + " - " + d.employee_file_number }).ToList();
             ViewBag.decisions = db.Decisions.Select(d => new { d.id, d.title }).ToList();
 
             return View();

@@ -19,7 +19,7 @@
                             <input type="hidden" name="type" id="type" value="2" />
                             <div class="form-group col-md-6">
                                 <label>@ar.employees</label>
-                                @Html.DropDownList("employee_id", new SelectList(ViewBag.employees, "id", "name"), ar.select_employee, new { @class = "form-control", @name = "employee_id", @id = "employee_id", @required = "required" })
+                                @Html.DropDownList("employee_id", new SelectList(ViewBag.employees, "id", "name"), ar.select_employee, new { @class = "selectize", @name = "employee_id", @id = "employee_id", @required = "required" })
                             </div>
                             <div class="form-group col-md-6" id="employee_document_div">
                                 <label>@ar.documents</label>
@@ -28,9 +28,9 @@
                                 </select>
                             </div>
                             @*<div class="form-group col-md-6">
-            <label>@ar.last_installment</label>
-            @Html.DropDownList("decision_id", new SelectList(ViewBag.decisions, "id", "title"), ar.select_decision, new { @class = "form-control", @name = "decision_id", @id = "decision_id", @required = "required" })
-        </div>*@
+                                <label>@ar.last_installment</label>
+                                @Html.DropDownList("decision_id", new SelectList(ViewBag.decisions, "id", "title"), ar.select_decision, new { @class = "form-control", @name = "decision_id", @id = "decision_id", @required = "required" })
+                            </div>*@
                             <div class="form-group col-md-6">
                                 <label>@ar.last_installment</label>
                                 <input type="text" name="last_installment" id="last_installment" class="form-control radius-30" />
@@ -339,6 +339,7 @@
                                 }
                             });
                         });
+                        dialog.find('#employee_id').selectize();
                 });
             });
 
@@ -493,6 +494,7 @@
                                 ;
                                 dialog.find('#record_date').val(record_date);
                         }
+                    dialog.find('#employee_id').selectize();
                 });
 
             });
