@@ -21,88 +21,61 @@ namespace EmployeeCare.Controllers
             return View();
         }
 
-        public JsonResult GetData(int id=-1)
+        public JsonResult GetTree(string id)
         {
 
-            var items = db.AccountingTrees.Where(a => a.active == 1).Select(a => new AccountingTreeViewModel
+            var items = db.AccountingTrees.Where(a => a.active == 1).Select(a => new JsTreeViewModel
             {
                 id = a.id,
-                name = a.name,
-                code = a.code,
-                level1 = a.level1,
-                level2 = a.level2,
-                type = a.type,
+                text = a.name,
+                parent = a.parent_id != null ? a.parent_id.ToString() : "#",
                 parent_id = a.parent_id,
-                range_from = a.range_from,
-                range_to = a.range_to
-
+                children = db.AccountingTrees.Where(s=>s.parent_id == a.id).Any(),
             });
 
-            if (id == -1)
-                items = items.Where(a => a.parent_id == null);
+            if (id != "#")
+            {
+                int currentId = Convert.ToInt32(id);
+                items = items.Where(a => a.parent_id == currentId);
+            }
             else
-                items = items.Where(a => a.parent_id == id);
+                items = items.Where(a => a.parent_id == null);
 
-            // set items in here
 
-            return new JsonResult { Data = items.ToList(), JsonRequestBehavior = JsonRequestBehavior.AllowGet };
+            List<JsTreeViewModel> treeData = items.ToList();
+
+            return Json(treeData , JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult GetRoot()
+        [HttpPost]
+        public JsonResult saveAccountingTree(AccountingTreeViewModel accountingTreeViewModel)
         {
-
-            List<AccountingTreeViewModel> items = GetTree();
-
-            return new JsonResult { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-
-        public JsonResult GetChildren(int id)
-        {
-            List<AccountingTreeViewModel> items = GetTree(id);
-
-            return new JsonResult { Data = items, JsonRequestBehavior = JsonRequestBehavior.AllowGet };
-        }
-
-        public List<AccountingTreeViewModel> GetTree()
-        {
-            var items = new List<AccountingTreeViewModel>();
-            items = db.AccountingTrees.Where(a => a.active == 1 && a.parent_id == null).Select(a => new AccountingTreeViewModel
+            if (accountingTreeViewModel.id == 0)
             {
-                id = a.id,
-                name = a.name,
-                code = a.code,
-                level1 = a.level1,
-                level2 = a.level2,
-                type = a.type,
-                parent_id = a.parent_id,
-                range_from = a.range_from,
-                range_to = a.range_to
+                AccountingTree accountingTree = AutoMapper.Mapper.Map<AccountingTreeViewModel, AccountingTree>(accountingTreeViewModel);
 
-            }).ToList();
-            // set items in here
+                accountingTree.created_by = Convert.ToInt32(Session["id"].ToString());
+                accountingTree.updated_at = DateTime.Now;
+                accountingTree.created_at = DateTime.Now;
+                accountingTree.active = 1;
 
-            return items;
-        }
-
-        public List<AccountingTreeViewModel> GetTree(int id)
-        {
-            var items = new List<AccountingTreeViewModel>();
-            items = db.AccountingTrees.Where(a => a.active == 1 && a.parent_id == id).Select(a => new AccountingTreeViewModel
+                db.AccountingTrees.Add(accountingTree);
+            }
+            else
             {
-                id = a.id,
-                name = a.name,
-                code = a.code,
-                level1 = a.level1,
-                level2 = a.level2,
-                type = a.type,
-                parent_id = a.parent_id,
-                range_from = a.range_from,
-                range_to = a.range_to
+                AccountingTree oldaccountingTree = db.AccountingTrees.Find(accountingTreeViewModel.id);
 
-            }).ToList();
-            // set items in here
+                oldaccountingTree.name = accountingTreeViewModel.name;
+                oldaccountingTree.updated_at = DateTime.Now;
 
-            return items;
+                db.Entry(oldaccountingTree).State = System.Data.Entity.EntityState.Modified;
+            }
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+
         }
+
+
     }
 }

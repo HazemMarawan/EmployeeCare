@@ -1,34 +1,145 @@
-﻿
+﻿@using EmployeeCare.Resources;
 @{
     ViewBag.Title = "Index";
 }
-<link href="~/Content/jstree/themes/default/style.min.css" rel="stylesheet" />
-<div id='treeview'></div>
+@section css{
+    <link href="~/Content/jstree/themes/default/style.min.css" rel="stylesheet" />
+
+}
+<div class="modal fade" id="manage_accounting_tree_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <input type="hidden" name="parent_id" id="parent_id" />
+                            <div class="form-group col-md-12">
+                                <label>@ar.name</label>
+                                <input required name="name" id="name" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.code</label>
+                                <input name="code" id="code" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.level1</label>
+                                <input name="level1" id="level1" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.level2</label>
+                                <input name="level2" id="level2" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.from</label>
+                                <input name="range_from" id="range_from" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.to</label>
+                                <input name="range_to" id="range_to" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.level</label>
+                                <input name="level" id="level" type="number" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <select name="mden_da2en" class="form-control">
+                                    <option value="1">@ar.maden</option>
+                                    <option value="2">@ar.da2n</option>
+                                </select>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_primary_level" data-value="<span>Show</span> : Add Primary Level" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_primary_level</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <div id='treeview'></div>
+            </div>
+
+        </div>
+    </div>
+</div>
 @section scripts
 {
     <script src="~/Content/jstree/jstree.min.js"></script>
     <script>
         $(document).ready(function () {
-
             $('#treeview').jstree({
-                "plugins": ["search", "wholerow"],
+                "plugins": ["rules"],
                 'core': {
                     'data': {
                         'url': function (node) {
-                            return node.id === '#' ? "/AccountingTree/GetRoot" : "/AccountingTree/GetChildren/" + node.id;
-
+                            return node.id === '#' ?
+                                '@Url.Action("GetTree", "AccountingTree")' :
+                                '@Url.Action("GetTree", "AccountingTree")'+'?id=' + node.id;
                         },
                         'data': function (node) {
-                            console.log(node)
+                            console.log(node);
                             return { 'id': node.id };
-                        }
-                    }
+                        },
+                    },
+                    multiple: false
+                },
+                checkbox: {
+                    three_state: false,
+                    cascade: "undetermined"
                 }
-            });
+                });
+            $('#jstree').on('changed.jstree', function (e, data) {
+                var i, j, r = [];
+                for (i = 0, j = data.selected.length; i < j; i++) {
+                    r.push(data.instance.get_node(data.selected[i]).id);
+                }
 
-            $('#treeview').on('changed.jstree', function (e, data) {
-                console.log(data)
-                console.log("=> selected node: " + data.node.id + " name: " + data.node.name);
+                console.log(data);
+                //alert('Selected: ' + r.join(', '));
+                //$('#Path').val(r.join(', '));
+                // $('#event_result').html('Selected: ' + r.join(', '));
+            }).jstree();
+
+            $(document).on('click', '#add_primary_level', function () { 
+
+                var modal = $('#manage_accounting_tree_modal').clone();
+                var action = '@Url.Action("saveAccountingTree", "AccountingTree")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.add_primary_level');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        $('#treeview').jstree("refresh");
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                });
             });
         });
 

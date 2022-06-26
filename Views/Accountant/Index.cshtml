@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = ar.accountants_takaful;
 }
+
 <div class="modal fade" id="manage_payment_forms_modal" tabindex="-1" role="dialog" aria-hidden="true">
     <form action="" method="post" enctype='multipart/form-data'>
         <div class="modal-dialog modal-lg">
@@ -63,6 +64,7 @@
 </div>
 
 <div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+
     <div class="row">
         <div class="form-group col-4">
             <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
@@ -73,16 +75,14 @@
         <div class="form-group col-2">
             <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
         </div>
-
     </div>
 
     <div class="card">
         <div class="card-header">
             @*<a class="dropdown-item" id="add_payment_form" data-value="<span>Show</span> : @ar.add_payment_form" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_payment_form</a>*@
-
         </div>
+        
         <div class="card-body">
-
             <div class="widget-content widget-content-area br-6">
                 <table id="payment_forms_table" class="table dt-table-hover" style="width:100%">
                     <thead>
@@ -97,8 +97,8 @@
                     </thead>
                 </table>
             </div>
-
         </div>
+
     </div>
 </div>
 

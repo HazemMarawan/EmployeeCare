@@ -26,8 +26,10 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44324</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>
+    </IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>
+    </IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -335,6 +337,7 @@
     <Compile Include="ViewModel\EmployeeViewModel.cs" />
     <Compile Include="ViewModel\GradeViewModel.cs" />
     <Compile Include="ViewModel\InvoiceViewModel.cs" />
+    <Compile Include="ViewModel\JsTreeViewModel.cs" />
     <Compile Include="ViewModel\OtherSystemViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormReport.cs" />
     <Compile Include="ViewModel\PaymentFormTasfyaViewModel.cs" />
@@ -2816,9 +2819,7 @@
     <Content Include="Views\Invoice\Index.cshtml" />
     <Content Include="Views\AccountantTasfya\Index.cshtml" />
     <Content Include="Views\PaymentFormTasfya\Report.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\OtherSystem\Index.cshtml" />
-    <Content Include="Views\Shared\_Layout - Copy %282%29.cshtml" />
     <Content Include="Views\AccountingTree\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
