@@ -129,6 +129,9 @@
   <data name="accountants_tasfya" xml:space="preserve">
     <value>حسابات التصفية</value>
   </data>
+  <data name="accounting_tree" xml:space="preserve">
+    <value>الشجرة المحاسبية</value>
+  </data>
   <data name="active" xml:space="preserve">
     <value>مفُعل</value>
   </data>
@@ -167,6 +170,12 @@
   </data>
   <data name="add_payment_type" xml:space="preserve">
     <value>اضافه نوع سداد</value>
+  </data>
+  <data name="add_primary_level" xml:space="preserve">
+    <value>أضافة مستوي رئيسي</value>
+  </data>
+  <data name="add_secondary_level" xml:space="preserve">
+    <value>أضافة مستوي فرعي</value>
   </data>
   <data name="add_to_archive" xml:space="preserve">
     <value>أضافة الي الارشيف</value>
@@ -227,6 +236,9 @@
   </data>
   <data name="copy_rights" xml:space="preserve">
     <value>جميع الحقوق محفوظه</value>
+  </data>
+  <data name="da2n" xml:space="preserve">
+    <value>دائن</value>
   </data>
   <data name="date" xml:space="preserve">
     <value>التاريخ</value>
@@ -381,6 +393,9 @@
   <data name="final_paid" xml:space="preserve">
     <value>صافي المبلغ المستحق للعضو</value>
   </data>
+  <data name="from" xml:space="preserve">
+    <value>من</value>
+  </data>
   <data name="from_to" xml:space="preserve">
     <value>يشمل من و الي</value>
   </data>
@@ -432,11 +447,26 @@
   <data name="leave_without_pay" xml:space="preserve">
     <value>اجازة بدون مرتب</value>
   </data>
+  <data name="level" xml:space="preserve">
+    <value>المستوي</value>
+  </data>
+  <data name="level1" xml:space="preserve">
+    <value>المستوي الأول</value>
+  </data>
+  <data name="level2" xml:space="preserve">
+    <value>المستوي الثاني</value>
+  </data>
   <data name="login" xml:space="preserve">
     <value>تسجيل الدخول</value>
   </data>
   <data name="login_page_title" xml:space="preserve">
     <value>تسجيل الدخول لنظام جمعية رعاية العاملين</value>
+  </data>
+  <data name="maden" xml:space="preserve">
+    <value>مدين</value>
+  </data>
+  <data name="maden_da2n" xml:space="preserve">
+    <value>مدين / دائن</value>
   </data>
   <data name="main_page" xml:space="preserve">
     <value>الرئيسية</value>

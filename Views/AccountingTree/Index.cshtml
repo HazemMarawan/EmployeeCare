@@ -50,6 +50,7 @@
                                 <input name="level" id="level" type="number" class="form-control radius-30" />
                             </div>
                             <div class="form-group col-md-6">
+                                <label>@ar.maden_da2n</label>
                                 <select name="mden_da2en" class="form-control">
                                     <option value="1">@ar.maden</option>
                                     <option value="2">@ar.da2n</option>
@@ -110,7 +111,7 @@
                     cascade: "undetermined"
                 }
                 });
-            $('#jstree').on('changed.jstree', function (e, data) {
+            $('#treeview').on('changed.jstree', function (e, data) {
                 var i, j, r = [];
                 for (i = 0, j = data.selected.length; i < j; i++) {
                     r.push(data.instance.get_node(data.selected[i]).id);
@@ -122,7 +123,110 @@
                 // $('#event_result').html('Selected: ' + r.join(', '));
             }).jstree();
 
-            $(document).on('click', '#add_primary_level', function () { 
+            $('#treeview').on("select_node.jstree", function (e, data) {
+
+                Swal.fire({
+                    title: '',
+                    showDenyButton: true,
+                    showCancelButton: true,
+                    confirmButtonText: 'أضافة مستوي فرعي',
+                    denyButtonText: `حذف`,
+                    cancelButtonText: `تعديل`,
+                }).then((result) => {
+                    /* Read more about isConfirmed, isDenied below */
+                    if (result.isConfirmed) {
+                        var modal = $('#manage_accounting_tree_modal').clone();
+                        var action = '@Url.Action("saveAccountingTree", "AccountingTree")';
+                        modal.find('form').attr('action', action);
+                        modal.find('#modal_title').text('@ar.add_secondary_level');
+                        modal.execModal({
+                            progressBar: 'progress_bar',
+                            progressText: 'progress_text',
+                        }, function (response) {
+
+                            $('#treeview').jstree("refresh");
+
+                        }, function (response) {
+
+                        }, function (dialog) {
+                            dialog.find("#parent_id").val(data.node.id);
+                        });
+                    }
+                    else if (result.isDenied) {
+
+                        var id = data.node.id;
+
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("deleteAccountingTree", "AccountingTree")',
+                            contentType: "application/json; charset=utf-8",
+                            data: { "id": id },
+                            datatype: "json",
+                            success: function (data) {
+                                $('#treeview').jstree("refresh");
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'تم',
+                                    title: 'تم حذف المستوي',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                            },
+                            error: function () {
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                    else {
+                        var id = data.node.id;
+                        $.ajax({
+                            type: "GET",
+                            url: '@Url.Action("getAcctountTree", "AccountingTree")',
+                            contentType: "application/json; charset=utf-8",
+                            data: { "id": id },
+                            datatype: "json",
+                            success: function (data) {
+                                var modal = $('#manage_accounting_tree_modal').clone();
+                                var action = '@Url.Action("saveAccountingTree", "AccountingTree")';
+                                modal.find('form').attr('action', action);
+                                modal.find('#modal_title').text('@ar.add_secondary_level');
+                                modal.execModal({
+                                    progressBar: 'progress_bar',
+                                    progressText: 'progress_text',
+                                }, function (response) {
+
+                                    $('#treeview').jstree("refresh");
+
+                                }, function (response) {
+
+                                }, function (dialog) {
+                                        dialog.find("#id").val(data.accountingTree.id);
+                                        dialog.find("#name").val(data.accountingTree.name);
+                                        dialog.find("#code").val(data.accountingTree.code);
+                                        dialog.find("#level1").val(data.accountingTree.level1);
+                                        dialog.find("#level2").val(data.accountingTree.level2);
+                                        dialog.find("#range_from").val(data.accountingTree.range_from);
+                                        dialog.find("#range_to").val(data.accountingTree.range_to);
+                                        dialog.find("#level").val(data.accountingTree.level);
+                                        dialog.find("#parent_id").val(data.accountingTree.parent_id);
+
+                                        dialog.find('#mden_da2en option[value=' + data.mden_da2en + ']').attr('selected', 'selected');
+
+
+                                });
+                            },
+                            error: function () {
+                                alert("Dynamic content load failed.");
+                            }
+                        });
+                    }
+                })
+
+
+
+            });
+
+            $(document).on('click', '#add_primary_level', function () {
 
                 var modal = $('#manage_accounting_tree_modal').clone();
                 var action = '@Url.Action("saveAccountingTree", "AccountingTree")';

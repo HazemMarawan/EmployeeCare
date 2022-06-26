@@ -97,6 +97,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to الشجرة المحاسبية.
+        /// </summary>
+        public static string accounting_tree {
+            get {
+                return ResourceManager.GetString("accounting_tree", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to مفُعل.
         /// </summary>
         public static string active {
@@ -201,6 +210,24 @@ namespace EmployeeCare.Resources {
         public static string add_payment_type {
             get {
                 return ResourceManager.GetString("add_payment_type", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أضافة مستوي رئيسي.
+        /// </summary>
+        public static string add_primary_level {
+            get {
+                return ResourceManager.GetString("add_primary_level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to أضافة مستوي فرعي.
+        /// </summary>
+        public static string add_secondary_level {
+            get {
+                return ResourceManager.GetString("add_secondary_level", resourceCulture);
             }
         }
         
@@ -390,6 +417,15 @@ namespace EmployeeCare.Resources {
         public static string copy_rights {
             get {
                 return ResourceManager.GetString("copy_rights", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to دائن.
+        /// </summary>
+        public static string da2n {
+            get {
+                return ResourceManager.GetString("da2n", resourceCulture);
             }
         }
         
@@ -853,6 +889,15 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to من.
+        /// </summary>
+        public static string from {
+            get {
+                return ResourceManager.GetString("from", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to يشمل من و الي.
         /// </summary>
         public static string from_to {
@@ -1006,6 +1051,33 @@ namespace EmployeeCare.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to المستوي.
+        /// </summary>
+        public static string level {
+            get {
+                return ResourceManager.GetString("level", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المستوي الأول.
+        /// </summary>
+        public static string level1 {
+            get {
+                return ResourceManager.GetString("level1", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to المستوي الثاني.
+        /// </summary>
+        public static string level2 {
+            get {
+                return ResourceManager.GetString("level2", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to تسجيل الدخول.
         /// </summary>
         public static string login {
@@ -1020,6 +1092,24 @@ namespace EmployeeCare.Resources {
         public static string login_page_title {
             get {
                 return ResourceManager.GetString("login_page_title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مدين.
+        /// </summary>
+        public static string maden {
+            get {
+                return ResourceManager.GetString("maden", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to مدين / دائن.
+        /// </summary>
+        public static string maden_da2n {
+            get {
+                return ResourceManager.GetString("maden_da2n", resourceCulture);
             }
         }
         

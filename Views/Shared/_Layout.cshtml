@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no">
-    <title>CORK Admin Template - Sales Dashboard </title>
+    <title>نظام ادارة جمعيه رعايه العاملين بقطاع التعمير</title>
     <link rel="icon" type="image/x-icon" href="assets/img/favicon.ico" />
     <link href="~/Content/AdminPanel/assets/css/loader.css" rel="stylesheet" type="text/css" />
     <script src="~/Content/AdminPanel/assets/js/loader.js"></script>
@@ -396,7 +396,14 @@
                             </a>
                         </li>
                     }
-
+                    <li class="menu">
+                        <a href="@Url.Action("Index","AccountingTree")" aria-expanded="false" class="dropdown-toggle">
+                            <div class="">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-square"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                <span>@ar.accounting_tree</span>
+                            </div>
+                        </a>
+                    </li>
                 </ul>
 
             </nav>

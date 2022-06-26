@@ -66,6 +66,13 @@ namespace EmployeeCare.Controllers
                 AccountingTree oldaccountingTree = db.AccountingTrees.Find(accountingTreeViewModel.id);
 
                 oldaccountingTree.name = accountingTreeViewModel.name;
+                oldaccountingTree.code = accountingTreeViewModel.code;
+                oldaccountingTree.level1 = accountingTreeViewModel.level1;
+                oldaccountingTree.level2 = accountingTreeViewModel.level2;
+                oldaccountingTree.range_from = accountingTreeViewModel.range_from;
+                oldaccountingTree.range_to = accountingTreeViewModel.range_to;
+                oldaccountingTree.level = accountingTreeViewModel.level;
+                oldaccountingTree.mden_da2en = accountingTreeViewModel.mden_da2en;
                 oldaccountingTree.updated_at = DateTime.Now;
 
                 db.Entry(oldaccountingTree).State = System.Data.Entity.EntityState.Modified;
@@ -76,6 +83,42 @@ namespace EmployeeCare.Controllers
 
         }
 
+
+        [HttpGet]
+        public JsonResult deleteAccountingTree(int id)
+        {
+            db.AccountingTrees.Where(a => a.parent_id == id).ToList().ForEach(a => db.AccountingTrees.Remove(a));
+            db.SaveChanges();
+
+            AccountingTree accountingTree =  db.AccountingTrees.Find(id);
+            db.AccountingTrees.Remove(accountingTree);
+            db.SaveChanges();
+
+            return Json(new { message = "done" }, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult getAcctountTree(int id)
+        {
+
+            AccountingTreeViewModel accountingTree = db.AccountingTrees.Where(s => s.active == 1 && s.id == id).Select(s => new AccountingTreeViewModel
+            {
+                id = s.id,
+                name = s.name,
+                code = s.code,
+                level1 = s.level1,
+                level2 = s.level2,
+                range_from = s.range_from,
+                range_to = s.range_to,
+                level = s.level,
+                type = s.type,
+                mden_da2en = s.mden_da2en,
+                parent_id = s.parent_id
+
+            }).FirstOrDefault();
+
+            return Json(new { accountingTree = accountingTree, message = "done" }, JsonRequestBehavior.AllowGet);
+        }
 
     }
 }
