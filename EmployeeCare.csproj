@@ -146,6 +146,7 @@
     <Compile Include="Controllers\AccountantTasfyaController.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AccountingTreeController.cs" />
     <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\DecisionController.cs" />
     <Compile Include="Controllers\DestinationController.cs" />
@@ -261,7 +262,12 @@
     <Compile Include="Migrations\202202271544273_updates.Designer.cs">
       <DependentUpon>202202271544273_updates.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206252349246_accounting_tree.cs" />
+    <Compile Include="Migrations\202206252349246_accounting_tree.Designer.cs">
+      <DependentUpon>202206252349246_accounting_tree.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\AccountingTree.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
     <Compile Include="Models\DecisionDocument.cs" />
@@ -318,6 +324,7 @@
       <DependentUpon>ar.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\Hash.cs" />
+    <Compile Include="ViewModel\AccountingTreeViewModel.cs" />
     <Compile Include="ViewModel\BankViewModel.cs" />
     <Compile Include="ViewModel\DecisionViewModel.cs" />
     <Compile Include="ViewModel\DecuctionViewModel.cs" />
@@ -2529,6 +2536,18 @@
     <Content Include="Content\fontawesome\webfonts\fa-brands-400.svg" />
     <Content Include="Content\fontawesome\webfonts\fa-regular-400.svg" />
     <Content Include="Content\fontawesome\webfonts\fa-solid-900.svg" />
+    <Content Include="Content\jstree\jstree.js" />
+    <Content Include="Content\jstree\jstree.min.js" />
+    <Content Include="Content\jstree\themes\default-dark\32px.png" />
+    <Content Include="Content\jstree\themes\default-dark\40px.png" />
+    <Content Include="Content\jstree\themes\default-dark\style.css" />
+    <Content Include="Content\jstree\themes\default-dark\style.min.css" />
+    <Content Include="Content\jstree\themes\default-dark\throbber.gif" />
+    <Content Include="Content\jstree\themes\default\32px.png" />
+    <Content Include="Content\jstree\themes\default\40px.png" />
+    <Content Include="Content\jstree\themes\default\style.css" />
+    <Content Include="Content\jstree\themes\default\style.min.css" />
+    <Content Include="Content\jstree\themes\default\throbber.gif" />
     <Content Include="Content\selectize.css" />
     <Content Include="Content\selectize.js" />
     <Content Include="Content\sweetalert2%4010.js" />
@@ -2800,6 +2819,7 @@
     <Content Include="Views\Shared\_Layout - Copy.cshtml" />
     <Content Include="Views\OtherSystem\Index.cshtml" />
     <Content Include="Views\Shared\_Layout - Copy %282%29.cshtml" />
+    <Content Include="Views\AccountingTree\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2894,6 +2914,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202202271544273_updates.resx">
       <DependentUpon>202202271544273_updates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206252349246_accounting_tree.resx">
+      <DependentUpon>202206252349246_accounting_tree.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

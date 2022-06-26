@@ -33,6 +33,7 @@ namespace EmployeeCare
             Mapper.CreateMap<InvoiceViewModel, Invoice>();
             Mapper.CreateMap<PaymentFormTasfyaReportViewModel, PaymentFormTasfyaReport>();
             Mapper.CreateMap<OtherSystemViewModel, OtherSystem>();
+            Mapper.CreateMap<AccountingTreeViewModel, AccountingTree>();
         }
     }
 }
