@@ -34,6 +34,8 @@ namespace EmployeeCare
             Mapper.CreateMap<PaymentFormTasfyaReportViewModel, PaymentFormTasfyaReport>();
             Mapper.CreateMap<OtherSystemViewModel, OtherSystem>();
             Mapper.CreateMap<AccountingTreeViewModel, AccountingTree>();
+            Mapper.CreateMap<leganMosa3datViewModel, leganMosa3dat>();
+            Mapper.CreateMap<a3da2LeganViewModel, a3da2Legan>();
         }
     }
 }

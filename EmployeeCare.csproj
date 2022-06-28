@@ -26,10 +26,8 @@
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
     <IISExpressSSLPort>44324</IISExpressSSLPort>
-    <IISExpressAnonymousAuthentication>
-    </IISExpressAnonymousAuthentication>
-    <IISExpressWindowsAuthentication>
-    </IISExpressWindowsAuthentication>
+    <IISExpressAnonymousAuthentication>enabled</IISExpressAnonymousAuthentication>
+    <IISExpressWindowsAuthentication>disabled</IISExpressWindowsAuthentication>
     <IISExpressUseClassicPipelineMode />
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
@@ -145,6 +143,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Auth\can.cs" />
     <Compile Include="Auth\CustomAuthenticationFilter.cs" />
+    <Compile Include="Controllers\a3da2LeganController.cs" />
     <Compile Include="Controllers\AccountantTasfyaController.cs" />
     <Compile Include="Controllers\AccountantController.cs" />
     <Compile Include="Controllers\AccountController.cs" />
@@ -157,6 +156,7 @@
     <Compile Include="Controllers\GradeController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InvoiceController.cs" />
+    <Compile Include="Controllers\leganMosa3datController.cs" />
     <Compile Include="Controllers\OtherSystemController.cs" />
     <Compile Include="Controllers\PaidOffController.cs" />
     <Compile Include="Controllers\PaymentController.cs" />
@@ -268,7 +268,16 @@
     <Compile Include="Migrations\202206252349246_accounting_tree.Designer.cs">
       <DependentUpon>202206252349246_accounting_tree.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202206282106048_legan.cs" />
+    <Compile Include="Migrations\202206282106048_legan.Designer.cs">
+      <DependentUpon>202206282106048_legan.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202206282229080_legan_update.cs" />
+    <Compile Include="Migrations\202206282229080_legan_update.Designer.cs">
+      <DependentUpon>202206282229080_legan_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\a3da2Legan.cs" />
     <Compile Include="Models\AccountingTree.cs" />
     <Compile Include="Models\Bank.cs" />
     <Compile Include="Models\Decision.cs" />
@@ -283,6 +292,7 @@
     <Compile Include="Models\EmployeeOtherSystem.cs" />
     <Compile Include="Models\Grade.cs" />
     <Compile Include="Models\Invoice.cs" />
+    <Compile Include="Models\leganMosa3dat.cs" />
     <Compile Include="Models\OtherSystem.cs" />
     <Compile Include="Models\PaymentForm.cs" />
     <Compile Include="Models\PaymentFormTasfyaReport.cs" />
@@ -326,6 +336,7 @@
       <DependentUpon>ar.resx</DependentUpon>
     </Compile>
     <Compile Include="Security\Hash.cs" />
+    <Compile Include="ViewModel\a3da2LeganViewModel.cs" />
     <Compile Include="ViewModel\AccountingTreeViewModel.cs" />
     <Compile Include="ViewModel\BankViewModel.cs" />
     <Compile Include="ViewModel\DecisionViewModel.cs" />
@@ -338,6 +349,7 @@
     <Compile Include="ViewModel\GradeViewModel.cs" />
     <Compile Include="ViewModel\InvoiceViewModel.cs" />
     <Compile Include="ViewModel\JsTreeViewModel.cs" />
+    <Compile Include="ViewModel\leganMosa3datViewModel.cs" />
     <Compile Include="ViewModel\OtherSystemViewModel.cs" />
     <Compile Include="ViewModel\PaymentFormReport.cs" />
     <Compile Include="ViewModel\PaymentFormTasfyaViewModel.cs" />
@@ -2821,6 +2833,8 @@
     <Content Include="Views\PaymentFormTasfya\Report.cshtml" />
     <Content Include="Views\OtherSystem\Index.cshtml" />
     <Content Include="Views\AccountingTree\Index.cshtml" />
+    <Content Include="Views\leganMosa3dat\Index.cshtml" />
+    <Content Include="Views\a3da2Legan\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2918,6 +2932,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202206252349246_accounting_tree.resx">
       <DependentUpon>202206252349246_accounting_tree.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206282106048_legan.resx">
+      <DependentUpon>202206282106048_legan.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202206282229080_legan_update.resx">
+      <DependentUpon>202206282229080_legan_update.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Reports\PaymentFormTasfyaFinal.rpt">
       <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>

@@ -39,5 +39,7 @@ namespace EmployeeCare.Models
          public virtual DbSet<OtherSystem> OtherSystems { get; set; }
          public virtual DbSet<EmployeeOtherSystem> EmployeeOtherSystems { get; set; }
          public virtual DbSet<AccountingTree> AccountingTrees { get; set; }
+         public virtual DbSet<leganMosa3dat> LeganMosa3Dats { get; set; }
+         public virtual DbSet<a3da2Legan> A3Da2Legans { get; set; }
     }
 }

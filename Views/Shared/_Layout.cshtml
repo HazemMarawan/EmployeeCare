@@ -375,10 +375,84 @@
                             </a>
                             <ul class="collapse submenu list-unstyled" id="accountants" data-parent="#accordionExample">
                                 <li>
-                                    <a href="@Url.Action("Index","Accountant")"> @ar.accountants_takaful </a>
+                                    <a href="@Url.Action("accountantingTree","Accountant")"> @ar.accountanting_tree </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("Index","AccountantTasfya")"> @ar.accountants_tasfya </a>
+                                    <a href="@Url.Action("costingCenter","Accountant")"> @ar.costing_center </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("kyodYomya","AccountantTasfya")"> @ar.kyod_yomya </a>
+                                </li>
+
+                                <li>
+                                    <a href="#mdfo3at" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <div class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                            <span>@ar.mdfo3at</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                        </div>
+                                    </a>
+                                    <ul class="collapse submenu list-unstyled" id="mdfo3at" data-parent="#accountants">
+                                        <li>
+                                            <a href="@Url.Action("Index","Accountant")"> @ar.accountants_takaful </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","AccountantTasfya")"> @ar.accountants_tasfya </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("Index","leganMosa3dat")"> @ar.lgan_mosa3dat </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("solaf","Accountant")"> @ar.solaf </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("myzaMokrara","Accountant")"> @ar.myza_mokrara </a>
+                                        </li>
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#m2podat" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <div class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                            <span>@ar.m2podat</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                        </div>
+                                    </a>
+                                    <ul class="collapse submenu list-unstyled" id="m2podat" data-parent="#accountants">
+                                        <li>
+                                            <a href="@Url.Action("aznTwred","Accountant")"> @ar.azn_twred </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("amrDf3","AccountantTasfya")"> @ar.amr_df3 </a>
+                                        </li>
+
+                                    </ul>
+                                </li>
+
+                                <li>
+                                    <a href="#reports" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">
+                                        <div class="">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-dollar-sign"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+                                            <span>@ar.reports</span>
+                                        </div>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                        </div>
+                                    </a>
+                                    <ul class="collapse submenu list-unstyled" id="reports" data-parent="#accountants">
+                                        <li>
+                                            <a href="@Url.Action("m2podatReport","Accountant")"> @ar.m2podat </a>
+                                        </li>
+                                        <li>
+                                            <a href="@Url.Action("mdfo3atReport","AccountantTasfya")"> @ar.mdfo3at </a>
+                                        </li>
+
+                                    </ul>
                                 </li>
 
                             </ul>
@@ -442,6 +516,19 @@
         $(document).ready(function () {
             App.init();
         });
+        function fixDate(input_date) {
+            var value = new Date
+                (
+                    parseInt(input_date.replace(/(^.*\()|([+-].*$)/g, ''))
+                );
+            var output_date = value.getFullYear() +
+                "-" +
+                ("0" + (value.getMonth() + 1)).slice(-2) +
+                "-" +
+                ("0" + value.getDate()).slice(-2)
+                ;
+            return output_date;
+        }
     </script>
     <script src="~/Content/AdminPanel/assets/js/custom.js"></script>
     <!-- END GLOBAL MANDATORY SCRIPTS -->

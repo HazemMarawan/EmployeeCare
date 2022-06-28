@@ -1,0 +1,302 @@
+﻿@using EmployeeCare.Resources;
+@{
+    ViewBag.Title = ar.a3da2Legan;
+}
+<div class="modal fade" id="manage_a3da2Legan_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <form action="" method="post" enctype='multipart/form-data'>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modal_title"></h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-body">
+                        <div class="form-row">
+                            <input type="hidden" name="id" id="id" value="0" />
+                            <input type="hidden" name="legan_mosa3dat_id" id="legan_mosa3dat_id" value="@ViewBag.legan_mosa3dat_id" />
+                            <div class="form-group col-md-6">
+                                <label>@ar.employees</label>
+                                @Html.DropDownList("employee_id", new SelectList(ViewBag.employees, "id", "name"), ar.select_employee, new { @class = "form-control", @name = "employee_id", @id = "employee_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.status </label>
+                                <input required name="status" id="status" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.bank</label>
+                                @Html.DropDownList("bank_id", new SelectList(ViewBag.banks, "id", "name"), ar.select_bank, new { @class = "form-control", @name = "bank_id", @id = "bank_id", @required = "required" })
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label>@ar.cheque_number</label>
+                                <input required name="cheque_number" id="cheque_number" type="text" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.date</label>
+                                <input required name="date" id="date" type="date" class="form-control radius-30" />
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label>@ar.date_submitted</label>
+                                <input required name="date_submitted" id="date_submitted" type="date" class="form-control radius-30" />
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-light" data-dismiss="modal">@ar.Close</button>
+                    <button type="submit" class="btn btn-primary">@ar.Save_changes</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="col-xl-12 col-lg-12 col-sm-12  layout-spacing">
+    <div class="row">
+        <div class="form-group col-4">
+            <input class="form-control" type="text" id="text_search" name="text_search" placeholder="@ar.search">
+        </div>
+        <div class="form-group col-2">
+            <button id="search" class="btn btn-primary px-3 radius-30">@ar.search</button>
+        </div>
+        <div class="form-group col-2">
+            <button id="reset" class="btn btn-danger px-3 radius-30">@ar.reset</button>
+        </div>
+
+    </div>
+
+    <div class="card">
+        <div class="card-header">
+            <a class="dropdown-item" id="add_a3da2Legan" data-value="<span>Show</span> : Add a3da2Legan" href="javascript:void(0);"><i class="fa fa-plus"></i> @ar.add_a3da2Legan</a>
+
+        </div>
+        <div class="card-body">
+
+            <div class="widget-content widget-content-area br-6">
+                <table id="a3da2Legan_table" class="table dt-table-hover" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>@ar.employee_name</th>
+                            <th>@ar.status</th>
+                            <th>@ar.cheque_number</th>
+                            <th>@ar.bank</th>
+                            <th>@ar.date</th>
+                            <th>@ar.date_submitted</th>
+                            <th class="no-content"></th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+{
+    <script>
+       $(document).ready(function () {
+
+           var datatable = $('#a3da2Legan_table')
+                .DataTable({
+                    "processing": true,
+                    "serverSide": true,
+                    "scrollX": true,
+                    "stateSave": false,
+                    "lengthChange": false,
+                    "dom": 'Bfrtip',
+
+                    "buttons": ['copy', 'excel', 'pdf', 'print'],
+                    "pageLength":10,
+                    "rowId": 'id',
+                    "language": {
+                        "sEmptyTable": "ليست هناك بيانات متاحة في الجدول",
+                        "sLoadingRecords": "جارٍ التحميل...",
+                        "sProcessing": "جارٍ التحميل...",
+                        "sLengthMenu": "أظهر _MENU_ مدخلات",
+                        "sZeroRecords": "لم يعثر على أية سجلات",
+                        "sInfo": "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+                        "sInfoEmpty": "يعرض 0 إلى 0 من أصل 0 سجل",
+                        "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+                        "sInfoPostFix": "",
+                        "sSearch": "ابحث:",
+                        "sUrl": "",
+                        "oPaginate": {
+                            "sFirst": "الأول",
+                            "sPrevious": "السابق",
+                            "sNext": "التالي",
+                            "sLast": "الأخير"
+                        },
+                        "oAria": {
+                            "sSortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                            "sSortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                        }
+                    },
+                    "ajax": {
+                        "url": "@Url.Action("Index", "a3da2Legan")?id="+'@ViewBag.legan_mosa3dat_id',
+                        "type": "POST",
+                        "datatype": "json",
+                        "dataSrc": "data"
+                    },
+                    "columns": [
+                        {
+                            "data": "id",
+                            "searchable": true
+                        },
+                        {
+                            "data": "employee_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "status",
+                            "searchable": true
+                        },
+                        {
+                            "data": "cheque_number",
+                            "searchable": true
+                        },
+                        {
+                            "data": "bank_name",
+                            "searchable": true
+                        },
+                        {
+                            "data": "string_date", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "-";
+                                if (oData.string_date) {
+                                    var date = new Date(oData.string_date);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    html = delDateString;
+                                }
+
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "string_date_submitted", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "-";
+                                if (oData.string_date_submitted) {
+                                    var date = new Date(oData.string_date_submitted);
+                                    var months = ["يناير", "فبراير", "مارس", "إبريل", "مايو", "يونيو",
+                                        "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"
+                                    ];
+                                    var days = ["اﻷحد", "اﻷثنين", "الثلاثاء", "اﻷربعاء", "الخميس", "الجمعة", "السبت"];
+                                    var delDateString = days[date.getDay()] + ', ' + date.getDate() + ' ' + months[date.getMonth()] + ', ' + date.getFullYear();
+                                    html = delDateString;
+                                }
+
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                        {
+                            "data": "id", "searchable": true,
+                            fnCreatedCell: function (nTd, sData, oData, iRow, iCol) {
+                                var html = "";
+
+                                html += "<a class='edit' href='javascript:void(0)' title='@ar.edit'><i class='far fa-edit'></i></a>&nbsp;";
+                                html += "<a class='delete' href='javascript:void(0)' title='@ar.delete'><i class='fas fa-trash'></i></a>";
+                                $(nTd).html("<span class='action-column'>" + html + "</span>");
+                            }
+                        },
+                    ]
+                });
+
+            $('#search').on('click', function () {
+                datatable.search($("#text_search").val());
+                datatable.draw();
+            });
+
+            $('#text_search').on('keyup', function (e) {
+                if (e.keyCode == 13)
+                    $('#search_button').trigger('click');
+            });
+
+            $('#reset').on('click', function () {
+                $("#text_search").val("");
+
+                $('#search').trigger('click');
+
+            });
+
+
+           $("#add_a3da2Legan").click(function () {
+               var modal = $('#manage_a3da2Legan_modal').clone();
+                var action = '@Url.Action("saveA3Da2Legans", "a3da2Legan")';
+               modal.find('form').attr('action', action);
+               modal.find('#modal_title').text('@ar.add_a3da2Legan');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+
+                        datatable.draw()
+
+                }, function (response) {
+
+                }, function (dialog) {
+
+                });
+            });
+
+            $(document).on("click", ".edit", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                var modal = $('#manage_a3da2Legan_modal').clone();
+                var action = '@Url.Action("saveA3Da2Legans", "a3da2Legan")';
+                modal.find('form').attr('action', action);
+                modal.find('#modal_title').text('@ar.edit_a3da2Legan');
+                modal.execModal({
+                    progressBar: 'progress_bar',
+                    progressText: 'progress_text',
+                }, function (response) {
+                        datatable.draw();
+
+                }, function (response) {
+
+                }, function (dialog) {
+                        dialog.find('#id').val(data.id);
+                        dialog.find('#cheque_number').val(data.cheque_number);
+                        dialog.find('#status').val(data.status);
+                        dialog.find('#bank_id').val(data.bank_id);
+                        dialog.find('#employee_id').val(data.employee_id);
+                        dialog.find('#legan_mosa3dat_id').val(data.legan_mosa3dat_id);
+                        if (data.date)
+                            dialog.find('#date').val(fixDate(data.date));
+                        if (data.date_submitted)
+                            dialog.find('#date_submitted').val(fixDate(data.date_submitted));
+                  });
+
+            });
+
+            $(document).on("click", ".delete", function () {
+                var data = datatable.row($(this).closest('tr')).data();
+                warningBox("@ar.delete_confirmation (<b>" + data.employee_name +"</b>) ؟", function () {
+                    $.ajax({
+                        type: "GET",
+                        url: '@Url.Action("deleteA3Da2Legans", "a3da2Legan")',
+                        contentType: "application/json; charset=utf-8",
+                        data: { "id": data.id },
+                        datatype: "json",
+                        success: function (data) {
+                            datatable.draw();
+                        },
+                        error: function () {
+                            alert("Dynamic content load failed.");
+                        }
+                    });
+                });
+            });
+
+        });
+
+    </script>
+}

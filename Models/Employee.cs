@@ -16,6 +16,7 @@ namespace EmployeeCare.Models
         [ForeignKey("Destination")]
         public int? destination_id { get; set; }
         public Destination Destination { get; set; }
+
         public int? employee_file_number { get; set; }
         public string name { get; set; }
         public DateTime? birth_date { get; set; }
@@ -23,6 +24,7 @@ namespace EmployeeCare.Models
         [ForeignKey("Grade")]
         public int? grade_id { get; set; }
         public Grade Grade { get; set; }
+
         public string national_id { get; set; }
         public string email { get; set; }
         public int? status { get; set; }
@@ -32,6 +34,7 @@ namespace EmployeeCare.Models
         [ForeignKey("Bank")]
         public int? bank_id { get; set; }
         public Bank Bank { get; set; }
+
         public int? active { get; set; }
         public int? created_by { get; set; }
         public int? updated_by { get; set; }
@@ -42,6 +45,7 @@ namespace EmployeeCare.Models
         public virtual ICollection<EmployeeArchive> EmployeeArchives { get; set; }
         public virtual ICollection<Invoice> Invoices { get; set; }
         public virtual ICollection<OtherSystem> OtherSystems { get; set; }
+        public virtual ICollection<a3da2Legan> A3Da2Legans { get; set; }
 
     }
 }
